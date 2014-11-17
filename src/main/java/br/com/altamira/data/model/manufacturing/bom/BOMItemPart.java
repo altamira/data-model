@@ -37,12 +37,12 @@ public class BOMItemPart extends Resource {
     private BOMItem bomItem;
 
     @NotNull
-    @Size(min = 10)
+    @Size(min = 3)
     @Column(name = "CODE")
     private String code = "";
 
     @NotNull
-    @Size(min = 10)
+    @Size(min = 5)
     @Column(name = "DESCRIPTION")
     private String description = "";
 

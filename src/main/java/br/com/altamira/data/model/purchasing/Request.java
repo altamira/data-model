@@ -14,8 +14,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,14 +24,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import br.com.altamira.data.model.Resource;
 import br.com.altamira.data.serialize.JSonViews;
-import br.com.altamira.data.serialize.NullCollectionSerializer;
+//import br.com.altamira.data.rest.serialize.NullCollectionSerializer;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 
 /**
  *
@@ -41,11 +34,11 @@ import javax.persistence.SequenceGenerator;
  */
 @Entity
 @Table(name = "PR_REQUEST")
-@NamedQueries({
+/*@NamedQueries({
     @NamedQuery(name = "Request.list", query = "SELECT r FROM Request r"),
     @NamedQuery(name = "Request.findById", query = "SELECT r FROM Request r WHERE r.id = :id"),
     @NamedQuery(name = "Request.current", query = "SELECT r FROM Request r WHERE r.id = (SELECT MAX(rr.id) FROM Request rr WHERE rr.sent IS NULL)"),
-    @NamedQuery(name = "Request.items", query = "SELECT r FROM RequestItem r WHERE r.request = :requestId")})
+    @NamedQuery(name = "Request.items", query = "SELECT r FROM RequestItem r WHERE r.request = :requestId")})*/
 public class Request extends Resource {
 
     /**
@@ -77,7 +70,7 @@ public class Request extends Resource {
     private Date sent = new Date();
 
     @JsonView(JSonViews.EntityView.class)
-    @JsonSerialize(using = NullCollectionSerializer.class)
+    //@JsonSerialize(using = NullCollectionSerializer.class)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "request", fetch = FetchType.LAZY, orphanRemoval = true)
     //@JoinColumn(name="REQUEST")
     private Set<RequestItem> item = new HashSet<RequestItem>();

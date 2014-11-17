@@ -14,10 +14,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.altamira.data.serialize.JSonViews;
-import br.com.altamira.data.serialize.NullCollectionSerializer;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  *
@@ -33,12 +31,12 @@ public class Process extends br.com.altamira.data.model.Process {
     private static final long serialVersionUID = 5549369785798723928L;
     
     @NotNull
-    @Size(min = 10)
+    @Size(min = 3)
     @Column(name = "CODE", columnDefinition = "nvarchar2(255)", unique=true, nullable=false)
     private String code;
 
     @NotNull
-    @Size(min = 10)
+    @Size(min = 5)
     @Column(name = "DESCRIPTION", columnDefinition = "nvarchar2(255)")
     private String description;
 
@@ -66,12 +64,12 @@ public class Process extends br.com.altamira.data.model.Process {
     private String finish;
 
     @JsonView(JSonViews.EntityView.class)
-    @JsonSerialize(using = NullCollectionSerializer.class)
-    @OneToMany(mappedBy = "process", fetch = FetchType.LAZY, orphanRemoval = true)
+    //@JsonSerialize(using = NullCollectionSerializer.class)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "process", fetch = FetchType.LAZY, orphanRemoval = false)
     private List<Revision> revision = new ArrayList<>();
 
     @JsonView(JSonViews.EntityView.class)
-    @JsonSerialize(using = NullCollectionSerializer.class)
+    //@JsonSerialize(using = NullCollectionSerializer.class)
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "process", fetch = FetchType.LAZY, orphanRemoval = false)
     private List<Operation> operation = new ArrayList<>();
     
