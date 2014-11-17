@@ -1,5 +1,6 @@
 package br.com.altamira.data.model.manufacturing.process;
 
+import br.com.altamira.data.model.measurement.Measure;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -13,6 +14,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.AssociationOverride;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Embedded;
 
 /**
  *
@@ -38,6 +42,11 @@ public class Produce extends br.com.altamira.data.model.Relation {
     private String description;
 
     @NotNull
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "QUANTITY_VAL"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
+    private Measure quantity = new Measure();
+    /*@NotNull
     @Min(0)
     @Column(name = "QUANTITY")
     private BigDecimal quantity;
@@ -45,7 +54,7 @@ public class Produce extends br.com.altamira.data.model.Relation {
     @NotNull
     @Size(min = 1)
     @Column(name = "UNIT", columnDefinition = "nvarchar2(255)")
-    private String unit;
+    private String unit;*/
 
     @JsonIgnore
     @JoinColumn(name = "OPERATION", referencedColumnName = "ID")
@@ -119,34 +128,48 @@ public class Produce extends br.com.altamira.data.model.Relation {
     }
 
     /**
+     * @return the quantity
+     */
+    public Measure getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * @param quantity the quantity to set
+     */
+    public void setQuantity(Measure quantity) {
+        this.quantity = quantity;
+    }
+    
+    /**
      *
      * @return
      */
-    public BigDecimal getQuantity() {
+    /*public BigDecimal getQuantity() {
         return quantity;
-    }
+    }*/
 
     /**
      *
      * @param quantity
      */
-    public void setQuantity(BigDecimal quantity) {
+    /*public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
-    }
+    }*/
 
     /**
      *
      * @return
      */
-    public String getUnit() {
+    /*public String getUnit() {
         return unit;
-    }
+    }*/
 
     /**
      *
      * @param unit
      */
-    public void setUnit(String unit) {
+    /*public void setUnit(String unit) {
         this.unit = unit;
-    }
+    }*/
 }

@@ -65,17 +65,17 @@ public class Operation extends br.com.altamira.data.model.Operation {
     
     @JsonView(JSonViews.EntityView.class)
     @JsonSerialize(using = NullCollectionSerializer.class)
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "operation", fetch = FetchType.LAZY, orphanRemoval = false)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "operation", fetch = FetchType.LAZY, orphanRemoval = false)
     private List<Use> use = new ArrayList<>();
     
     @JsonView(JSonViews.EntityView.class)
     @JsonSerialize(using = NullCollectionSerializer.class)
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "operation", fetch = FetchType.LAZY, orphanRemoval = false)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "operation", fetch = FetchType.LAZY, orphanRemoval = false)
     private List<Consume> consume = new ArrayList<>();
 
     @JsonView(JSonViews.EntityView.class)
     @JsonSerialize(using = NullCollectionSerializer.class)
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "operation", fetch = FetchType.LAZY, orphanRemoval = false)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "operation", fetch = FetchType.LAZY, orphanRemoval = false)
     private List<Produce> produce = new ArrayList<>();
 
     /**

@@ -7,7 +7,6 @@ package br.com.altamira.data.model.measurement;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
@@ -27,7 +26,7 @@ public class Measure implements Serializable {
     private BigDecimal value = BigDecimal.valueOf(0);
 
     //@JsonView(JSonViews.EntityView.class)
-    @ManyToOne(/*cascade = CascadeType.ALL,*/ optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(/*cascade = CascadeType.ALL,*/ optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "UNIT", referencedColumnName = "ID", insertable = false, updatable = false, nullable = false, unique = false)
     private Unit unit;
 
