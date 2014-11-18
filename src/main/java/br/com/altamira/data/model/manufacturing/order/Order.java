@@ -36,7 +36,7 @@ public class Order extends Resource {
 //    private Long id;
 
     @NotNull
-    @Column(name = "NUMBER", unique = true, nullable = false)
+    @Column(name = "ORDER_NUMBER", unique = true, nullable = false)
     private Long number = 0l;
 
     @NotNull
@@ -64,7 +64,7 @@ public class Order extends Resource {
     @Column(name = "QUOTATION")
     private String quotation = "";
 
-    @Column(name = "COMMENT")
+    @Column(name = "COMMENTS")
     private String comment = "";
 
     @Column(name = "FINISH")

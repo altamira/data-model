@@ -21,14 +21,16 @@ import javax.xml.bind.annotation.XmlTransient;
 import br.com.altamira.data.model.Resource;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
  * @author Alessandro
  */
 @Entity
-/*@Table(name = "PR_REQUEST_ITEM", uniqueConstraints = @UniqueConstraint(name = "UK1", columnNames = {"REQUEST", "MATERIAL", "ARRIVAL_DATE"}))
-@NamedQueries({
+@Table(name = "PR_REQUEST_ITEM", uniqueConstraints = @UniqueConstraint(name = "PR_REQUEST_ITEM_UK1", columnNames = {"REQUEST", "MATERIAL", "ARRIVAL_DATE"}))
+/*@NamedQueries({
     @NamedQuery(name = "RequestItem.list", query = "SELECT r FROM RequestItem r JOIN FETCH r.material JOIN r.request rq WHERE rq.id = :requestId"),
     @NamedQuery(name = "RequestItem.findById", query = "SELECT r FROM RequestItem r WHERE r.id = :id")})*/
 public class RequestItem extends Resource {
