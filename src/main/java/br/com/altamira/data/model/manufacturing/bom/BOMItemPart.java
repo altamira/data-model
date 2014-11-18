@@ -15,7 +15,6 @@ import br.com.altamira.data.model.measurement.Measure;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Embedded;
 
 /**
@@ -263,64 +262,5 @@ public class BOMItemPart extends Resource {
      public void setProduct(Product product) {
      this.product = product;
      }*/
-    /**
-     * @return the quantity
-     */
-    /*public BigDecimal getQuantity() {
-     return quantity;
-     }*/
-    /**
-     * @param quantity the quantity to set
-     */
-    /*public void setQuantity(BigDecimal quantity) {
-     this.quantity = quantity;
-     }*/
-    /**
-     * @return the width
-     */
-    /*public BigDecimal getWidth() {
-     return width;
-     }*/
-    /**
-     * @param width the width to set
-     */
-    /*public void setWidth(BigDecimal width) {
-     this.width = width;
-     }*/
-    /**
-     * @return the height
-     */
-    /*public BigDecimal getHeight() {
-     return height;
-     }*/
-    /**
-     * @param height the height to set
-     */
-    /*public void setHeight(BigDecimal height) {
-     this.height = height;
-     }*/
-    /**
-     * @return the length
-     */
-    /*public BigDecimal getLength() {
-     return length;
-     }*/
-    /**
-     * @param length the length to set
-     */
-    /*public void setLength(BigDecimal length) {
-     this.length = length;
-     }*/
-    /**
-     * @return the weight
-     */
-    /*public Measure getWeight() {
-     return weight;
-     }*/
-    /**
-     * @param weight the weight to set
-     */
-    /*public void setWeight(Measure weight) {
-     this.weight = weight;
-     }*/
+
 }
