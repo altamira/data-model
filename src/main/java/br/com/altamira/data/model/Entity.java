@@ -110,7 +110,7 @@ public abstract class Entity implements Serializable {
     @PreUpdate
     void updateModificationTimestamp() {
         lastModified = System.currentTimeMillis();
-        //entityClass = getTypeClass().getName();
+        entityClass = this.getClass().getName();
     }
 
     /*private Class<? extends br.com.altamira.data.model.Entity> getTypeClass() {
