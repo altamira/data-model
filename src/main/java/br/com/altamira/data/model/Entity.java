@@ -152,11 +152,13 @@ public abstract class Entity implements Serializable {
     @JsonIgnore
     public void setParent(Entity parent) {
         throw new UnsupportedOperationException ("You are calling br.com.altamira.data.model.Entity.setParent(). You should override this method in child class.");
+        //this.setParent(parent);
     }
     
     @JsonIgnore
     public Entity getParent() {
         throw new UnsupportedOperationException ("You are calling br.com.altamira.data.model.Entity.getParent(). You should override this method in child class.");
+        //return this.getParent();
     }
 
 }

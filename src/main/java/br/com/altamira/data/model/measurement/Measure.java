@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 public class Measure implements Serializable {
 
     @NotNull
-    @Column(name = "VAL")
+    @Column(name = "VAL", nullable= false, precision = 21, scale = 10)
     private BigDecimal value = BigDecimal.valueOf(0);
 
     //@JsonView(JSonViews.EntityView.class)

@@ -6,8 +6,16 @@
 package br.com.altamira.data.model.common;
 
 import br.com.altamira.data.model.Resource;
+import br.com.altamira.data.serialize.JSonViews;
+import com.fasterxml.jackson.annotation.JsonView;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,8 +24,9 @@ import javax.validation.constraints.Size;
  *
  * @author Alessandro
  */
-@Entity(name = "br.com.altamira.data.model.common.Material")
 @Table(name = "CM_MATERIAL")
+@Entity(name = "common.Material")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Material extends Resource {
     /**
      * Serial version ID
@@ -34,6 +43,14 @@ public class Material extends Resource {
     @Column(name = "NAME", unique = true, nullable = false)
     private String name = "";
 
+    @JsonView(JSonViews.EntityView.class)
+    @OneToMany(/*cascade = {CascadeType.PERSIST, CascadeType.REMOVE},*/ mappedBy = "parent", fetch = FetchType.LAZY, orphanRemoval = false)
+    private List<Component> parent = new ArrayList<>();
+    
+    @JsonView(JSonViews.EntityView.class)
+    @OneToMany(/*cascade = {CascadeType.PERSIST, CascadeType.REMOVE},*/ mappedBy = "material", fetch = FetchType.LAZY, orphanRemoval = false)
+    private List<Component> component = new ArrayList<>();
+        
     /**
      * @return the code
      */

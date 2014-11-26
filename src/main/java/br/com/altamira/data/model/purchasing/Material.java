@@ -10,25 +10,18 @@ import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import br.com.altamira.data.model.Resource;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 
 /**
  *
  * @author Alessandro
  */
-@Entity
+@Entity(name = "purchasing.Material")
 @Table(name = "PR_MATERIAL",
         uniqueConstraints = @UniqueConstraint(columnNames = {"LAMINATION", "TREATMENT", "THICKNESS", "WIDTH", "LENGTH"}))
-@NamedQueries({
+/*@NamedQueries({
     @NamedQuery(name = "Material.list", query = "SELECT m FROM Material m"),
     @NamedQuery(name = "Material.findById", query = "SELECT m FROM Material m WHERE m.id = :id"),
     @NamedQuery(name = "Material.findByLamination", query = "SELECT m FROM Material m WHERE m.lamination = :lamination"),
@@ -37,8 +30,8 @@ import javax.persistence.SequenceGenerator;
     @NamedQuery(name = "Material.findByWidth", query = "SELECT m FROM Material m WHERE m.width = :width"),
     @NamedQuery(name = "Material.findByLength", query = "SELECT m FROM Material m WHERE m.length = :length"),
     @NamedQuery(name = "Material.findByTax", query = "SELECT m FROM Material m WHERE m.tax = :tax"),
-    @NamedQuery(name = "Material.findUnique", query = "SELECT m FROM Material m WHERE m.lamination = :lamination AND m.treatment = :treatment AND m.thickness = :thickness AND m.width = :width AND m.length = :length")})
-public class Material extends Resource {
+    @NamedQuery(name = "Material.findUnique", query = "SELECT m FROM Material m WHERE m.lamination = :lamination AND m.treatment = :treatment AND m.thickness = :thickness AND m.width = :width AND m.length = :length")})*/
+public class Material extends br.com.altamira.data.model.common.Material {
 
     /**
      *
