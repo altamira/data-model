@@ -1,11 +1,17 @@
 package br.com.altamira.data.model;
 
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+
 /**
  *
  * @author alessandro.holanda
  */
-@javax.persistence.MappedSuperclass
-public abstract class Process extends br.com.altamira.data.model.Entity {
+@Table(name = "MR_PROCESS")
+@javax.persistence.Entity(name = "Process")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Process extends br.com.altamira.data.model.Entity {
 
     /**
      *

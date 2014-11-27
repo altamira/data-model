@@ -7,12 +7,10 @@ package br.com.altamira.data.model.common;
 
 import br.com.altamira.data.model.Resource;
 import br.com.altamira.data.model.measurement.Measure;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -28,21 +26,9 @@ import javax.validation.constraints.NotNull;
 @Table(name = "CM_COMPONENT")
 public class Component extends Resource {
 
-    @EmbeddedId
-    private ComponentId relation = new ComponentId();
-    
-    @JsonIgnore
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "PARENT", referencedColumnName = "ID", updatable = false, insertable = false)
-    private Material parent = new Material();
-
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "MATERIAL", referencedColumnName = "ID", updatable = false, insertable = false)
     private Material material = new Material();
-
-    /*@JsonView(JSonViews.EntityView.class)
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "component", fetch = FetchType.LAZY, orphanRemoval = false)
-    private List<Material> material;*/
         
     @NotNull
     @Embedded
@@ -52,20 +38,6 @@ public class Component extends Resource {
 
     public Component() {
         this.parentType = br.com.altamira.data.model.common.Material.class;
-    }
-
-    @Override
-    public void setParent(br.com.altamira.data.model.Entity parent) {
-        if (!parentType.isInstance(parent)) {
-            throw new IllegalArgumentException("Component requires a Material instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
-        }
-
-        this.parent = ((br.com.altamira.data.model.common.Material) parent);
-    }
-
-    @Override
-    public br.com.altamira.data.model.Entity getParent() {
-        return this.parent;
     }
 
     /**

@@ -5,11 +5,17 @@
  */
 package br.com.altamira.data.model;
 
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+
 /**
  *
  * @author Alessandro
  */
-@javax.persistence.MappedSuperclass
+@Table(name = "MR_MEASUREMENT")
+@javax.persistence.Entity(name = "Measurement")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Measurement extends br.com.altamira.data.model.Entity {
 
     /**

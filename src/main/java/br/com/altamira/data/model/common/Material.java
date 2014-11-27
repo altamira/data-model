@@ -42,10 +42,6 @@ public class Material extends Resource {
     @Size(min = 5)
     @Column(name = "NAME", unique = true, nullable = false)
     private String name = "";
-
-    @JsonView(JSonViews.EntityView.class)
-    @OneToMany(/*cascade = {CascadeType.PERSIST, CascadeType.REMOVE},*/ mappedBy = "parent", fetch = FetchType.LAZY, orphanRemoval = false)
-    private List<Component> parent = new ArrayList<>();
     
     @JsonView(JSonViews.EntityView.class)
     @OneToMany(/*cascade = {CascadeType.PERSIST, CascadeType.REMOVE},*/ mappedBy = "material", fetch = FetchType.LAZY, orphanRemoval = false)

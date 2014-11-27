@@ -13,8 +13,12 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -23,8 +27,11 @@ import javax.validation.constraints.NotNull;
  *
  * @author Alessandro
  */
-@javax.persistence.MappedSuperclass
-public abstract class Entity implements Serializable {
+//@javax.persistence.MappedSuperclass
+@Table(name = "MR_ENTITY")
+@javax.persistence.Entity(name = "Entity")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Entity implements Serializable {
 
     /**
      *
@@ -54,10 +61,10 @@ public abstract class Entity implements Serializable {
 //    @NotNull
     @Column(name = "ENTITY_CLASS")
     private String entityClass;
-    
+
     @Transient
     protected Class<? extends br.com.altamira.data.model.Entity> parentType;
-    
+
     /**
      * @return the id
      */
@@ -108,6 +115,7 @@ public abstract class Entity implements Serializable {
     }
 
     @PreUpdate
+    @PrePersist
     void updateModificationTimestamp() {
         lastModified = System.currentTimeMillis();
         entityClass = this.getClass().getName();
@@ -118,7 +126,6 @@ public abstract class Entity implements Serializable {
      .getGenericSuperclass()).getActualTypeArguments()[0];
      return clazz;
      }*/
-
     /**
      * @return the version
      */
@@ -151,13 +158,13 @@ public abstract class Entity implements Serializable {
 
     @JsonIgnore
     public void setParent(Entity parent) {
-        throw new UnsupportedOperationException ("You are calling br.com.altamira.data.model.Entity.setParent(). You should override this method in child class.");
+        throw new UnsupportedOperationException("You are calling br.com.altamira.data.model.Entity.setParent(). You should override this method in child class.");
         //this.setParent(parent);
     }
-    
+
     @JsonIgnore
     public Entity getParent() {
-        throw new UnsupportedOperationException ("You are calling br.com.altamira.data.model.Entity.getParent(). You should override this method in child class.");
+        throw new UnsupportedOperationException("You are calling br.com.altamira.data.model.Entity.getParent(). You should override this method in child class.");
         //return this.getParent();
     }
 
