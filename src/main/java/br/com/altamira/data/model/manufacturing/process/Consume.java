@@ -44,15 +44,6 @@ public class Consume extends br.com.altamira.data.model.Relation {
     @AttributeOverride(name = "value", column = @Column(name = "QUANTITY_VAL"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
-    /*@NotNull
-    @Min(0)
-    @Column(name = "QUANTITY")
-    private BigDecimal quantity;
-
-    @NotNull
-    @Size(min = 1)
-    @Column(name = "UNIT")
-    private String unit;*/
 
     @JsonIgnore
     @JoinColumn(name = "OPERATION", referencedColumnName = "ID")
@@ -138,37 +129,5 @@ public class Consume extends br.com.altamira.data.model.Relation {
     public void setQuantity(Measure quantity) {
         this.quantity = quantity;
     }
-
-    /**
-     *
-     * @return
-     */
-    /*public BigDecimal getQuantity() {
-        return quantity;
-    }*/
-
-    /**
-     *
-     * @param quantity
-     */
-    /*public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
-    }*/
-
-    /**
-     *
-     * @return
-     */
-    /*public String getUnit() {
-        return unit;
-    }*/
-
-    /**
-     *
-     * @param unit
-     */
-    /*public void setUnit(String unit) {
-        this.unit = unit;
-    }*/
 
 }

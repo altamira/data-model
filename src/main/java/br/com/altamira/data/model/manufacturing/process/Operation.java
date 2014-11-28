@@ -28,7 +28,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "MN_OPERATION", uniqueConstraints={@UniqueConstraint(columnNames={"PROCESS", "SEQ"})})
-public class Operation extends br.com.altamira.data.model.Operation {
+public class Operation extends br.com.altamira.data.model.Process {
 
     /**
      *

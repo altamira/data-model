@@ -1,7 +1,6 @@
 package br.com.altamira.data.model.manufacturing.process;
 
 import br.com.altamira.data.model.measurement.Measure;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -46,15 +44,6 @@ public class Use extends br.com.altamira.data.model.Relation {
     @AttributeOverride(name = "value", column = @Column(name = "QUANTITY_VAL"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
-    /*@NotNull
-    @Min(0)
-    @Column(name = "QUANTITY")
-    private BigDecimal quantity;
-
-    @NotNull
-    @Size(min = 1)
-    @Column(name = "UNIT")
-    private String unit;*/
 
     @JsonIgnore
     @JoinColumn(name = "OPERATION", referencedColumnName = "ID")
@@ -140,37 +129,5 @@ public class Use extends br.com.altamira.data.model.Relation {
     public void setQuantity(Measure quantity) {
         this.quantity = quantity;
     }
-
-    /**
-     *
-     * @return
-     */
-    /*public BigDecimal getQuantity() {
-        return quantity;
-    }*/
-
-    /**
-     *
-     * @param quantity
-     */
-    /*public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
-    }*/
-
-    /**
-     *
-     * @return
-     */
-    /*public String getUnit() {
-        return unit;
-    }*/
-
-    /**
-     *
-     * @param unit
-     */
-    /*public void setUnit(String unit) {
-        this.unit = unit;
-    }*/
 
 }
