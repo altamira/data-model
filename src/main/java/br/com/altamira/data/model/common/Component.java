@@ -26,11 +26,11 @@ import javax.validation.constraints.NotNull;
 public class Component extends Relation {
 
     @ManyToOne
-    @JoinColumn(name = "PARENT", referencedColumnName = "ID", insertable = false, updatable = false)
+    @JoinColumn(name = "PARENT", referencedColumnName = "ID")
     private Material parent;
 
     @ManyToOne
-    @JoinColumn(name = "MATERIAL", referencedColumnName = "ID", insertable = false, updatable = false)
+    @JoinColumn(name = "MATERIAL", referencedColumnName = "ID")
     private Material material;
 
     /*@JsonIgnore
@@ -55,7 +55,20 @@ public class Component extends Relation {
     public Component() {
         this.parentType = br.com.altamira.data.model.common.Material.class;
     }
-    
+
+    @Override
+    public void setParent(br.com.altamira.data.model.Entity parent) {
+        if (!parentType.isInstance(parent)) {
+            throw new IllegalArgumentException("BOMItemPart requires a BOMItem instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
+        }
+
+        this.parent = (Material)parent;
+    }
+
+    @Override
+    public br.com.altamira.data.model.Entity getParent() {
+        return this.parent;
+    }    
     /**
      * @return the quantity
      */
@@ -68,20 +81,6 @@ public class Component extends Relation {
      */
     public void setQuantity(Measure quantity) {
         this.quantity = quantity;
-    }
-
-    /**
-     * @return the parent
-     */
-    public Material getParent() {
-        return parent;
-    }
-
-    /**
-     * @param parent the parent to set
-     */
-    public void setParent(Material parent) {
-        this.parent = parent;
     }
 
     /**

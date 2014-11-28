@@ -10,6 +10,7 @@ import br.com.altamira.data.serialize.JSonViews;
 import com.fasterxml.jackson.annotation.JsonView;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,7 +45,7 @@ public class Material extends Resource {
     private String name = "";
     
     @JsonView(JSonViews.EntityView.class)
-    @OneToMany(/*cascade = {CascadeType.PERSIST, CascadeType.REMOVE},*/ mappedBy = "material", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "parent", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Component> component = new ArrayList<>();
     
     /**

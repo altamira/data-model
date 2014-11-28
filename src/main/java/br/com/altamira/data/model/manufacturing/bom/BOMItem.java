@@ -51,13 +51,12 @@ public class BOMItem extends Resource {
 
     @JsonView(JSonViews.EntityView.class)
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "bomItem", fetch = FetchType.LAZY, orphanRemoval = false)
-    private List<BOMItemPart> parts;
+    private List<BOMItemPart> parts = new ArrayList<>();;
 
     /**
      *
      */
     public BOMItem() {
-        this.parts = new ArrayList<>();
         this.parentType = BOM.class;
     }
     
