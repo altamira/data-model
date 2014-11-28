@@ -7,11 +7,13 @@ package br.com.altamira.data.model.common;
 
 import br.com.altamira.data.model.Relation;
 import br.com.altamira.data.model.measurement.Measure;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -25,11 +27,12 @@ import javax.validation.constraints.NotNull;
 @Table(name = "CM_COMPONENT")
 public class Component extends Relation {
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PARENT", referencedColumnName = "ID")
     private Material parent;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MATERIAL", referencedColumnName = "ID")
     private Material material;
 

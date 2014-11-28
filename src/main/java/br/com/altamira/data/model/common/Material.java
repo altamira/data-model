@@ -29,6 +29,7 @@ import javax.validation.constraints.Size;
 @Entity(name = "common.Material")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Material extends Resource {
+
     /**
      * Serial version ID
      */
@@ -43,11 +44,11 @@ public class Material extends Resource {
     @Size(min = 5)
     @Column(name = "NAME", unique = true, nullable = false)
     private String name = "";
-    
+
     @JsonView(JSonViews.EntityView.class)
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "parent", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Component> component = new ArrayList<>();
-    
+
     /**
      * @return the code
      */
@@ -76,4 +77,18 @@ public class Material extends Resource {
         this.name = name;
     }
 
+    /**
+     * @return the component
+     */
+    public List<Component> getComponent() {
+        return component;
     }
+
+    /**
+     * @param component the component to set
+     */
+    public void setComponent(List<Component> component) {
+        this.component = component;
+    }
+
+}

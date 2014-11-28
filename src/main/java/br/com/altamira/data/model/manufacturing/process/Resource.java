@@ -33,7 +33,7 @@ public abstract class Resource extends br.com.altamira.data.model.Relation {
     private Operation operation = new Operation();
 
     @JoinColumn(name = "MATERIAL", referencedColumnName = "ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private br.com.altamira.data.model.common.Material material = new br.com.altamira.data.model.common.Material();
 
     @NotNull
