@@ -19,37 +19,37 @@ import javax.persistence.ManyToOne;
 public class ComponentId implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Material parent;
+    private Material material;
  
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Material material;  
+    private Material component;  
 
     /**
      * @return the parent
-     */
-    public Material getParent() {
-        return parent;
-    }
-
-    /**
-     * @param parent the parent to set
-     */
-    public void setParent(Material parent) {
-        this.parent = parent;
-    }
-
-    /**
-     * @return the material
      */
     public Material getMaterial() {
         return material;
     }
 
     /**
-     * @param material the material to set
+     * @param material
      */
     public void setMaterial(Material material) {
         this.material = material;
+    }
+
+    /**
+     * @return the material
+     */
+    public Material getComponent() {
+        return this.component;
+    }
+
+    /**
+     * @param material the material to set
+     */
+    public void setComponent(Material material) {
+        this.component = material;
     }
     
 }

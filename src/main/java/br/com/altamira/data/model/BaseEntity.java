@@ -113,8 +113,9 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     @JsonIgnore
     @Override
     public Entity getParent() {
-        throw new UnsupportedOperationException("You are calling br.com.altamira.data.model.Entity.getParent(). You should override this method in child class.");
+        //throw new UnsupportedOperationException("You are calling br.com.altamira.data.model.Entity.getParent(). You should override this method in child class.");
         //return this.getParent();
+        return null;
     }
 
 }

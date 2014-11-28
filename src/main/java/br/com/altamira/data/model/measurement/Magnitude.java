@@ -35,6 +35,6 @@ public class Magnitude extends br.com.altamira.data.model.Measurement {
     public void setName(String name) {
         this.name = name;
     }
-    
-    
-}
+
+
+    }

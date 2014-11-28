@@ -44,9 +44,9 @@ public class Material extends Resource {
     private String name = "";
     
     @JsonView(JSonViews.EntityView.class)
-    @OneToMany(/*cascade = {CascadeType.PERSIST, CascadeType.REMOVE},*/ mappedBy = "material", fetch = FetchType.LAZY, orphanRemoval = false)
+    @OneToMany(/*cascade = {CascadeType.PERSIST, CascadeType.REMOVE},*/ mappedBy = "material", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Component> component = new ArrayList<>();
-        
+    
     /**
      * @return the code
      */
@@ -74,5 +74,5 @@ public class Material extends Resource {
     public void setName(String name) {
         this.name = name;
     }
-    
-}
+
+    }

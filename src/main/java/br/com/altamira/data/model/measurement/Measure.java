@@ -28,7 +28,7 @@ public class Measure implements Serializable {
     //@JsonView(JSonViews.EntityView.class)
     @ManyToOne(/*cascade = CascadeType.ALL,*/ optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "UNIT", referencedColumnName = "ID", insertable = false, updatable = false/*, nullable = false, unique = false*/)
-    private Unit unit;
+    private Unit unit = new Unit();
 
     /**
      * @return the value
