@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.altamira.data.model.Resource;
+import br.com.altamira.data.model.common.Color;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -35,18 +36,9 @@ public class OrderItemPart extends Resource {
 //    @Column(name = "ID")
 //    private Long id;
 
-    @NotNull
-    @Size(min = 10)
-    @Column(name = "CODE")
-    private String code = "";
-
-    @NotNull
-    @Size(min = 10)
-    @Column(name = "DESCRIPTION")
-    private String description = "";
-
-    @Column(name = "COLOR")
-    private String color = "";
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "COLOR", referencedColumnName = "ID", insertable = false, updatable = false, nullable = false, unique = false)
+    private Color color = new Color();
 
     @NotNull
     @Min(0)
@@ -78,63 +70,11 @@ public class OrderItemPart extends Resource {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private OrderItem orderItem;
 
-    /*
-     @JoinColumn(name = "CODE", referencedColumnName = "CODE", insertable=false, updatable=false)
-     @JoinColumn(name = "PRODUCT", referencedColumnName = "ID", insertable = false, updatable = false)
-     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-     private Product product;
-     */
-    /**
-     * @return the id
-     */
-//    public Long getId() {
-//        return id;
-//    }
-
-    /**
-     * @param id the id to set
-     */
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-
     /**
      *
      * @return
      */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     *
-     * @param code
-     */
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     *
-     * @param description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
@@ -142,7 +82,7 @@ public class OrderItemPart extends Resource {
      *
      * @param color
      */
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
@@ -244,11 +184,4 @@ public class OrderItemPart extends Resource {
         this.orderItem = orderItem;
     }
 
-    /*public Product getProduct() {
-     return product;
-     }
-
-     public void setProduct(Product product) {
-     this.product = product;
-     }*/
 }

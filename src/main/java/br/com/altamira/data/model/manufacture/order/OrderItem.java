@@ -1,4 +1,4 @@
-package br.com.altamira.data.model.manufacturing.order;
+package br.com.altamira.data.model.manufacture.order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import br.com.altamira.data.model.Resource;
+import br.com.altamira.data.model.common.Document;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Lob;
 import javax.persistence.UniqueConstraint;
@@ -25,7 +25,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity(name = "br.com.altamira.data.model.manufacturing.order.OrderItem")
 @Table(name = "MN_ORDER_ITEM", uniqueConstraints = @UniqueConstraint(columnNames = {"MN_ORDER", "ITEM"}))
-public class OrderItem extends Resource {
+public class OrderItem extends Document {
 
     /**
      * Serial version ID

@@ -1,48 +1,36 @@
 package br.com.altamira.data.model.sales;
 
+import br.com.altamira.data.model.common.Color;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.altamira.data.model.Resource;
+import br.com.altamira.data.model.common.Material;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author alessandro.holanda
  */
-@Entity(name = "br.com.altamira.data.model.sales")
-@Table(name = "SL_PRODUCT", uniqueConstraints = @UniqueConstraint(columnNames = {"CODE", "DESCRIPTION"}))
-public class Product extends Resource {
+@Entity(name = "sales.Product")
+@Table(name = "SL_PRODUCT")
+public class Product extends Material {
 
     /**
      *
      */
     private static final long serialVersionUID = -4871377387938455032L;
 
-//    @Id
-//    @SequenceGenerator(name = "ProductSequence", sequenceName = "SL_PRODUCT_SEQ", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ProductSequence")
-//    @Column(name = "ID")
-//    private Long id;
-
-    @NotNull
-    @Size(min = 10)
-    @Column(name = "CODE", unique = true, nullable = false)
-    private String code = "";
-
-    @NotNull
-    @Size(min = 10)
-    @Column(name = "DESCRIPTION", unique = true, nullable = false)
-    private String description = "";
-
-    @Column(name = "COLOR")
-    private String color = "";
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "COLOR", referencedColumnName = "ID", insertable = false, updatable = false, nullable = false, unique = false)
+    private Color color = new Color();
 
     @NotNull
     @Min(0)
@@ -66,13 +54,6 @@ public class Product extends Resource {
 
     /**
      *
-     */
-    public Product() {
-
-    }
-
-    /**
-     *
      * @param code
      * @param description
      * @param color
@@ -81,7 +62,7 @@ public class Product extends Resource {
      * @param length
      * @param weight
      */
-    public Product(String code, String description, String color,
+    public Product(String code, String description, Color color,
             BigDecimal width, BigDecimal height, BigDecimal length,
             BigDecimal weight) {
         super();
@@ -95,56 +76,10 @@ public class Product extends Resource {
     }
 
     /**
-     * @return the id
-     */
-//    public Long getId() {
-//        return id;
-//    }
-
-    /**
-     * @param id the id to set
-     */
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-
-    /**
      *
      * @return
      */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     *
-     * @param code
-     */
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     *
-     * @param description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
@@ -152,7 +87,7 @@ public class Product extends Resource {
      *
      * @param color
      */
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 

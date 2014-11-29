@@ -1,4 +1,4 @@
-package br.com.altamira.data.model.manufacturing.order;
+package br.com.altamira.data.model.manufacture.order;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.altamira.data.model.Resource;
+import br.com.altamira.data.model.common.Document;
 
 /**
  *
@@ -22,7 +22,7 @@ import br.com.altamira.data.model.Resource;
  */
 @Entity(name = "br.com.altamira.data.model.manufacturing.order.Order")
 @Table(name = "MN_ORDER")
-public class Order extends Resource {
+public class Order extends Document {
 
     /**
      * Serial number ID

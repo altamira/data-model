@@ -1,4 +1,4 @@
-package br.com.altamira.data.model.manufacturing.process;
+package br.com.altamira.data.model.manufacture.process;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,11 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.altamira.data.model.manufacturing.process;
+package br.com.altamira.data.model.manufacture.process;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,10 +27,10 @@ public class Sketch extends br.com.altamira.data.model.Resource {
      */
     private static final long serialVersionUID = -9062344996470918309L;
 
-    /*@JsonIgnore
+    @JsonIgnore
     @JoinColumn(name = "OPERATION", referencedColumnName = "ID")
     @OneToOne(optional = false, fetch = FetchType.LAZY)
-    private br.com.altamira.data.model.manufacturing.process.Operation operation;*/
+    private br.com.altamira.data.model.manufacture.process.Operation operation;
 
     //@NotNull
     @Column(name = "FILE_TYPE")

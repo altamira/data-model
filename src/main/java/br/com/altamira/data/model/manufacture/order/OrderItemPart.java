@@ -1,4 +1,4 @@
-package br.com.altamira.data.model.manufacturing.order;
+package br.com.altamira.data.model.manufacture.order;
 
 import java.math.BigDecimal;
 
@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.altamira.data.model.Resource;
+import br.com.altamira.data.model.common.Color;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -45,8 +46,9 @@ public class OrderItemPart extends Resource {
     @Column(name = "DESCRIPTION")
     private String description = "";
 
-    @Column(name = "COLOR")
-    private String color = "";
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "COLOR", referencedColumnName = "ID", insertable = false, updatable = false, nullable = false, unique = false)
+    private Color color = new Color();
 
     @NotNull
     @Min(0)
@@ -134,7 +136,7 @@ public class OrderItemPart extends Resource {
      *
      * @return
      */
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
@@ -142,7 +144,7 @@ public class OrderItemPart extends Resource {
      *
      * @param color
      */
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 

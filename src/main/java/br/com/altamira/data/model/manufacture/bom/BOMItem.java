@@ -1,4 +1,4 @@
-package br.com.altamira.data.model.manufacturing.bom;
+package br.com.altamira.data.model.manufacture.bom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import br.com.altamira.data.model.Resource;
+import br.com.altamira.data.model.common.Material;
 import br.com.altamira.data.serialize.JSonViews;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -27,7 +27,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "MN_BOM_ITEM", uniqueConstraints = @UniqueConstraint(columnNames = {"MN_ORDER", "ITEM"}))
-public class BOMItem extends Resource {
+public class BOMItem extends Material {
 
     /**
      * Serial version ID

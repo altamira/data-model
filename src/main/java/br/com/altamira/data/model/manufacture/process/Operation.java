@@ -1,4 +1,4 @@
-package br.com.altamira.data.model.manufacturing.process;
+package br.com.altamira.data.model.manufacture.process;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +57,7 @@ public class Operation extends br.com.altamira.data.model.Process {
     private String description;
 
     @JsonView(JSonViews.EntityView.class)
-    @JoinColumn(name = "SKETCH", referencedColumnName = "ID", insertable=true, updatable=true, nullable=true, unique=true)
-    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "operation", fetch = FetchType.LAZY, orphanRemoval = false)
     private Sketch sketch;
     
     @JsonView(JSonViews.EntityView.class)

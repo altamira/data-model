@@ -38,16 +38,16 @@ public class Material extends Resource {
     @NotNull
     @Size(min = 3)
     @Column(name = "CODE", unique = true, nullable = false)
-    private String code = "";
+    protected String code = "";
 
     @NotNull
     @Size(min = 5)
-    @Column(name = "NAME", unique = true, nullable = false)
-    private String name = "";
+    @Column(name = "DESCRIPTION", unique = true, nullable = false)
+    protected String description = "";
 
     @JsonView(JSonViews.EntityView.class)
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "parent", fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Component> component = new ArrayList<>();
+    protected List<Component> component = new ArrayList<>();
 
     /**
      * @return the code
@@ -64,17 +64,17 @@ public class Material extends Resource {
     }
 
     /**
-     * @return the name
+     * @return the description
      */
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
     /**
-     * @param name the name to set
+     * @param description the description to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**

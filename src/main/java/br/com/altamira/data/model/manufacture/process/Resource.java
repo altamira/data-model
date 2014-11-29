@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.altamira.data.model.manufacturing.process;
+package br.com.altamira.data.model.manufacture.process;
 
 import br.com.altamira.data.model.measurement.Measure;
 import com.fasterxml.jackson.annotation.JsonIgnore;

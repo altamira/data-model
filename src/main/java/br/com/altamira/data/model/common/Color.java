@@ -5,7 +5,7 @@
  */
 package br.com.altamira.data.model.common;
 
-import br.com.altamira.data.model.Resource;
+import br.com.altamira.data.model.Property;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "CM_COLOR")
-public class Color extends Resource {
+public class Color extends Property {
 
     /**
      * Serial version ID

@@ -1,4 +1,4 @@
-package br.com.altamira.data.model.manufacturing.bom;
+package br.com.altamira.data.model.manufacture.bom;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.altamira.data.model.Resource;
+import br.com.altamira.data.model.common.Color;
+import br.com.altamira.data.model.common.Material;
 import br.com.altamira.data.model.measurement.Measure;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,7 +24,7 @@ import javax.persistence.Embedded;
  */
 @Entity
 @Table(name = "MN_BOM_ITEM_PART")
-public class BOMItemPart extends Resource {
+public class BOMItemPart extends Material {
 
     /**
      * Serial version ID
@@ -45,8 +46,9 @@ public class BOMItemPart extends Resource {
     @Column(name = "DESCRIPTION")
     private String description = "";
 
-    @Column(name = "COLOR")
-    private String color = "";
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "COLOR", referencedColumnName = "ID", insertable = false, updatable = false, nullable = false, unique = false)
+    private Color color = new Color();
 
     @NotNull
     @Embedded
@@ -155,7 +157,7 @@ public class BOMItemPart extends Resource {
      *
      * @return
      */
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
@@ -163,7 +165,7 @@ public class BOMItemPart extends Resource {
      *
      * @param color
      */
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
