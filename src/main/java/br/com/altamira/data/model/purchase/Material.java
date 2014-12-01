@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.altamira.data.model.purchasing;
+package br.com.altamira.data.model.purchase;
 
 import java.math.BigDecimal;
 
@@ -21,16 +21,6 @@ import javax.persistence.UniqueConstraint;
 @Entity(name = "purchasing.Material")
 @Table(name = "PR_MATERIAL",
         uniqueConstraints = @UniqueConstraint(columnNames = {"LAMINATION", "TREATMENT", "THICKNESS", "WIDTH", "LENGTH"}))
-/*@NamedQueries({
-    @NamedQuery(name = "Material.list", query = "SELECT m FROM Material m"),
-    @NamedQuery(name = "Material.findById", query = "SELECT m FROM Material m WHERE m.id = :id"),
-    @NamedQuery(name = "Material.findByLamination", query = "SELECT m FROM Material m WHERE m.lamination = :lamination"),
-    @NamedQuery(name = "Material.findByTreatment", query = "SELECT m FROM Material m WHERE m.treatment = :treatment"),
-    @NamedQuery(name = "Material.findByThickness", query = "SELECT m FROM Material m WHERE m.thickness = :thickness"),
-    @NamedQuery(name = "Material.findByWidth", query = "SELECT m FROM Material m WHERE m.width = :width"),
-    @NamedQuery(name = "Material.findByLength", query = "SELECT m FROM Material m WHERE m.length = :length"),
-    @NamedQuery(name = "Material.findByTax", query = "SELECT m FROM Material m WHERE m.tax = :tax"),
-    @NamedQuery(name = "Material.findUnique", query = "SELECT m FROM Material m WHERE m.lamination = :lamination AND m.treatment = :treatment AND m.thickness = :thickness AND m.width = :width AND m.length = :length")})*/
 public class Material extends br.com.altamira.data.model.common.Material {
 
     /**
@@ -46,36 +36,27 @@ public class Material extends br.com.altamira.data.model.common.Material {
 
     @Basic(optional = false)
     @Column(name = "LAMINATION", columnDefinition = "char(2)")
-    private String lamination;
+    private String lamination = "";
 
     @Basic(optional = false)
     @Column(name = "TREATMENT", columnDefinition = "char(2)")
-    private String treatment;
+    private String treatment = "";
 
     @Basic(optional = false)
     @Column(name = "THICKNESS")
-    private BigDecimal thickness;
+    private BigDecimal thickness = BigDecimal.valueOf(0);
 
     @Basic(optional = false)
     @Column(name = "WIDTH")
-    private BigDecimal width;
+    private BigDecimal width = BigDecimal.valueOf(0);
 
     @Basic(optional = false)
     @Column(name = "LENGTH")
-    private BigDecimal length;
+    private BigDecimal length = BigDecimal.valueOf(0);
 
     @Column(name = "TAX")
-    private BigDecimal tax;
+    private BigDecimal tax = BigDecimal.valueOf(0);
 
-    /*@JoinColumn(name = "COMPANY", referencedColumnName = "ID", columnDefinition = "number default 1")
-     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-     private Company company;*/
-//    @OneToMany(/*cascade = CascadeType.ALL,*/mappedBy = "material", fetch = FetchType.LAZY)
-//    private Set<MaterialStandard> materialStandardSet;
-//    @OneToMany(/*cascade = CascadeType.ALL,*/mappedBy = "material", fetch = FetchType.LAZY)
-//    private Set<SupplierPriceList> supplierPriceListSet;
-//    @OneToMany(/*cascade = CascadeType.ALL,*/mappedBy = "material", fetch = FetchType.LAZY)
-//    private Set<RequestItem> requestItemSet;
     /**
      *
      */
@@ -98,20 +79,6 @@ public class Material extends br.com.altamira.data.model.common.Material {
         this.width = width;
         this.length = length;
     }
-
-    /**
-     * @return the id
-     */
-//    public Long getId() {
-//        return id;
-//    }
-
-    /**
-     * @param id the id to set
-     */
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
 
     /**
      *
@@ -209,40 +176,4 @@ public class Material extends br.com.altamira.data.model.common.Material {
         this.tax = tax;
     }
 
-    //@XmlTransient
-    //@JsonIgnore
-    /*public Company getCompany() {
-     return company;
-     }
-
-     public void setCompany(Company company) {
-     this.company = company;
-     }*/
-    /*@XmlTransient
-     public Set<MaterialStandard> getMaterialStandardSet() {
-     return materialStandardSet;
-     }
-
-     public void setMaterialStandardSet(Set<MaterialStandard> materialStandardSet) {
-     this.materialStandardSet = materialStandardSet;
-     }
-
-     @XmlTransient
-     public Set<SupplierPriceList> getSupplierPriceListSet() {
-     return supplierPriceListSet;
-     }
-
-     public void setSupplierPriceListSet(
-     Set<SupplierPriceList> supplierPriceListSet) {
-     this.supplierPriceListSet = supplierPriceListSet;
-     }
-
-     @XmlTransient
-     public Set<RequestItem> getRequestItemSet() {
-     return requestItemSet;
-     }
-
-     public void setRequestItemSet(Set<RequestItem> requestItemSet) {
-     this.requestItemSet = requestItemSet;
-     }*/
 }
