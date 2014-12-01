@@ -32,35 +32,35 @@ public class Process extends br.com.altamira.data.model.Process {
     @NotNull
     @Size(min = 3)
     @Column(name = "CODE", columnDefinition = "nvarchar2(255)", unique=true, nullable=false)
-    private String code;
+    private String code = "";
 
     @NotNull
     @Size(min = 5)
     @Column(name = "DESCRIPTION", columnDefinition = "nvarchar2(255)")
-    private String description;
+    private String description = "";
 
     @Column(name = "COLOR", columnDefinition = "nvarchar2(255)")
     @JsonView(JSonViews.EntityView.class)
-    private String color;
+    private String color = "";
 
     @Min(0)
     @Column(name = "WEIGHT")
     @JsonView(JSonViews.EntityView.class)
-    private float weight;
+    private float weight = 0l;
 
     @Min(0)
     @Column(name = "LENGTH")
     @JsonView(JSonViews.EntityView.class)
-    private float length;
+    private float length = 0l;
 
     @Min(0)
     @Column(name = "WIDTH")
     @JsonView(JSonViews.EntityView.class)
-    private float width;
+    private float width = 0l;
 
     @JsonView(JSonViews.EntityView.class)
     @Column(name = "FINISH", columnDefinition = "nvarchar2(255)")
-    private String finish;
+    private String finish = "";
 
     @JsonView(JSonViews.EntityView.class)
     //@JsonSerialize(using = NullCollectionSerializer.class)

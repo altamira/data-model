@@ -35,20 +35,25 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     @Version
     @Column(name = "VERSION")
     @JsonView(JSonViews.EntityView.class)
-    private java.sql.Timestamp version;
+    private java.sql.Timestamp version = new java.sql.Timestamp(0);
 
     @NotNull
+    @JsonIgnore
     @Column(name = "LAST_MODIFIED")
     private Long lastModified = System.currentTimeMillis();
 
     // TODO: store class name from subclass in an ENTITY table
-//    @NotNull
+    @NotNull
+    @JsonIgnore
     @Column(name = "ENTITY_CLASS")
     private String entityClass;
 
     @Transient
     protected Class<? extends br.com.altamira.data.model.BaseEntity> parentType;
 
+    public BaseEntity() {
+        this.entityClass = this.getClass().getName();
+    }
     /**
      *
      * @return
@@ -60,15 +65,10 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     @PreUpdate
     @PrePersist
     void updateModificationTimestamp() {
-        lastModified = System.currentTimeMillis();
-        entityClass = this.getClass().getName();
+        this.lastModified = System.currentTimeMillis();
+        this.entityClass = this.getClass().getName();
     }
 
-    /*private Class<? extends br.com.altamira.data.model.Entity> getTypeClass() {
-     Class<? extends br.com.altamira.data.model.Entity> clazz = (Class<? extends br.com.altamira.data.model.Entity>) ((ParameterizedType) this.getClass()
-     .getGenericSuperclass()).getActualTypeArguments()[0];
-     return clazz;
-     }*/
     /**
      * @return the version
      */
@@ -116,6 +116,20 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
         //throw new UnsupportedOperationException("You are calling br.com.altamira.data.model.Entity.getParent(). You should override this method in child class.");
         //return this.getParent();
         return null;
+    }
+
+    /**
+     * @return the lastModified
+     */
+    public Long getLastModified() {
+        return lastModified;
+    }
+
+    /**
+     * @return the entityClass
+     */
+    public String getEntityClass() {
+        return entityClass;
     }
 
 }

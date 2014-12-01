@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -29,8 +29,8 @@ public class Sketch extends br.com.altamira.data.model.Resource {
 
     @JsonIgnore
     @JoinColumn(name = "OPERATION", referencedColumnName = "ID")
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
-    private br.com.altamira.data.model.manufacture.process.Operation operation;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Operation operation;
 
     //@NotNull
     @Column(name = "FILE_TYPE")
@@ -53,10 +53,10 @@ public class Sketch extends br.com.altamira.data.model.Resource {
         this.parentType = Operation.class;
     }
     
-    /*@Override
+    @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
         if (parentType.isInstance(parent)) {
-            throw new IllegalArgumentException("Consume requires a Operation instance object as a parent.");
+            throw new IllegalArgumentException("Sketch requires a Operation instance object as a parent.");
         }
 
         setOperation((Operation) parent);
@@ -65,7 +65,7 @@ public class Sketch extends br.com.altamira.data.model.Resource {
     @Override
     public br.com.altamira.data.model.Entity getParent() {
         return getOperation();
-    }*/
+    }
     
     /**
      * @return the type
@@ -127,15 +127,15 @@ public class Sketch extends br.com.altamira.data.model.Resource {
      *
      * @return
      */
-    /*public Operation getOperation() {
+    public Operation getOperation() {
         return operation;
-    }*/
+    }
 
     /**
      *
      * @param operation
      */
-    /*public void setOperation(Operation operation) {
+    public void setOperation(Operation operation) {
         this.operation = operation;
-    }*/
+    }
 }

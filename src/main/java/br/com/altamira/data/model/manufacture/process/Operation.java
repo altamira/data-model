@@ -43,22 +43,22 @@ public class Operation extends br.com.altamira.data.model.Process {
     @NotNull
     @Min(1)
     @Column(name = "SEQ")
-    private int sequence;
+    private int sequence = 1;
 
     @NotNull
     @Size(min = 3)
     @Column(name = "NAME", columnDefinition = "nvarchar2(255)")
-    private String name;
+    private String name = "";
 
     @NotNull
     @Size(min = 1)
     @JsonView(JSonViews.EntityView.class)
     @Column(name = "DESCRIPTION", columnDefinition = "nvarchar2(700)")
-    private String description;
+    private String description = "";
 
     @JsonView(JSonViews.EntityView.class)
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "operation", fetch = FetchType.LAZY, orphanRemoval = false)
-    private Sketch sketch;
+    private Sketch sketch = new Sketch();
     
     @JsonView(JSonViews.EntityView.class)
     //@JsonSerialize(using = NullCollectionSerializer.class)
