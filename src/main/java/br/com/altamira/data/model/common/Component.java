@@ -7,7 +7,9 @@ package br.com.altamira.data.model.common;
 
 import br.com.altamira.data.model.Relation;
 import br.com.altamira.data.model.measurement.Measure;
+import br.com.altamira.data.serialize.NullObjectSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
@@ -16,45 +18,36 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-/**
- *
- * @author Alessandro
- */
 @Entity
 @Table(name = "CM_COMPONENT")
 public class Component extends Relation {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1614440376494436376L;
+
+    @NotNull
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PARENT", referencedColumnName = "ID")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "PARENT", referencedColumnName = "ID", nullable = false)
     private Material parent;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MATERIAL", referencedColumnName = "ID")
-    private Material material;
-
-    /*@JsonIgnore
-     @JoinColumn(name = "MATERIAL", referencedColumnName = "ID")
-     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-     private Material material = new Material();*/
-
-    /*@JsonView(JSonViews.EntityView.class)
-     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "component", fetch = FetchType.LAZY, orphanRemoval = false)
-     private List<Material> component = new ArrayList<>();*/
-    /*@ManyToOne(optional = false, fetch = FetchType.LAZY)
-     @JoinColumn(name = "MATERIAL", referencedColumnName = "ID", updatable = false, insertable = false)
-     private Material material = new Material();*/
-    
+    @NotNull
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "MATERIAL", referencedColumnName = "ID", nullable = false/*, insertable = false, updatable = false*/)
+    private Material material = new Material();
     
     @NotNull
     @Embedded
     @AttributeOverride(name = "value", column = @Column(name = "QUANTITY_VAL"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
-    
+
     public Component() {
         this.parentType = br.com.altamira.data.model.common.Material.class;
     }
@@ -62,16 +55,17 @@ public class Component extends Relation {
     @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
         if (!parentType.isInstance(parent)) {
-            throw new IllegalArgumentException("BOMItemPart requires a BOMItem instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
+            throw new IllegalArgumentException("Component requires a Material instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
         }
 
-        this.parent = (Material)parent;
+        this.parent = (Material) parent;
     }
 
     @Override
     public br.com.altamira.data.model.Entity getParent() {
         return this.parent;
-    }    
+    }
+
     /**
      * @return the quantity
      */

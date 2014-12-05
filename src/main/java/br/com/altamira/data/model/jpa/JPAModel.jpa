@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings id="_14178003110201" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:ns4="http://nbmodeler.java.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <jpa:entity class="MrMeasurement" visibile="true" minimized="false" id="_14178003110204">
+        <jpa:table name="MR_MEASUREMENT"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.math.BigDecimal" visibile="true" id="_141780031103511">
+                <jpa:column name="ID" unique="false" nullable="false" insertable="true" updatable="true" table="MR_MEASUREMENT" length="255" precision="19" scale="0"/>
+            </jpa:id>
+            <jpa:basic name="entityClass" optional="true" attribute-type="java.lang.String" visibile="true" id="_141780031103512">
+                <jpa:column name="ENTITY_CLASS" unique="false" nullable="true" insertable="true" updatable="true" table="MR_MEASUREMENT" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="lastModified" optional="false" attribute-type="java.math.BigInteger" visibile="true" id="_141780031103513">
+                <jpa:column name="LAST_MODIFIED" unique="false" nullable="false" insertable="true" updatable="true" table="MR_MEASUREMENT" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="version" optional="true" attribute-type="java.util.Date" visibile="true" id="_141780031103514">
+                <jpa:column name="VERSION" unique="false" nullable="true" insertable="true" updatable="true" table="MR_MEASUREMENT" length="255" precision="0" scale="0"/>
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:one-to-one name="msUnit" target-entity="MsUnit" optional="true" mapped-by="mrMeasurement" primaryKey="false" connected-entity-id="_14178003110357" connected-attribute-id="_141780031103532" visibile="true" id="_141780031103515">
+                <jpa:join-table/>
+            </jpa:one-to-one>
+            <jpa:one-to-one name="msMagnitude" target-entity="MsMagnitude" optional="true" mapped-by="mrMeasurement" primaryKey="false" connected-entity-id="_141780031103510" connected-attribute-id="_141780031103548" visibile="true" id="_141780031103516">
+                <jpa:join-table/>
+            </jpa:one-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="CmComponent" visibile="true" minimized="false" id="_14178003110355">
+        <jpa:table name="CM_COMPONENT">
+            <jpa:unique-constraint>
+                <jpa:column-name>MATERIAL</jpa:column-name>
+                <jpa:column-name>PARENT</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.math.BigDecimal" visibile="true" id="_141780031103517">
+                <jpa:column name="ID" unique="false" nullable="false" insertable="true" updatable="true" table="CM_COMPONENT" length="255" precision="19" scale="0"/>
+            </jpa:id>
+            <jpa:basic name="quantityVal" optional="true" attribute-type="java.math.BigDecimal" visibile="true" id="_141780031103518">
+                <jpa:column name="QUANTITY_VAL" unique="false" nullable="true" insertable="true" updatable="true" table="CM_COMPONENT" length="255" precision="19" scale="2"/>
+            </jpa:basic>
+            <jpa:many-to-one name="quantityUnit" target-entity="MsUnit" optional="false" primaryKey="false" connected-entity-id="_14178003110357" connected-attribute-id="_141780031103531" visibile="true" id="_141780031103522">
+                <jpa:join-column name="QUANTITY_UNIT" referenced-column-name="ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+                <jpa:join-table/>
+            </jpa:many-to-one>
+            <jpa:one-to-one name="mrRelation" target-entity="MrRelation" optional="false" primaryKey="false" connected-entity-id="_14178003110356" connected-attribute-id="_141780031103527" visibile="true" id="_141780031103521">
+                <jpa:join-column name="ID" referenced-column-name="ID" unique="false" nullable="true" insertable="false" updatable="false"/>
+                <jpa:join-table/>
+            </jpa:one-to-one>
+            <jpa:one-to-one name="cmMaterial1" target-entity="CmMaterial" primaryKey="false" connected-entity-id="_14178003110358" visibile="true" id="_141780078291268"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="MrRelation" visibile="true" minimized="false" id="_14178003110356">
+        <jpa:table name="MR_RELATION"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.math.BigDecimal" visibile="true" id="_141780031103523">
+                <jpa:column name="ID" unique="false" nullable="false" insertable="true" updatable="true" table="MR_RELATION" length="255" precision="19" scale="0"/>
+            </jpa:id>
+            <jpa:basic name="entityClass" optional="true" attribute-type="java.lang.String" visibile="true" id="_141780031103524">
+                <jpa:column name="ENTITY_CLASS" unique="false" nullable="true" insertable="true" updatable="true" table="MR_RELATION" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="lastModified" optional="false" attribute-type="java.math.BigInteger" visibile="true" id="_141780031103525">
+                <jpa:column name="LAST_MODIFIED" unique="false" nullable="false" insertable="true" updatable="true" table="MR_RELATION" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="version" optional="true" attribute-type="java.util.Date" visibile="true" id="_141780031103526">
+                <jpa:column name="VERSION" unique="false" nullable="true" insertable="true" updatable="true" table="MR_RELATION" length="255" precision="0" scale="0"/>
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:one-to-one name="cmComponent" target-entity="CmComponent" optional="true" mapped-by="mrRelation" primaryKey="false" connected-entity-id="_14178003110355" connected-attribute-id="_141780031103521" visibile="true" id="_141780031103527">
+                <jpa:join-table/>
+            </jpa:one-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="MsUnit" visibile="true" minimized="false" id="_14178003110357">
+        <jpa:table name="MS_UNIT">
+            <jpa:unique-constraint>
+                <jpa:column-name>SYMBOL</jpa:column-name>
+            </jpa:unique-constraint>
+            <jpa:unique-constraint>
+                <jpa:column-name>NAME</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.math.BigDecimal" visibile="true" id="_141780031103528">
+                <jpa:column name="ID" unique="false" nullable="false" insertable="true" updatable="true" table="MS_UNIT" length="255" precision="19" scale="0"/>
+            </jpa:id>
+            <jpa:basic name="name" optional="false" attribute-type="java.lang.String" visibile="true" id="_141780031103529">
+                <jpa:column name="NAME" unique="false" nullable="false" insertable="true" updatable="true" table="MS_UNIT" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="symbol" optional="false" attribute-type="java.lang.String" visibile="true" id="_141780031103530">
+                <jpa:column name="SYMBOL" unique="false" nullable="false" insertable="true" updatable="true" table="MS_UNIT" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:many-to-one name="magnitude" target-entity="MsMagnitude" optional="false" primaryKey="false" connected-entity-id="_141780031103510" connected-attribute-id="_141780031103547" visibile="true" id="_141780031103533">
+                <jpa:join-column name="MAGNITUDE" referenced-column-name="ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+                <jpa:join-table/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="cmComponentCollection" target-entity="CmComponent" mapped-by="quantityUnit" collection-type="java.util.Collection" connected-entity-id="_14178003110355" connected-attribute-id="_141780031103522" visibile="true" id="_141780031103531">
+                <jpa:join-table/>
+            </jpa:one-to-many>
+            <jpa:one-to-one name="mrMeasurement" target-entity="MrMeasurement" optional="false" primaryKey="false" connected-entity-id="_14178003110204" connected-attribute-id="_141780031103515" visibile="true" id="_141780031103532">
+                <jpa:join-column name="ID" referenced-column-name="ID" unique="false" nullable="true" insertable="false" updatable="false"/>
+                <jpa:join-table/>
+            </jpa:one-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="CmMaterial" visibile="true" minimized="false" id="_14178003110358">
+        <jpa:table name="CM_MATERIAL">
+            <jpa:unique-constraint>
+                <jpa:column-name>DESCRIPTION</jpa:column-name>
+            </jpa:unique-constraint>
+            <jpa:unique-constraint>
+                <jpa:column-name>CODE</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.math.BigDecimal" visibile="true" id="_141780031103534">
+                <jpa:column name="ID" unique="false" nullable="false" insertable="true" updatable="true" table="CM_MATERIAL" length="255" precision="19" scale="0"/>
+                <jpa:generated-value/>
+            </jpa:id>
+            <jpa:basic name="code" optional="false" attribute-type="java.lang.String" visibile="true" id="_141780031103535">
+                <jpa:column name="CODE" unique="false" nullable="false" insertable="true" updatable="true" table="CM_MATERIAL" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="description" optional="false" attribute-type="java.lang.String" visibile="true" id="_141780031103536">
+                <jpa:column name="DESCRIPTION" unique="false" nullable="false" insertable="true" updatable="true" table="CM_MATERIAL" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:one-to-many name="cmComponent1" target-entity="CmComponent" connected-entity-id="_14178003110355" visibile="true" id="_141780073720067"/>
+            <jpa:one-to-one name="mrResource" target-entity="MrResource" optional="false" primaryKey="false" connected-entity-id="_14178003110359" connected-attribute-id="_141780031103544" visibile="true" id="_141780031103539">
+                <jpa:join-column name="ID" referenced-column-name="ID" unique="false" nullable="true" insertable="false" updatable="false"/>
+                <jpa:join-table/>
+            </jpa:one-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="MrResource" visibile="true" minimized="false" id="_14178003110359">
+        <jpa:table name="MR_RESOURCE"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.math.BigDecimal" visibile="true" id="_141780031103540">
+                <jpa:column name="ID" unique="false" nullable="false" insertable="true" updatable="true" table="MR_RESOURCE" length="255" precision="19" scale="0"/>
+            </jpa:id>
+            <jpa:basic name="entityClass" optional="true" attribute-type="java.lang.String" visibile="true" id="_141780031103541">
+                <jpa:column name="ENTITY_CLASS" unique="false" nullable="true" insertable="true" updatable="true" table="MR_RESOURCE" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="lastModified" optional="false" attribute-type="java.math.BigInteger" visibile="true" id="_141780031103542">
+                <jpa:column name="LAST_MODIFIED" unique="false" nullable="false" insertable="true" updatable="true" table="MR_RESOURCE" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="version" optional="true" attribute-type="java.util.Date" visibile="true" id="_141780031103543">
+                <jpa:column name="VERSION" unique="false" nullable="true" insertable="true" updatable="true" table="MR_RESOURCE" length="255" precision="0" scale="0"/>
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:one-to-one name="cmMaterial" target-entity="CmMaterial" optional="true" mapped-by="mrResource" primaryKey="false" connected-entity-id="_14178003110358" connected-attribute-id="_141780031103539" visibile="true" id="_141780031103544">
+                <jpa:join-table/>
+            </jpa:one-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="MsMagnitude" visibile="true" minimized="false" id="_141780031103510">
+        <jpa:table name="MS_MAGNITUDE">
+            <jpa:unique-constraint>
+                <jpa:column-name>NAME</jpa:column-name>
+            </jpa:unique-constraint>
+        </jpa:table>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.math.BigDecimal" visibile="true" id="_141780031103545">
+                <jpa:column name="ID" unique="false" nullable="false" insertable="true" updatable="true" table="MS_MAGNITUDE" length="255" precision="19" scale="0"/>
+            </jpa:id>
+            <jpa:basic name="name" optional="false" attribute-type="java.lang.String" visibile="true" id="_141780031103546">
+                <jpa:column name="NAME" unique="false" nullable="false" insertable="true" updatable="true" table="MS_MAGNITUDE" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:one-to-many name="msUnitCollection" target-entity="MsUnit" mapped-by="magnitude" collection-type="java.util.Collection" connected-entity-id="_14178003110357" connected-attribute-id="_141780031103533" visibile="true" id="_141780031103547">
+                <jpa:join-table/>
+            </jpa:one-to-many>
+            <jpa:one-to-one name="mrMeasurement" target-entity="MrMeasurement" optional="false" primaryKey="false" connected-entity-id="_14178003110204" connected-attribute-id="_141780031103516" visibile="true" id="_141780031103548">
+                <jpa:join-column name="ID" referenced-column-name="ID" unique="false" nullable="true" insertable="false" updatable="false"/>
+                <jpa:join-table/>
+            </jpa:one-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:diagram id="_14178003110202">
+        <plane elementRef="_14178003110201" id="_14178003110203_p">
+            <shape elementRef="_14178003110204" id="_14178003110204_gui">
+                <Bounds x="32.0" y="32.0" width="190.0" height="189.0"/>
+            </shape>
+            <shape elementRef="_14178003110355" id="_14178003110355_gui">
+                <Bounds x="669.0" y="448.0" width="180.0" height="168.0"/>
+            </shape>
+            <shape elementRef="_14178003110356" id="_14178003110356_gui">
+                <Bounds x="795.0" y="791.0" width="157.0" height="168.0"/>
+            </shape>
+            <shape elementRef="_14178003110357" id="_14178003110357_gui">
+                <Bounds x="286.0" y="285.0" width="194.0" height="189.0"/>
+            </shape>
+            <shape elementRef="_14178003110358" id="_14178003110358_gui">
+                <Bounds x="279.0" y="649.0" width="161.0" height="168.0"/>
+            </shape>
+            <shape elementRef="_14178003110359" id="_14178003110359_gui">
+                <Bounds x="551.0" y="1044.0" width="166.0" height="168.0"/>
+            </shape>
+            <shape elementRef="_141780031103510" id="_141780031103510_gui">
+                <Bounds x="32.0" y="538.0" width="172.0" height="147.0"/>
+            </shape>
+        </plane>
+    </jpa:diagram>
+</jpa:entity-mappings>

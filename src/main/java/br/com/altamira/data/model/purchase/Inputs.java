@@ -15,5 +15,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "PR_INPUTS")
 public class Inputs extends br.com.altamira.data.model.common.Material {
-    
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1900892879991346801L;
+
 }

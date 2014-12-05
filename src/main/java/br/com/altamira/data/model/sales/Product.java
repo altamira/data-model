@@ -1,6 +1,5 @@
 package br.com.altamira.data.model.sales;
 
-import br.com.altamira.data.model.common.Color;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;

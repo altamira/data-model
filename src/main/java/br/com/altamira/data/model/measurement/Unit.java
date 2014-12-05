@@ -23,6 +23,11 @@ import javax.validation.constraints.NotNull;
 @Table(name = "MS_UNIT")
 public class Unit extends br.com.altamira.data.model.Measurement {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6930578626995055701L;
+
     @NotNull
     @Column(name = "NAME", unique = true, nullable = false)
     private String name = "";
@@ -32,7 +37,7 @@ public class Unit extends br.com.altamira.data.model.Measurement {
     private String symbol = "";
 
     @JsonView(JSonViews.EntityView.class)
-    @ManyToOne(/*cascade = CascadeType.ALL,*/ optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(/*cascade = CascadeType.ALL,*/optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "MAGNITUDE"/*, referencedColumnName = "ID", insertable = false, updatable = false*/, nullable = false, unique = false)
     //@JoinTable(name="MS_MAGNITUDE", joinColumns={@JoinColumn(name="CUSTOMER_ID", referencedColumnName="id")}, inverseJoinColumns={@JoinColumn(name="DOG_ID", referencedColumnName="id")})
     private Magnitude magnitude = new Magnitude();

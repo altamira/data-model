@@ -18,11 +18,16 @@ import javax.persistence.ManyToOne;
 @Embeddable
 public class ComponentId implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6982764137241503475L;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Material material;
- 
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Material component;  
+    private Material component;
 
     /**
      * @return the parent
@@ -51,5 +56,5 @@ public class ComponentId implements Serializable {
     public void setComponent(Material material) {
         this.component = material;
     }
-    
+
 }

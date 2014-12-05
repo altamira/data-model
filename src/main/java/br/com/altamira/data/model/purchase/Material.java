@@ -5,7 +5,11 @@
  */
 package br.com.altamira.data.model.purchase;
 
+import br.com.altamira.data.model.common.Component;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,26 +17,18 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-
 /**
  *
  * @author Alessandro
  */
 @Entity(name = "purchasing.Material")
-@Table(name = "PR_MATERIAL",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"LAMINATION", "TREATMENT", "THICKNESS", "WIDTH", "LENGTH"}))
+@Table(name = "PR_MATERIAL", uniqueConstraints = @UniqueConstraint(columnNames = {"LAMINATION", "TREATMENT", "THICKNESS", "WIDTH", "LENGTH"}))
 public class Material extends br.com.altamira.data.model.common.Material {
 
     /**
      *
      */
     private static final long serialVersionUID = -6256290660697921883L;
-
-//    @Id
-//    @SequenceGenerator(name = "MaterialSequence", sequenceName = "PR_MATERIAL_SEQ", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MaterialSequence")
-//    @Column(name = "ID")
-//    private Long id;
 
     @Basic(optional = false)
     @Column(name = "LAMINATION", columnDefinition = "char(2)")
@@ -176,4 +172,9 @@ public class Material extends br.com.altamira.data.model.common.Material {
         this.tax = tax;
     }
 
+    @Override
+    @JsonIgnore
+    public List<Component> getComponent() {
+        return new ArrayList<>();
+    }
 }

@@ -10,5 +10,10 @@ package br.com.altamira.data.model.common;
  * @author Alessandro
  */
 public abstract class Document extends Material {
-    
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7532399632748485508L;
+
 }

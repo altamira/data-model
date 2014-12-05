@@ -15,5 +15,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "PR_INK")
 public class Ink extends br.com.altamira.data.model.common.Material {
-    
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1823747477767412252L;
+
 }

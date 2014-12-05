@@ -6,6 +6,8 @@
 package br.com.altamira.data.model.manufacture.process;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -47,17 +49,18 @@ public class Sketch extends br.com.altamira.data.model.Resource {
     @Lob
     //@JsonView(JSonViews.LobView.class)
     @Column(name = "FILE_BODY")
+    @Basic(fetch = FetchType.LAZY)
     private byte[] image;
 
     public Sketch() {
         this.parentType = Operation.class;
     }
-    
+
     @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
-        if (parentType.isInstance(parent)) {
-            throw new IllegalArgumentException("Sketch requires a Operation instance object as a parent.");
-        }
+        /*if (parentType.isInstance(parent)) {
+         throw new IllegalArgumentException("Sketch requires a Operation instance object as a parent.");
+         }*/
 
         setOperation((Operation) parent);
     }
@@ -66,7 +69,7 @@ public class Sketch extends br.com.altamira.data.model.Resource {
     public br.com.altamira.data.model.Entity getParent() {
         return getOperation();
     }
-    
+
     /**
      * @return the type
      */

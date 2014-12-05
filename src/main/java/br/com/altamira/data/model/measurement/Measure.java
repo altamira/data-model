@@ -21,12 +21,17 @@ import javax.validation.constraints.NotNull;
 @Embeddable
 public class Measure implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3833764960269130334L;
+
     @NotNull
-    @Column(name = "VAL", nullable= false, precision = 21, scale = 10)
+    @Column(name = "VAL", nullable = false, precision = 19, scale = 6)
     private BigDecimal value = BigDecimal.valueOf(0);
 
     //@JsonView(JSonViews.EntityView.class)
-    @ManyToOne(/*cascade = CascadeType.ALL,*/ optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(/*cascade = CascadeType.ALL,*/optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "UNIT", referencedColumnName = "ID", insertable = false, updatable = false/*, nullable = false, unique = false*/)
     private Unit unit = new Unit();
 

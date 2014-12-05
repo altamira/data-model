@@ -5,7 +5,11 @@
  */
 package br.com.altamira.data.model.manufacture;
 
+import br.com.altamira.data.model.common.Component;
 import br.com.altamira.data.model.common.Material;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -16,5 +20,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "MN_MACHINE")
 public class Machine extends Material {
-    
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5462259250446467012L;
+
+    @Override
+    @JsonIgnore
+    public List<Component> getComponent() {
+        return new ArrayList<>();
+    }
 }

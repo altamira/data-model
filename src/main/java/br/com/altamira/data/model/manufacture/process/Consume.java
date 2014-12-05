@@ -11,4 +11,9 @@ import javax.persistence.Table;
 @Table(name = "MN_CONSUME")
 public class Consume extends Resource {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1213303203490236833L;
+
 }

@@ -7,9 +7,15 @@ package br.com.altamira.data.model.common;
 
 import br.com.altamira.data.model.Resource;
 import br.com.altamira.data.serialize.JSonViews;
+import br.com.altamira.data.serialize.NullCollectionSerializer;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,8 +52,20 @@ public class Material extends Resource {
     protected String description = "";
 
     @JsonView(JSonViews.EntityView.class)
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "parent", fetch = FetchType.LAZY, orphanRemoval = true)
-    protected List<Component> component = new ArrayList<>();
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = NullCollectionSerializer.class)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "parent", fetch = FetchType.LAZY)
+    protected List<br.com.altamira.data.model.common.Component> component = new ArrayList<>();
+
+    public Material() {
+
+    }
+
+    public Material(long id, String code, String description) {
+        this.id = id;
+        this.code = code;
+        this.description = description;
+    }
 
     /**
      * @return the code

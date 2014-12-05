@@ -16,9 +16,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.altamira.data.serialize.JSonViews;
+import br.com.altamira.data.serialize.NullObjectSerializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import javax.persistence.OneToOne;
 import javax.persistence.UniqueConstraint;
 
@@ -57,14 +59,15 @@ public class Operation extends br.com.altamira.data.model.Process {
     private String description = "";
 
     @JsonView(JSonViews.EntityView.class)
+    @JsonSerialize(using = NullObjectSerializer.class)
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "operation", fetch = FetchType.LAZY, orphanRemoval = false)
     private Sketch sketch = new Sketch();
-    
+
     @JsonView(JSonViews.EntityView.class)
     //@JsonSerialize(using = NullCollectionSerializer.class)
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "operation", fetch = FetchType.LAZY, orphanRemoval = false)
     private List<Use> use = new ArrayList<>();
-    
+
     @JsonView(JSonViews.EntityView.class)
     //@JsonSerialize(using = NullCollectionSerializer.class)
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "operation", fetch = FetchType.LAZY, orphanRemoval = false)
@@ -81,7 +84,7 @@ public class Operation extends br.com.altamira.data.model.Process {
     public Operation() {
         this.parentType = Process.class;
     }
-    
+
     @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
         if (!parentType.isInstance(parent)) {
@@ -95,7 +98,7 @@ public class Operation extends br.com.altamira.data.model.Process {
     public br.com.altamira.data.model.Entity getParent() {
         return getProcess();
     }
-    
+
     /**
      *
      * @param id

@@ -17,7 +17,11 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "MS_MAGNITUDE")
 public class Magnitude extends br.com.altamira.data.model.Measurement {
-    
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6791234790456248714L;
     @NotNull
     @Column(name = "NAME", unique = true, nullable = false)
     private String name = "";
@@ -36,5 +40,4 @@ public class Magnitude extends br.com.altamira.data.model.Measurement {
         this.name = name;
     }
 
-
-    }
+}
