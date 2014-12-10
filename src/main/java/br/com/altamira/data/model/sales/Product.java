@@ -43,6 +43,9 @@ public class Product extends Material {
     @Column(name = "WEIGHT")
     private BigDecimal weight = BigDecimal.valueOf(0);
 
+    /**
+     *
+     */
     public Product() {
         
     }

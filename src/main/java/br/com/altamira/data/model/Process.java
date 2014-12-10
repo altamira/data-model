@@ -27,50 +27,24 @@ public class Process extends br.com.altamira.data.model.BaseEntity implements br
     /**
      *
      */
-    @Id
+    /*@Id
     @SequenceGenerator(name = "ProcessSequence", sequenceName = "PROCESS_SEQUENCE", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ProcessSequence")
     @Column(name = "ID")
-    protected Long id = 0l;
+    protected Long id = 0l;*/
 
     /**
      * @return the id
      */
-    public Long getId() {
+    /*public Long getId() {
         return this.id;
-    }
+    }*/
 
     /**
      * @param id the id to set
      */
-    public void setId(Long id) {
+    /*public void setId(Long id) {
         this.id = id;
-    }
-    
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (this.id != null ? this.id.hashCode() : 0);
-        return hash;
-    }
+    }*/
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are
-        // not set
-        if (!(object instanceof Entity)) {
-            return false;
-        }
-        Process other = (Process) object;
-        if ((this.id == null && other.getId() != null)
-                || (this.id != null && !this.getId().equals(other.getId()))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return this.getClass().toString() + "[ id=" + this.id + " ]";
-    }
 }

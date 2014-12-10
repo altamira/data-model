@@ -47,26 +47,50 @@ public class AccessToken extends Resource {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User user;
 
+    /**
+     *
+     * @return
+     */
     public String getAccessToken() {
         return accessToken;
     }
 
+    /**
+     *
+     * @param accessToken
+     */
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getCreated() {
         return created;
     }
 
+    /**
+     *
+     * @param created
+     */
     public void setCreated(Date created) {
         this.created = created;
     }
 
+    /**
+     *
+     * @return
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     *
+     * @param user
+     */
     public void setUser(User user) {
         this.user = user;
     }

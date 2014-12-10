@@ -1,4 +1,4 @@
-package br.com.altamira.data.serialize;
+package br.com.altamira.data.model.serialize;
 
 import java.io.IOException;
 
@@ -15,14 +15,14 @@ import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
  *
  * @author alessandro.holanda
  */
-public class NullCollectionSerializer extends JsonSerializer<Object> {
+public class NullObjectSerializer extends JsonSerializer<Object> {
 
     ObjectWriter writer;
 
     /**
      *
      */
-    public NullCollectionSerializer() {
+    public NullObjectSerializer() {
         ObjectMapper objectMapper = new ObjectMapper();
         Hibernate4Module hibernateModule = new Hibernate4Module();
         hibernateModule.enable(Hibernate4Module.Feature.FORCE_LAZY_LOADING);
@@ -46,7 +46,9 @@ public class NullCollectionSerializer extends JsonSerializer<Object> {
             SerializerProvider provider) throws IOException,
             JsonProcessingException {
         if (value == null) {
-            jsonGenerator.writeString("[]");
+            //jsonGenerator.writeString("{}");
+            jsonGenerator.writeStartObject();
+            jsonGenerator.writeEndObject();
         } else {
             writer.writeValue(jsonGenerator, value);
         }

@@ -5,14 +5,18 @@
  */
 package br.com.altamira.data.model;
 
-import br.com.altamira.data.serialize.JSonViews;
+import br.com.altamira.data.model.serialize.JSonViews;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -32,6 +36,12 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
      */
     private static final long serialVersionUID = -73112170881659955L;
     
+    @Id
+    @SequenceGenerator(name = "EntitySequence", sequenceName = "ENTITY_SEQUENCE", initialValue=10000, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EntitySequence")
+    @Column(name = "ID")
+    protected Long id = 0l;
+    
     @Version
     @Column(name = "VERSION")
     @JsonView(JSonViews.EntityView.class)
@@ -48,9 +58,15 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     @Column(name = "ENTITY_CLASS")
     private String entityClass;
 
+    /**
+     *
+     */
     @Transient
     protected Class<? extends br.com.altamira.data.model.BaseEntity> parentType;
 
+    /**
+     *
+     */
     public BaseEntity() {
         this.entityClass = this.getClass().getName();
     }
@@ -103,6 +119,10 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
         this.parentType = parentType;
     }
 
+    /**
+     *
+     * @param parent
+     */
     @JsonIgnore
     @Override
     public void setParent(Entity parent) {
@@ -110,6 +130,10 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
         //this.setParent(parent);
     }
 
+    /**
+     *
+     * @return
+     */
     @JsonIgnore
     @Override
     public Entity getParent() {
@@ -131,5 +155,46 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     public String getEntityClass() {
         return entityClass;
     }
+    /**
+     * @return the id
+     */
+    @Override
+    public Long getId() {
+        return this.id;
+    }
 
+    /**
+     * @param id the id to set
+     */
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (this.id != null ? this.id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are
+        // not set
+        if (!(object instanceof Resource)) {
+            return false;
+        }
+        Resource other = (Resource) object;
+        if ((this.id == null && other.getId() != null)
+                || (this.id != null && !this.getId().equals(other.getId()))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().toString() + "[ id=" + this.id + " ]";
+    }
 }

@@ -5,7 +5,7 @@
  */
 package br.com.altamira.data.model.measurement;
 
-import br.com.altamira.data.serialize.JSonViews;
+import br.com.altamira.data.model.serialize.JSonViews;
 import com.fasterxml.jackson.annotation.JsonView;
 import javax.persistence.Column;
 import javax.persistence.Entity;

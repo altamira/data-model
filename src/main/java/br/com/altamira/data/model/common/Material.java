@@ -6,8 +6,8 @@
 package br.com.altamira.data.model.common;
 
 import br.com.altamira.data.model.Resource;
-import br.com.altamira.data.serialize.JSonViews;
-import br.com.altamira.data.serialize.NullCollectionSerializer;
+import br.com.altamira.data.model.serialize.JSonViews;
+import br.com.altamira.data.model.serialize.NullCollectionSerializer;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -41,26 +41,44 @@ public class Material extends Resource {
      */
     private static final long serialVersionUID = -4871377399938455032L;
 
+    /**
+     *
+     */
     @NotNull
     @Size(min = 3)
     @Column(name = "CODE", unique = true, nullable = false)
     protected String code = "";
 
+    /**
+     *
+     */
     @NotNull
     @Size(min = 5)
     @Column(name = "DESCRIPTION", unique = true, nullable = false)
     protected String description = "";
 
+    /**
+     *
+     */
     @JsonView(JSonViews.EntityView.class)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = NullCollectionSerializer.class)
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "parent", fetch = FetchType.LAZY)
     protected List<br.com.altamira.data.model.common.Component> component = new ArrayList<>();
 
+    /**
+     *
+     */
     public Material() {
 
     }
 
+    /**
+     *
+     * @param id
+     * @param code
+     * @param description
+     */
     public Material(long id, String code, String description) {
         this.id = id;
         this.code = code;

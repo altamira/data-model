@@ -8,6 +8,7 @@ package br.com.altamira.data.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import javax.ejb.Local;
 
 /**
  *
@@ -25,9 +26,17 @@ public interface Entity extends Serializable {
      */
     void setId(Long id);
 
+    /**
+     *
+     * @return
+     */
     @JsonIgnore
     Entity getParent();
 
+    /**
+     *
+     * @param parent
+     */
     @JsonIgnore
     void setParent(Entity parent);
 
@@ -53,6 +62,10 @@ public interface Entity extends Serializable {
      */
     void setVersion(Timestamp version);
  
+    /**
+     *
+     * @return
+     */
     @Override
     int hashCode();
 
@@ -64,6 +77,10 @@ public interface Entity extends Serializable {
     @Override
     boolean equals(Object object);
 
+    /**
+     *
+     * @return
+     */
     @Override
     String toString();
     

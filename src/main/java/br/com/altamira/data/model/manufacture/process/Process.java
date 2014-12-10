@@ -12,7 +12,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.altamira.data.serialize.JSonViews;
+import br.com.altamira.data.model.serialize.JSonViews;
 
 import com.fasterxml.jackson.annotation.JsonView;
 

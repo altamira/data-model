@@ -5,11 +5,13 @@
  */
 package br.com.altamira.data.model.common;
 
+import br.com.altamira.data.model.Resource;
+
 /**
  *
  * @author Alessandro
  */
-public abstract class Document extends Material {
+public abstract class Document extends Resource {
 
     /**
      *

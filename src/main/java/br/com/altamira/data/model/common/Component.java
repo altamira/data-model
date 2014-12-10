@@ -7,7 +7,7 @@ package br.com.altamira.data.model.common;
 
 import br.com.altamira.data.model.Relation;
 import br.com.altamira.data.model.measurement.Measure;
-import br.com.altamira.data.serialize.NullObjectSerializer;
+import br.com.altamira.data.model.serialize.NullObjectSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import javax.persistence.AssociationOverride;
@@ -22,6 +22,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ *
+ * @author Alessandro
+ */
 @Entity
 @Table(name = "CM_COMPONENT")
 public class Component extends Relation {
@@ -48,10 +52,17 @@ public class Component extends Relation {
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
 
+    /**
+     *
+     */
     public Component() {
         this.parentType = br.com.altamira.data.model.common.Material.class;
     }
 
+    /**
+     *
+     * @param parent
+     */
     @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
         if (!parentType.isInstance(parent)) {
@@ -61,6 +72,10 @@ public class Component extends Relation {
         this.parent = (Material) parent;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public br.com.altamira.data.model.Entity getParent() {
         return this.parent;

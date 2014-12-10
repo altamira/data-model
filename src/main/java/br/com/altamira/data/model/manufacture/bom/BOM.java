@@ -1,5 +1,6 @@
 package br.com.altamira.data.model.manufacture.bom;
 
+import br.com.altamira.data.model.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,8 +15,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.altamira.data.model.common.Material;
-import br.com.altamira.data.serialize.JSonViews;
+import br.com.altamira.data.model.serialize.JSonViews;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonView;
  */
 @Entity
 @Table(name = "MN_BOM")
-public class BOM extends Material {
+public class BOM extends Resource {
 
     /**
      * Serial number ID
@@ -58,7 +58,7 @@ public class BOM extends Material {
 
     @NotNull
     @Size(min = 8, max = 8)
-    @Column(name = "QUOTATION")
+    @Column(name = "QUOTATION", unique = true, nullable = false)
     private String quotation = "";
 
     @Column(name = "COMMENTS")

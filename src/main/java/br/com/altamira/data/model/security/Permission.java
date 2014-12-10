@@ -44,10 +44,19 @@ public class Permission extends br.com.altamira.data.model.Resource {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "permission", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Profile> profiles = new ArrayList<Profile>();
 
+    /**
+     *
+     */
     public Permission() {
 
     }
 
+    /**
+     *
+     * @param id
+     * @param resourceName
+     * @param permission
+     */
     public Permission(Long id, String resourceName, String permission) {
 
         this.id = id;
@@ -56,26 +65,50 @@ public class Permission extends br.com.altamira.data.model.Resource {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String getResourceName() {
         return resourceName;
     }
 
+    /**
+     *
+     * @param resourceName
+     */
     public void setResourceName(String resourceName) {
         this.resourceName = resourceName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPermission() {
         return permission;
     }
 
+    /**
+     *
+     * @param permission
+     */
     public void setPermission(String permission) {
         this.permission = permission;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Profile> getProfiles() {
         return profiles;
     }
 
+    /**
+     *
+     * @param profiles
+     */
     public void setProfiles(List<Profile> profiles) {
         this.profiles = profiles;
     }

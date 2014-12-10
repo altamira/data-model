@@ -43,10 +43,17 @@ public class Revision extends br.com.altamira.data.model.Resource {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Process process;
     
+    /**
+     *
+     */
     public Revision() {
         this.parentType = Process.class;
     }
 
+    /**
+     *
+     * @param parent
+     */
     @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
         if (!parentType.isInstance(parent)) {
@@ -56,6 +63,10 @@ public class Revision extends br.com.altamira.data.model.Resource {
         setProcess((Process) parent);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public br.com.altamira.data.model.Entity getParent() {
         return getProcess();

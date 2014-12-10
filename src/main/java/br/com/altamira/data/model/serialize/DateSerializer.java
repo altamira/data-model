@@ -1,4 +1,4 @@
-package br.com.altamira.data.serialize;
+package br.com.altamira.data.model.serialize;
 
 import java.io.IOException;
 //import java.text.SimpleDateFormat;

@@ -1,5 +1,6 @@
 package br.com.altamira.data.model.manufacture.process;
 
+import br.com.altamira.data.model.Relation;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -9,7 +10,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "MN_PRODUCE")
-public class Produce extends Resource {
+public class Produce extends Relation {
 
     /**
      *

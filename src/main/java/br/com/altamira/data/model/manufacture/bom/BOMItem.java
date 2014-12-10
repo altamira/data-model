@@ -1,5 +1,6 @@
 package br.com.altamira.data.model.manufacture.bom;
 
+import br.com.altamira.data.model.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import br.com.altamira.data.model.common.Material;
-import br.com.altamira.data.serialize.JSonViews;
+import br.com.altamira.data.model.serialize.JSonViews;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import javax.persistence.Lob;
@@ -27,7 +27,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "MN_BOM_ITEM", uniqueConstraints = @UniqueConstraint(columnNames = {"MN_ORDER", "ITEM"}))
-public class BOMItem extends Material {
+public class BOMItem extends Resource {
 
     /**
      * Serial version ID
@@ -60,6 +60,10 @@ public class BOMItem extends Material {
         this.parentType = BOM.class;
     }
     
+    /**
+     *
+     * @param parent
+     */
     @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
         if (!parentType.isInstance(parent)) {
@@ -69,6 +73,10 @@ public class BOMItem extends Material {
         setBOM((BOM)parent);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public br.com.altamira.data.model.Entity getParent() {
         return getBOM();

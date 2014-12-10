@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
 
 import br.com.altamira.data.model.Resource;
-import br.com.altamira.data.serialize.JSonViews;
+import br.com.altamira.data.model.serialize.JSonViews;
 //import br.com.altamira.data.rest.serialize.NullCollectionSerializer;
 
 import com.fasterxml.jackson.annotation.JsonView;

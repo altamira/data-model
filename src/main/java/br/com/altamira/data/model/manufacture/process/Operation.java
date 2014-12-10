@@ -15,8 +15,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.altamira.data.serialize.JSonViews;
-import br.com.altamira.data.serialize.NullObjectSerializer;
+import br.com.altamira.data.model.serialize.JSonViews;
+import br.com.altamira.data.model.serialize.NullObjectSerializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -85,6 +85,10 @@ public class Operation extends br.com.altamira.data.model.Process {
         this.parentType = Process.class;
     }
 
+    /**
+     *
+     * @param parent
+     */
     @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
         if (!parentType.isInstance(parent)) {
@@ -94,6 +98,10 @@ public class Operation extends br.com.altamira.data.model.Process {
         setProcess((Process) parent);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public br.com.altamira.data.model.Entity getParent() {
         return getProcess();

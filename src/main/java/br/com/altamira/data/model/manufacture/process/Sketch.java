@@ -52,10 +52,17 @@ public class Sketch extends br.com.altamira.data.model.Resource {
     @Basic(fetch = FetchType.LAZY)
     private byte[] image;
 
+    /**
+     *
+     */
     public Sketch() {
         this.parentType = Operation.class;
     }
 
+    /**
+     *
+     * @param parent
+     */
     @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
         /*if (parentType.isInstance(parent)) {
@@ -65,6 +72,10 @@ public class Sketch extends br.com.altamira.data.model.Resource {
         setOperation((Operation) parent);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public br.com.altamira.data.model.Entity getParent() {
         return getOperation();

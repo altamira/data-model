@@ -1,6 +1,6 @@
 package br.com.altamira.data.model.security;
 
-import br.com.altamira.data.serialize.JSonViews;
+import br.com.altamira.data.model.serialize.JSonViews;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,26 +65,50 @@ public class Profile extends br.com.altamira.data.model.Resource {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<User> getUsers() {
         return users;
     }
 
+    /**
+     *
+     * @param users
+     */
     public void setUsers(List<User> users) {
         this.users = users;
     }
 
+    /**
+     *
+     * @return
+     */
     public Permission getPermission() {
         return permission;
     }
 
+    /**
+     *
+     * @param permission
+     */
     public void setPermission(Permission permission) {
         this.permission = permission;
     }

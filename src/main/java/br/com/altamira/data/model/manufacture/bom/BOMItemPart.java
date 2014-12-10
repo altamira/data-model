@@ -1,5 +1,6 @@
 package br.com.altamira.data.model.manufacture.bom;
 
+import br.com.altamira.data.model.Resource;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.altamira.data.model.common.Color;
-import br.com.altamira.data.model.common.Material;
 import br.com.altamira.data.model.measurement.Measure;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,7 +24,7 @@ import javax.persistence.Embedded;
  */
 @Entity
 @Table(name = "MN_BOM_ITEM_PART")
-public class BOMItemPart extends Material {
+public class BOMItemPart extends Resource {
 
     /**
      * Serial version ID
@@ -47,7 +47,7 @@ public class BOMItemPart extends Material {
     private String description = "";
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "COLOR", referencedColumnName = "ID", insertable = false, updatable = false, nullable = false, unique = false)
+    @JoinColumn(name = "COLOR", referencedColumnName = "ID", nullable = false /*, insertable = false, updatable = false, unique = false*/)
     private Color color = new Color();
 
     @NotNull
@@ -103,10 +103,19 @@ public class BOMItemPart extends Material {
      @ManyToOne(optional = false, fetch = FetchType.LAZY)
      private Product product;
      */
+
+    /**
+     *
+     */
+    
     public BOMItemPart() {
         this.parentType = BOMItem.class;
     }
 
+    /**
+     *
+     * @param parent
+     */
     @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
         if (!parentType.isInstance(parent)) {
@@ -116,6 +125,10 @@ public class BOMItemPart extends Material {
         setBOMItem((BOMItem) parent);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public br.com.altamira.data.model.Entity getParent() {
         return getBOMItem();

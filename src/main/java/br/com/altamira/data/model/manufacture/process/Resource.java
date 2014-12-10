@@ -14,7 +14,6 @@ import javax.persistence.Embedded;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -43,6 +42,9 @@ public abstract class Resource extends br.com.altamira.data.model.Relation {
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
 
+    /**
+     *
+     */
     public Resource() {
         this.parentType = Operation.class;
     }
@@ -91,6 +93,10 @@ public abstract class Resource extends br.com.altamira.data.model.Relation {
         this.quantity = quantity;
     }
 
+    /**
+     *
+     * @param parent
+     */
     @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
         if (!parentType.isInstance(parent)) {
@@ -100,6 +106,10 @@ public abstract class Resource extends br.com.altamira.data.model.Relation {
         setOperation((Operation) parent);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public br.com.altamira.data.model.Entity getParent() {
         return getOperation();
