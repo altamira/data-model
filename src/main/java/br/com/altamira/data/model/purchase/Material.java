@@ -61,6 +61,18 @@ public class Material extends br.com.altamira.data.model.common.Material {
 
     /**
      *
+     * @param id
+     * @param code
+     * @param description
+     */
+    public Material(long id, String code, String description) {
+        this.id = id;
+        this.code = code;
+        this.description = description;
+    }
+    
+    /**
+     *
      * @param lamination
      * @param treatment
      * @param thickness

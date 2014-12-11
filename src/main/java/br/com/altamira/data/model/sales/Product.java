@@ -52,6 +52,18 @@ public class Product extends Material {
 
     /**
      *
+     * @param id
+     * @param code
+     * @param description
+     */
+    public Product(long id, String code, String description) {
+        this.id = id;
+        this.code = code;
+        this.description = description;
+    }
+    
+    /**
+     *
      * @return
      */
     public BigDecimal getWidth() {

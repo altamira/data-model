@@ -21,4 +21,23 @@ public class Ink extends br.com.altamira.data.model.common.Material {
      */
     private static final long serialVersionUID = 1823747477767412252L;
 
+    /**
+     *
+     */
+    public Ink() {
+        
+    }
+    
+    /**
+     *
+     * @param id
+     * @param code
+     * @param description
+     */
+    public Ink(long id, String code, String description) {
+        this.id = id;
+        this.code = code;
+        this.description = description;
+    }
+    
 }

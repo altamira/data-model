@@ -26,6 +26,25 @@ public class Tooling extends Material {
      */
     private static final long serialVersionUID = 1823172807710930495L;
 
+    /**
+     *
+     */
+    public Tooling() {
+        
+    }
+    
+    /**
+     *
+     * @param id
+     * @param code
+     * @param description
+     */
+    public Tooling(long id, String code, String description) {
+        this.id = id;
+        this.code = code;
+        this.description = description;
+    }
+    
     @Override
     @JsonIgnore
     public List<Component> getComponent() {

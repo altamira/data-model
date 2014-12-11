@@ -27,7 +27,7 @@ public class Measure implements Serializable {
     private static final long serialVersionUID = 3833764960269130334L;
 
     @NotNull
-    @Column(name = "VAL", nullable = false, precision = 19, scale = 6)
+    @Column(name = "VAL", nullable = false, precision = 19, scale = 10)
     private BigDecimal value = BigDecimal.valueOf(0);
 
     //@JsonView(JSonViews.EntityView.class)
