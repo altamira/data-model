@@ -126,5 +126,13 @@ public class Material extends Resource {
     public void setComponent(List<Component> component) {
         this.component = component;
     }
+    
+    /**
+     *
+     * @return
+     */
+    public String getType() {
+        return this.getEntityClass();
+    }
 
 }

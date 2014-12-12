@@ -22,7 +22,7 @@
     <groupId>br.com.altamira</groupId>
     <artifactId>data-model</artifactId>
     <packaging>jar</packaging>
-    <version>0.7.4-SNAPSHOT</version>
+    <version>0.7.5-SNAPSHOT</version>
     <name>Data Model</name>
 
     <url>http://data.altamira.com.br</url>
