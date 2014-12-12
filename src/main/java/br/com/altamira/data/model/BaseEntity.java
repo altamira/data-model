@@ -70,6 +70,7 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     public BaseEntity() {
         this.entityClass = this.getClass().getName();
     }
+    
     /**
      *
      * @return
@@ -155,6 +156,14 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     public String getEntityClass() {
         return entityClass;
     }
+
+    /**
+     * @param entityClass
+     */
+    public void setEntityClass(String entityClass) {
+        this.entityClass = entityClass;
+    }
+    
     /**
      * @return the id
      */

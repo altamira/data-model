@@ -84,6 +84,13 @@ public class Material extends Resource {
         this.code = code;
         this.description = description;
     }
+    
+    public Material(long id, String code, String description, String type) {
+        this.id = id;
+        this.code = code;
+        this.description = description;
+        this.setEntityClass(type);
+    }
 
     /**
      * @return the code
