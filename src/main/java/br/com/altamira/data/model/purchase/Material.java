@@ -184,9 +184,4 @@ public class Material extends br.com.altamira.data.model.common.Material {
         this.tax = tax;
     }
 
-    @Override
-    @JsonIgnore
-    public List<Component> getComponent() {
-        return new ArrayList<>();
-    }
 }
