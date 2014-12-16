@@ -11,9 +11,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.altamira.data.model.common.Color;
+import br.com.altamira.data.model.common.Material;
 import br.com.altamira.data.model.measurement.Measure;
+import br.com.altamira.data.model.serialize.NullObjectSerializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Embedded;
@@ -45,6 +49,11 @@ public class BOMItemPart extends Resource {
     @Size(min = 5)
     @Column(name = "DESCRIPTION")
     private String description = "";
+
+    @JoinColumn(name = "MATERIAL")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonSerialize(nullsUsing = NullObjectSerializer.class)
+    private Material material;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "COLOR", referencedColumnName = "ID", nullable = false /*, insertable = false, updatable = false, unique = false*/)
@@ -80,34 +89,9 @@ public class BOMItemPart extends Resource {
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
     private Measure weight = new Measure();
 
-    /*
-     @Column(name = "QUANTITY")
-     private BigDecimal quantity = BigDecimal.valueOf(0);
-
-     @Column(name = "WIDTH")
-     private BigDecimal width = BigDecimal.valueOf(0);
-
-     @Column(name = "HEIGHT")
-     private BigDecimal height = BigDecimal.valueOf(0);
-
-     @Column(name = "LENGTH")
-     private BigDecimal length = BigDecimal.valueOf(0);
-
-     @Column(name = "WEIGHT")
-     private BigDecimal weight = BigDecimal.valueOf(0);
-     */
-
-    /*
-     @JoinColumn(name = "CODE", referencedColumnName = "CODE", insertable=false, updatable=false)
-     @JoinColumn(name = "PRODUCT", referencedColumnName = "ID", insertable = false, updatable = false)
-     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-     private Product product;
-     */
-
     /**
      *
      */
-    
     public BOMItemPart() {
         this.parentType = BOMItem.class;
     }
@@ -166,6 +150,20 @@ public class BOMItemPart extends Resource {
         this.description = description;
     }
 
+    /**
+     * @return the material
+     */
+    public br.com.altamira.data.model.common.Material getMaterial() {
+        return material;
+    }
+
+    /**
+     * @param material the material to set
+     */
+    public void setMaterial(br.com.altamira.data.model.common.Material material) {
+        this.material = material;
+    }
+    
     /**
      *
      * @return
@@ -277,5 +275,4 @@ public class BOMItemPart extends Resource {
      public void setProduct(Product product) {
      this.product = product;
      }*/
-
 }

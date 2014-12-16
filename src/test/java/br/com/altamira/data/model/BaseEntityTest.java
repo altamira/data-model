@@ -187,7 +187,7 @@ public class BaseEntityTest {
         System.out.println("getEntityClass");
         BaseEntity instance = new BaseEntityImpl();
         String expResult = "";
-        String result = instance.getEntityClass();
+        String result = instance.getType();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

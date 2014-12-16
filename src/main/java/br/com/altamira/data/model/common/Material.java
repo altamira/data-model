@@ -8,6 +8,7 @@ package br.com.altamira.data.model.common;
 import br.com.altamira.data.model.Resource;
 import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullCollectionSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -84,12 +85,12 @@ public class Material extends Resource {
         this.code = code;
         this.description = description;
     }
-    
+
     public Material(long id, String code, String description, String type) {
         this.id = id;
         this.code = code;
         this.description = description;
-        this.setEntityClass(type);
+        this.setType(type);
     }
 
     /**
@@ -133,13 +134,16 @@ public class Material extends Resource {
     public void setComponent(List<Component> component) {
         this.component = component;
     }
-    
+
     /**
      *
      * @return
      */
+    @Override
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonView(JSonViews.ListView.class)
     public String getType() {
-        return this.getEntityClass();
+        return super.getType();
     }
 
 }

@@ -7,6 +7,7 @@ package br.com.altamira.data.model;
 
 import br.com.altamira.data.model.serialize.JSonViews;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -35,13 +36,13 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
      *
      */
     private static final long serialVersionUID = -73112170881659955L;
-    
+
     @Id
-    @SequenceGenerator(name = "EntitySequence", sequenceName = "ENTITY_SEQUENCE", initialValue=10000, allocationSize = 1)
+    @SequenceGenerator(name = "EntitySequence", sequenceName = "ENTITY_SEQUENCE", initialValue = 10000, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EntitySequence")
     @Column(name = "ID")
     protected Long id = 0l;
-    
+
     @Version
     @Column(name = "VERSION")
     @JsonView(JSonViews.EntityView.class)
@@ -55,8 +56,9 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     // TODO: store class name from subclass in an ENTITY table
     @NotNull
     @JsonIgnore
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @Column(name = "ENTITY_CLASS")
-    private String entityClass;
+    private String type;
 
     /**
      *
@@ -68,9 +70,9 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
      *
      */
     public BaseEntity() {
-        this.entityClass = this.getClass().getName();
+        this.type = this.getClass().getName();
     }
-    
+
     /**
      *
      * @return
@@ -83,7 +85,7 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     @PrePersist
     void updateModificationTimestamp() {
         this.lastModified = System.currentTimeMillis();
-        this.entityClass = this.getClass().getName();
+        this.type = this.getClass().getName();
     }
 
     /**
@@ -151,19 +153,19 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     }
 
     /**
-     * @return the entityClass
+     * @return the type
      */
-    public String getEntityClass() {
-        return entityClass;
+    public String getType() {
+        return type;
     }
 
     /**
-     * @param entityClass
+     * @param type
      */
-    public void setEntityClass(String entityClass) {
-        this.entityClass = entityClass;
+    public void setType(String type) {
+        this.type = type;
     }
-    
+
     /**
      * @return the id
      */
@@ -179,7 +181,7 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
