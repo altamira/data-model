@@ -44,10 +44,5 @@ public class Tooling extends Material {
         this.code = code;
         this.description = description;
     }
-    
-    @Override
-    @JsonIgnore
-    public List<Component> getComponent() {
-        return new ArrayList<>();
-    }
+
 }

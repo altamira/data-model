@@ -44,10 +44,4 @@ public class Machine extends br.com.altamira.data.model.common.Material {
         this.description = description;
     }
     
-    @Override
-    @JsonIgnore
-    public List<Component> getComponent() {
-        return new ArrayList<>();
-    }
-    
 }
