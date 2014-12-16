@@ -5,11 +5,7 @@
  */
 package br.com.altamira.data.model.manufacture;
 
-import br.com.altamira.data.model.common.Component;
 import br.com.altamira.data.model.common.Material;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -45,4 +41,16 @@ public class Tooling extends Material {
         this.description = description;
     }
 
+    /**
+     *
+     * @param id
+     * @param code
+     * @param description
+     */
+    public Tooling(long id, String code, String description, String type) {
+        this.id = id;
+        this.code = code;
+        this.description = description;
+        this.setType(type);
+    } 
 }

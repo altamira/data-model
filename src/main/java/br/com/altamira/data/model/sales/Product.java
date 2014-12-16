@@ -1,14 +1,17 @@
 package br.com.altamira.data.model.sales;
 
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import br.com.altamira.data.model.common.Material;
+import br.com.altamira.data.model.measurement.Measure;
+import javax.persistence.AssociationOverride;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Embedded;
+import javax.persistence.JoinColumn;
 
 /**
  *
@@ -22,26 +25,36 @@ public class Product extends Material {
      *
      */
     private static final long serialVersionUID = -4871377387938455032L;
-
-    @Min(0)
+    
     @NotNull
-    @Column(name = "WIDTH")
-    private BigDecimal width = BigDecimal.valueOf(0);
-
-    @Min(0)
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "WIDTH_VAL"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WIDTH_UNIT"))
+    private Measure width = new Measure();
+    
     @NotNull
-    @Column(name = "HEIGHT")
-    private BigDecimal height = BigDecimal.valueOf(0);
-
-    @Min(0)
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "HEIGHT_VAL"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "HEIGHT_UNIT"))
+    private Measure height = new Measure();
+    
     @NotNull
-    @Column(name = "LENGTH")
-    private BigDecimal length = BigDecimal.valueOf(0);
-
-    @Min(0)
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "LENGTH_VAL"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "LENGTH_UNIT"))
+    private Measure length = new Measure();    
+    
     @NotNull
-    @Column(name = "WEIGHT")
-    private BigDecimal weight = BigDecimal.valueOf(0);
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "WEIGHT_VAL"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
+    private Measure weight = new Measure(); 
+    
+    @NotNull
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "DEPTH_VAL"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "DEPTH_UNIT"))
+    private Measure depth = new Measure(); 
 
     /**
      *
@@ -61,69 +74,88 @@ public class Product extends Material {
         this.code = code;
         this.description = description;
     }
-    
+
     /**
      *
-     * @return
+     * @param id
+     * @param code
+     * @param description
      */
-    public BigDecimal getWidth() {
+    public Product(long id, String code, String description, String type) {
+        this.id = id;
+        this.code = code;
+        this.description = description;
+        this.setType(type);
+    }    
+
+    /**
+     * @return the width
+     */
+    public Measure getWidth() {
         return width;
     }
 
     /**
-     *
-     * @param width
+     * @param width the width to set
      */
-    public void setWidth(BigDecimal width) {
+    public void setWidth(Measure width) {
         this.width = width;
     }
 
     /**
-     *
-     * @return
+     * @return the height
      */
-    public BigDecimal getHeight() {
+    public Measure getHeight() {
         return height;
     }
 
     /**
-     *
-     * @param height
+     * @param height the height to set
      */
-    public void setHeight(BigDecimal height) {
+    public void setHeight(Measure height) {
         this.height = height;
     }
 
     /**
-     *
-     * @return
+     * @return the length
      */
-    public BigDecimal getLength() {
+    public Measure getLength() {
         return length;
     }
 
     /**
-     *
-     * @param length
+     * @param length the length to set
      */
-    public void setLength(BigDecimal length) {
+    public void setLength(Measure length) {
         this.length = length;
     }
 
     /**
-     *
-     * @return
+     * @return the weight
      */
-    public BigDecimal getWeight() {
+    public Measure getWeight() {
         return weight;
     }
 
     /**
-     *
-     * @param weight
+     * @param weight the weight to set
      */
-    public void setWeight(BigDecimal weight) {
+    public void setWeight(Measure weight) {
         this.weight = weight;
     }
 
+    /**
+     * @return the depth
+     */
+    public Measure getDepth() {
+        return depth;
+    }
+
+    /**
+     * @param depth the depth to set
+     */
+    public void setDepth(Measure depth) {
+        this.depth = depth;
+    }
+    
 }

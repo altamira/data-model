@@ -36,5 +36,19 @@ public class Inputs extends br.com.altamira.data.model.common.Material {
         this.code = code;
         this.description = description;
     }
+
+    /**
+     *
+     * @param id
+     * @param code
+     * @param description
+     */
+    public Inputs(long id, String code, String description, String type) {
+        this.id = id;
+        this.code = code;
+        this.description = description;
+        this.setType(type);
+    } 
+
     
 }

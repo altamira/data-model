@@ -6,23 +6,29 @@
 package br.com.altamira.data.model.purchase;
 
 import br.com.altamira.data.model.common.Component;
+import br.com.altamira.data.model.measurement.Measure;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.AssociationOverride;
+import javax.persistence.AttributeOverride;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author Alessandro
  */
 @Entity(name = "purchasing.Material")
-@Table(name = "PR_MATERIAL", uniqueConstraints = @UniqueConstraint(columnNames = {"LAMINATION", "TREATMENT", "THICKNESS", "WIDTH", "LENGTH"}))
+@Table(name = "PR_MATERIAL", uniqueConstraints = @UniqueConstraint(columnNames = {"LAMINATION", "TREATMENT", "THICKNESS_VAL", "WIDTH_VAL", "LENGTH_VAL"}))
 public class Material extends br.com.altamira.data.model.common.Material {
 
     /**
@@ -37,22 +43,25 @@ public class Material extends br.com.altamira.data.model.common.Material {
     @Basic(optional = false)
     @Column(name = "TREATMENT", columnDefinition = "char(2)")
     private String treatment = "";
-
-    @Basic(optional = false)
-    @Column(name = "THICKNESS")
-    private BigDecimal thickness = BigDecimal.valueOf(0);
-
-    @Basic(optional = false)
-    @Column(name = "WIDTH")
-    private BigDecimal width = BigDecimal.valueOf(0);
-
-    @Basic(optional = false)
-    @Column(name = "LENGTH")
-    private BigDecimal length = BigDecimal.valueOf(0);
-
-    @Column(name = "TAX")
-    private BigDecimal tax = BigDecimal.valueOf(0);
-
+    
+    @NotNull
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "THICKNESS_VAL"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "THICKNESS_UNIT"))
+    private Measure thickness = new Measure();
+    
+    @NotNull
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "WIDTH_VAL"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WIDTH_UNIT"))
+    private Measure width = new Measure();
+    
+    @NotNull
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "LENGTH_VAL"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "LENGTH_UNIT"))
+    private Measure length = new Measure();
+    
     /**
      *
      */
@@ -70,6 +79,19 @@ public class Material extends br.com.altamira.data.model.common.Material {
         this.code = code;
         this.description = description;
     }
+
+    /**
+     *
+     * @param id
+     * @param code
+     * @param description
+     */
+    public Material(long id, String code, String description, String type) {
+        this.id = id;
+        this.code = code;
+        this.description = description;
+        this.setType(type);
+    } 
     
     /**
      *
@@ -80,7 +102,7 @@ public class Material extends br.com.altamira.data.model.common.Material {
      * @param length
      */
     public Material(String lamination, String treatment,
-            BigDecimal thickness, BigDecimal width, BigDecimal length) {
+            Measure thickness, Measure width, Measure length) {
         this.lamination = lamination;
         this.treatment = treatment;
         this.thickness = thickness;
@@ -121,67 +143,45 @@ public class Material extends br.com.altamira.data.model.common.Material {
     }
 
     /**
-     *
-     * @return
+     * @return the thickness
      */
-    public BigDecimal getThickness() {
+    public Measure getThickness() {
         return thickness;
     }
 
     /**
-     *
-     * @param thickness
+     * @param thickness the thickness to set
      */
-    public void setThickness(BigDecimal thickness) {
+    public void setThickness(Measure thickness) {
         this.thickness = thickness;
     }
 
     /**
-     *
-     * @return
+     * @return the width
      */
-    public BigDecimal getWidth() {
+    public Measure getWidth() {
         return width;
     }
 
     /**
-     *
-     * @param width
+     * @param width the width to set
      */
-    public void setWidth(BigDecimal width) {
+    public void setWidth(Measure width) {
         this.width = width;
     }
 
     /**
-     *
-     * @return
+     * @return the length
      */
-    public BigDecimal getLength() {
+    public Measure getLength() {
         return length;
     }
 
     /**
-     *
-     * @param length
+     * @param length the length to set
      */
-    public void setLength(BigDecimal length) {
+    public void setLength(Measure length) {
         this.length = length;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public BigDecimal getTax() {
-        return tax;
-    }
-
-    /**
-     *
-     * @param tax
-     */
-    public void setTax(BigDecimal tax) {
-        this.tax = tax;
     }
 
 }

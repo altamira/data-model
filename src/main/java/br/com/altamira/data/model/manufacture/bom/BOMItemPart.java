@@ -42,12 +42,12 @@ public class BOMItemPart extends Resource {
 
     @NotNull
     @Size(min = 3)
-    @Column(name = "CODE")
+    @Column(name = "CODE", nullable = true)
     private String code = "";
 
     @NotNull
     @Size(min = 5)
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION", nullable = true)
     private String description = "";
 
     @JoinColumn(name = "MATERIAL")
