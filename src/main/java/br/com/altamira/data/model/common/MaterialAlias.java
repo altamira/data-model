@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.altamira.data.model.manufacture.bom;
+package br.com.altamira.data.model.common;
 
 import br.com.altamira.data.model.Relation;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
@@ -22,8 +22,13 @@ import javax.validation.constraints.Size;
  * @author Alessandro
  */
 @Entity
-@Table(name = "MN_MATERIAL")
-public class Material extends Relation {
+@Table(name = "CM_MATERIAL_ALIAS")
+public class MaterialAlias extends Relation {
+    
+    @JoinColumn(name = "MATERIAL")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonSerialize(nullsUsing = NullObjectSerializer.class)
+    private br.com.altamira.data.model.common.Material material;
     
     @NotNull
     @Size(min = 3)
@@ -34,16 +39,12 @@ public class Material extends Relation {
     @Size(min = 5)
     @Column(name = "DESCRIPTION")
     private String description = "";    
-        
-    @JoinColumn(name = "MATERIAL")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonSerialize(nullsUsing = NullObjectSerializer.class)
-    private br.com.altamira.data.model.common.Material material;
+
 
     /**
      *
      */
-    public Material() {
+    public MaterialAlias() {
 
     }
     
@@ -52,7 +53,7 @@ public class Material extends Relation {
      * @param code
      * @param description
      */
-    public Material(String code, String description) {
+    public MaterialAlias(String code, String description) {
         this.code = code;
         this.description = description;
     }

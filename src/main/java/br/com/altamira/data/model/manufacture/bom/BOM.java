@@ -16,9 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.altamira.data.model.serialize.JSonViews;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
-import javax.persistence.Transient;
 
 /**
  *
@@ -75,9 +73,6 @@ public class BOM extends Resource {
     @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "CHECKED")
     private Date checked;
-    
-    @Transient
-    private int warning;
 
     @JsonView(JSonViews.EntityView.class)
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "bom", fetch = FetchType.LAZY, orphanRemoval = false)
@@ -298,14 +293,6 @@ public class BOM extends Resource {
      */
     public void setChecked(Date checked) {
         this.checked = checked;
-    }
-
-    /**
-     * @return the warning
-     */
-    @JsonProperty("warning")
-    public int getWarning() {
-        return warning;
     }
 
 }

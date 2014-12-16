@@ -26,7 +26,7 @@ import javax.persistence.UniqueConstraint;
  * Represents a sales bom item
  */
 @Entity
-@Table(name = "MN_BOM_ITEM", uniqueConstraints = @UniqueConstraint(columnNames = {"MN_ORDER", "ITEM"}))
+@Table(name = "MN_BOM_ITEM", uniqueConstraints = @UniqueConstraint(columnNames = {"BOM", "ITEM"}))
 public class BOMItem extends Resource {
 
     /**
@@ -35,7 +35,7 @@ public class BOMItem extends Resource {
     private static final long serialVersionUID = 7448803904699786256L;
     
     @JsonIgnore
-    @JoinColumn(name = "MN_ORDER", referencedColumnName = "ID")
+    @JoinColumn(name = "BOM", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private BOM bom = new BOM();
 

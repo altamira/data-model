@@ -36,7 +36,7 @@ public class BOMItemPart extends Resource {
     private static final long serialVersionUID = -4871377387938455032L;
 
     @JsonIgnore
-    @JoinColumn(name = "ORDER_ITEM", referencedColumnName = "ID")
+    @JoinColumn(name = "BOM_ITEM", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private BOMItem bomItem;
 
@@ -50,8 +50,8 @@ public class BOMItemPart extends Resource {
     @Column(name = "DESCRIPTION", nullable = true)
     private String description = "";
 
-    @JoinColumn(name = "MATERIAL")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "MATERIAL", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
     private Material material;
 

@@ -5,12 +5,7 @@
  */
 package br.com.altamira.data.model.purchase;
 
-import br.com.altamira.data.model.common.Component;
 import br.com.altamira.data.model.measurement.Measure;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 

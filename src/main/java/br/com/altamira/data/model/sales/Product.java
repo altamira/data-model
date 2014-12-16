@@ -80,6 +80,7 @@ public class Product extends Material {
      * @param id
      * @param code
      * @param description
+     * @param type
      */
     public Product(long id, String code, String description, String type) {
         this.id = id;
