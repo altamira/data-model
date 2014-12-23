@@ -38,7 +38,7 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     private static final long serialVersionUID = -73112170881659955L;
 
     @Id
-    @SequenceGenerator(name = "EntitySequence", sequenceName = "ENTITY_SEQUENCE", initialValue = 10000, allocationSize = 1)
+    @SequenceGenerator(name = "EntitySequence", sequenceName = "ENTITY_SEQUENCE", initialValue = 30000, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EntitySequence")
     @Column(name = "ID")
     protected Long id = 0l;

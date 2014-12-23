@@ -8,7 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import br.com.altamira.data.model.common.Color;
 import br.com.altamira.data.model.common.Material;
@@ -16,6 +15,7 @@ import br.com.altamira.data.model.measurement.Measure;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.AssociationOverride;
@@ -41,15 +41,6 @@ public class BOMItemPart extends Resource {
     private BOMItem bomItem;
 
     @NotNull
-    @Size(min = 3)
-    @Column(name = "CODE", nullable = true)
-    private String code = "";
-
-    @NotNull
-    @Size(min = 5)
-    @Column(name = "DESCRIPTION", nullable = true)
-    private String description = "";
-
     @JoinColumn(name = "MATERIAL", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
@@ -116,38 +107,6 @@ public class BOMItemPart extends Resource {
     @Override
     public br.com.altamira.data.model.Entity getParent() {
         return getBOMItem();
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     *
-     * @param code
-     */
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     *
-     * @param description
-     */
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     /**

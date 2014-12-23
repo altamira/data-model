@@ -33,7 +33,7 @@ public class BOM extends Resource {
     private static final long serialVersionUID = -3725014293364656727L;
     
     @NotNull
-    @Column(name = "ORDER_NUMBER", unique = true, nullable = false)
+    @Column(name = "BOM_NUMBER", unique = true, nullable = false)
     private Long number = 0l;
 
     @NotNull
@@ -41,8 +41,8 @@ public class BOM extends Resource {
     @Column(name = "CUSTOMER")
     private String customer = "";
 
-    @NotNull
-    @Size(min = 5)
+    //@NotNull
+    //@Size(min = 5)
     @Column(name = "REPRESENTATIVE")
     private String representative = "";
 
@@ -56,8 +56,8 @@ public class BOM extends Resource {
     @Column(name = "DELIVERY")
     private Date delivery = new Date();
 
-    @NotNull
-    @Size(min = 8, max = 8)
+    //@NotNull
+    //@Size(min = 8, max = 8)
     @Column(name = "QUOTATION", unique = true, nullable = false)
     private String quotation = "";
 

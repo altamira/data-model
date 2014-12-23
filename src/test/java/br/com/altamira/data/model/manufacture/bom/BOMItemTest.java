@@ -6,7 +6,6 @@
 package br.com.altamira.data.model.manufacture.bom;
 
 import br.com.altamira.data.model.Entity;
-import br.com.altamira.data.model.common.Material;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.inject.Inject;
