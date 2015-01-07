@@ -32,12 +32,6 @@ public class OrderItem extends Document {
      */
     private static final long serialVersionUID = 7448803904699786256L;
 
-//    @Id
-//    @SequenceGenerator(name = "OrderItemSequence", sequenceName = "SL_ORDER_ITEM_SEQ", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OrderItemSequence")
-//    @Column(name = "ID")
-//    private Long id;
-
     @JsonIgnore
     @JoinColumn(name = "MN_ORDER", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -62,20 +56,6 @@ public class OrderItem extends Document {
     public OrderItem() {
         this.parts = new ArrayList<>();
     }
-
-    /**
-     * @return the id
-     */
-//    public Long getId() {
-//        return id;
-//    }
-
-    /**
-     * @param id the id to set
-     */
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
 
     /**
      *

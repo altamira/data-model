@@ -5,10 +5,11 @@
  */
 package br.com.altamira.data.model.manufacture.process;
 
-import br.com.altamira.data.model.measurement.Measure;
+import br.com.altamira.data.model.measurement.Formula;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.FetchType;
@@ -29,7 +30,7 @@ public abstract class Resource extends br.com.altamira.data.model.Relation {
 
     @JsonIgnore
     @JoinColumn(name = "OPERATION", referencedColumnName = "ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Operation operation = new Operation();
 
     @JoinColumn(name = "MATERIAL", referencedColumnName = "ID")
@@ -38,9 +39,10 @@ public abstract class Resource extends br.com.altamira.data.model.Relation {
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "QUANTITY_VAL"))
+    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "QUANTITY_VAL")), 
+                        @AttributeOverride(name = "formula", column = @Column(name = "QUANTITY_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
-    private Measure quantity = new Measure();
+    private Formula quantity = new Formula();
 
     /**
      *
@@ -82,14 +84,14 @@ public abstract class Resource extends br.com.altamira.data.model.Relation {
     /**
      * @return the quantity
      */
-    public Measure getQuantity() {
+    public Formula getQuantity() {
         return quantity;
     }
 
     /**
      * @param quantity the quantity to set
      */
-    public void setQuantity(Measure quantity) {
+    public void setQuantity(Formula quantity) {
         this.quantity = quantity;
     }
 

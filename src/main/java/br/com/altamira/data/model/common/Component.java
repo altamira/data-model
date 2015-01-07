@@ -7,11 +7,10 @@ package br.com.altamira.data.model.common;
 
 import br.com.altamira.data.model.Relation;
 import br.com.altamira.data.model.measurement.Measure;
-import br.com.altamira.data.model.serialize.NullObjectSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -48,7 +47,8 @@ public class Component extends Relation {
     
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "QUANTITY_VAL"))
+    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "QUANTITY_VAL")), 
+                        @AttributeOverride(name = "formula", column = @Column(name = "QUANTITY_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
 

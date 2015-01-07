@@ -15,7 +15,6 @@ import br.com.altamira.data.model.measurement.Measure;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.AssociationOverride;

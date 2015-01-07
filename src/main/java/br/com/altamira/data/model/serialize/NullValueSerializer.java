@@ -25,10 +25,6 @@ public class NullValueSerializer extends JsonSerializer<Object> {
     public void serialize(Object nullKey, JsonGenerator jsonGenerator,
             SerializerProvider unused) throws IOException,
             JsonProcessingException {
-        if (nullKey instanceof br.com.altamira.data.model.Entity) {
-            jsonGenerator.writeString("{}");
-            return;
-        }
         jsonGenerator.writeString("");
     }
 

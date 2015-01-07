@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
  * @author Alessandro
  */
 @Embeddable
-public class Measure implements Serializable {
+public class Formula implements Serializable {
 
     /**
      *
@@ -29,6 +29,10 @@ public class Measure implements Serializable {
     @NotNull
     @Column(name = "VAL", nullable = false, precision = 19, scale = 10)
     private BigDecimal value = BigDecimal.valueOf(0);
+    
+    @NotNull
+    @Column(name = "FORMULA", nullable = false, columnDefinition = "nvarchar2(255)")
+    private String formula = "";
     
     //@JsonView(JSonViews.EntityView.class)
     @ManyToOne(/*cascade = CascadeType.ALL,*/optional = false, fetch = FetchType.EAGER)
@@ -63,4 +67,17 @@ public class Measure implements Serializable {
         this.unit = unit;
     }
 
+    /**
+     * @return the formula
+     */
+    public String getFormula() {
+        return formula;
+    }
+
+    /**
+     * @param formula the formula to set
+     */
+    public void setFormula(String formula) {
+        this.formula = formula;
+    }
 }

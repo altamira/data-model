@@ -7,6 +7,7 @@ package br.com.altamira.data.model.manufacture.process;
 
 import br.com.altamira.data.model.Entity;
 import br.com.altamira.data.model.common.Material;
+import br.com.altamira.data.model.measurement.Formula;
 import br.com.altamira.data.model.measurement.Measure;
 import java.util.logging.Logger;
 import javax.inject.Inject;
@@ -122,7 +123,7 @@ public class ResourceTest {
         System.out.println("getQuantity");
         Resource instance = new ResourceImpl();
         Measure expResult = null;
-        Measure result = instance.getQuantity();
+        Formula result = instance.getQuantity();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -134,7 +135,7 @@ public class ResourceTest {
     @Test
     public void testSetQuantity() {
         System.out.println("setQuantity");
-        Measure quantity = null;
+        Formula quantity = null;
         Resource instance = new ResourceImpl();
         instance.setQuantity(quantity);
         // TODO review the generated test code and remove the default call to fail.

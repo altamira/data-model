@@ -7,9 +7,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import br.com.altamira.data.model.common.Material;
-import br.com.altamira.data.model.measurement.Measure;
+import br.com.altamira.data.model.measurement.Formula;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Embedded;
 import javax.persistence.JoinColumn;
 
@@ -28,33 +29,38 @@ public class Product extends Material {
     
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "WIDTH_VAL"))
+    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "WIDTH_VAL")), 
+                        @AttributeOverride(name = "formula", column = @Column(name = "WIDTH_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WIDTH_UNIT"))
-    private Measure width = new Measure();
+    private Formula width = new Formula();
     
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "HEIGHT_VAL"))
+    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "HEIGHT_VAL")), 
+                        @AttributeOverride(name = "formula", column = @Column(name = "HEIGHT_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "HEIGHT_UNIT"))
-    private Measure height = new Measure();
+    private Formula height = new Formula();
     
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "LENGTH_VAL"))
+    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "LENGTH_VAL")), 
+                        @AttributeOverride(name = "formula", column = @Column(name = "LENGTH_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "LENGTH_UNIT"))
-    private Measure length = new Measure();    
+    private Formula length = new Formula();    
     
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "WEIGHT_VAL"))
+    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "WEIGHT_VAL")), 
+                        @AttributeOverride(name = "formula", column = @Column(name = "WEIGHT_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
-    private Measure weight = new Measure(); 
+    private Formula weight = new Formula(); 
     
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "DEPTH_VAL"))
+    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "DEPTH_VAL")), 
+                        @AttributeOverride(name = "formula", column = @Column(name = "DEPTH_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "DEPTH_UNIT"))
-    private Measure depth = new Measure(); 
+    private Formula depth = new Formula(); 
 
     /**
      *
@@ -92,70 +98,70 @@ public class Product extends Material {
     /**
      * @return the width
      */
-    public Measure getWidth() {
+    public Formula getWidth() {
         return width;
     }
 
     /**
      * @param width the width to set
      */
-    public void setWidth(Measure width) {
+    public void setWidth(Formula width) {
         this.width = width;
     }
 
     /**
      * @return the height
      */
-    public Measure getHeight() {
+    public Formula getHeight() {
         return height;
     }
 
     /**
      * @param height the height to set
      */
-    public void setHeight(Measure height) {
+    public void setHeight(Formula height) {
         this.height = height;
     }
 
     /**
      * @return the length
      */
-    public Measure getLength() {
+    public Formula getLength() {
         return length;
     }
 
     /**
      * @param length the length to set
      */
-    public void setLength(Measure length) {
+    public void setLength(Formula length) {
         this.length = length;
     }
 
     /**
      * @return the weight
      */
-    public Measure getWeight() {
+    public Formula getWeight() {
         return weight;
     }
 
     /**
      * @param weight the weight to set
      */
-    public void setWeight(Measure weight) {
+    public void setWeight(Formula weight) {
         this.weight = weight;
     }
 
     /**
      * @return the depth
      */
-    public Measure getDepth() {
+    public Formula getDepth() {
         return depth;
     }
 
     /**
      * @param depth the depth to set
      */
-    public void setDepth(Measure depth) {
+    public void setDepth(Formula depth) {
         this.depth = depth;
     }
     

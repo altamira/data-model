@@ -5,9 +5,11 @@
  */
 package br.com.altamira.data.model.purchase;
 
+import br.com.altamira.data.model.measurement.Formula;
 import br.com.altamira.data.model.measurement.Measure;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -41,21 +43,24 @@ public class Material extends br.com.altamira.data.model.common.Material {
     
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "THICKNESS_VAL"))
+    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "THICKNESS_VAL")), 
+                        @AttributeOverride(name = "formula", column = @Column(name = "THICKNESS_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "THICKNESS_UNIT"))
-    private Measure thickness = new Measure();
+    private Formula thickness = new Formula();
     
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "WIDTH_VAL"))
+    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "WIDTH_VAL")), 
+                        @AttributeOverride(name = "formula", column = @Column(name = "WIDTH_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WIDTH_UNIT"))
-    private Measure width = new Measure();
+    private Formula width = new Formula();
     
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "LENGTH_VAL"))
+    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "LENGTH_VAL")), 
+                        @AttributeOverride(name = "formula", column = @Column(name = "LENGTH_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "LENGTH_UNIT"))
-    private Measure length = new Measure();
+    private Formula length = new Formula();
     
     /**
      *
@@ -97,7 +102,7 @@ public class Material extends br.com.altamira.data.model.common.Material {
      * @param length
      */
     public Material(String lamination, String treatment,
-            Measure thickness, Measure width, Measure length) {
+            Formula thickness, Formula width, Formula length) {
         this.lamination = lamination;
         this.treatment = treatment;
         this.thickness = thickness;
@@ -140,42 +145,42 @@ public class Material extends br.com.altamira.data.model.common.Material {
     /**
      * @return the thickness
      */
-    public Measure getThickness() {
+    public Formula getThickness() {
         return thickness;
     }
 
     /**
      * @param thickness the thickness to set
      */
-    public void setThickness(Measure thickness) {
+    public void setThickness(Formula thickness) {
         this.thickness = thickness;
     }
 
     /**
      * @return the width
      */
-    public Measure getWidth() {
+    public Formula getWidth() {
         return width;
     }
 
     /**
      * @param width the width to set
      */
-    public void setWidth(Measure width) {
+    public void setWidth(Formula width) {
         this.width = width;
     }
 
     /**
      * @return the length
      */
-    public Measure getLength() {
+    public Formula getLength() {
         return length;
     }
 
     /**
      * @param length the length to set
      */
-    public void setLength(Measure length) {
+    public void setLength(Formula length) {
         this.length = length;
     }
 
