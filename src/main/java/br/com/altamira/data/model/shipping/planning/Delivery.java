@@ -1,5 +1,6 @@
 package br.com.altamira.data.model.shipping.planning;
 
+import br.com.altamira.data.model.manufacture.bom.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,8 +10,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import br.com.altamira.data.model.common.Document;
-import br.com.altamira.data.model.manufacture.bom.BOM;
-import br.com.altamira.data.model.manufacture.bom.BOMItemPart;
 import br.com.altamira.data.model.measurement.Measure;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,30 +26,20 @@ import javax.persistence.UniqueConstraint;
  *
  * Represents a sales order item
  */
-@Entity(name = "br.com.altamira.data.model.shipping.PlanningItem")
-@Table(name = "SH_PLANNING_ITEM", uniqueConstraints = @UniqueConstraint(columnNames = {"PLANNING", "BOM_ITEM_PART", "DELIVERY"}))
-public class PlanningItem extends Document {
+@Entity(name = "shipping.planning.Delivery")
+@Table(name = "MN_BOM_ITEM_CMP_SH", uniqueConstraints = @UniqueConstraint(columnNames = {"COMPONENT", "DELIVERY"}))
+public class Delivery extends Document {
 
     /**
      * Serial version ID
      */
     private static final long serialVersionUID = 7448803904699786256L;
 
-//    @Id
-//    @SequenceGenerator(name = "PlanningItemSequence", sequenceName = "SL_ORDER_ITEM_SEQ", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PlanningItemSequence")
-//    @Column(name = "ID")
-//    private Long id;
-
     @JsonIgnore
-    @JoinColumn(name = "PLANNING", referencedColumnName = "ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Planning planning = new Planning();
-
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
-    @JoinColumn(name = "BOM_ITEM_PART", referencedColumnName = "ID")
+    @JoinColumn(name = "COMPONENT", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private BOMItemPart bomItemPart;
+    private Component component;
     
     @NotNull
     @Temporal(value = TemporalType.TIMESTAMP)
@@ -65,8 +54,8 @@ public class PlanningItem extends Document {
     /**
      *
      */
-    public PlanningItem() {
-        this.parentType = Planning.class;
+    public Delivery() {
+        this.parentType = Component.class;
     }
     
     /**
@@ -76,10 +65,10 @@ public class PlanningItem extends Document {
     @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
         if (!parentType.isInstance(parent)) {
-            throw new IllegalArgumentException("PlanningItem requires a Planning instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
+            throw new IllegalArgumentException("Shipping requires a Component instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
         }
      
-        setPlanning((Planning)parent);
+        setComponent((Component)parent);
     }
     
     /**
@@ -88,21 +77,23 @@ public class PlanningItem extends Document {
      */
     @Override
     public br.com.altamira.data.model.Entity getParent() {
-        return getPlanning();
-    }
-    
-    /**
-     * @return the planning
-     */
-    public Planning getPlanning() {
-        return planning;
+        return getComponent();
     }
 
     /**
-     * @param planning the planning to set
+     * @return the component
      */
-    public void setPlanning(Planning planning) {
-        this.planning = planning;
+    @JsonIgnore
+    public Component getComponent() {
+        return component;
+    }
+
+    /**
+     * @param component the component to set
+     */
+    @JsonIgnore
+    public void setComponent(Component component) {
+        this.component = component;
     }
 
     /**
@@ -118,21 +109,7 @@ public class PlanningItem extends Document {
     public void setDelivery(Date delivery) {
         this.delivery = delivery;
     }
-
-    /**
-     * @return the bomItemPart
-     */
-    public BOMItemPart getBomItemPart() {
-        return bomItemPart;
-    }
-
-    /**
-     * @param bomItemPart the bomItemPart to set
-     */
-    public void setBomItemPart(BOMItemPart bomItemPart) {
-        this.bomItemPart = bomItemPart;
-    }
-
+    
     /**
      * @return the quantity
      */

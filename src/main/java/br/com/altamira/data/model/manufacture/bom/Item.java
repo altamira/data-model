@@ -27,7 +27,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "MN_BOM_ITEM", uniqueConstraints = @UniqueConstraint(columnNames = {"BOM", "ITEM"}))
-public class BOMItem extends Resource {
+public class Item extends Resource {
 
     /**
      * Serial version ID
@@ -50,13 +50,13 @@ public class BOMItem extends Resource {
     private String description = "";
 
     @JsonView(JSonViews.EntityView.class)
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "bomItem", fetch = FetchType.LAZY, orphanRemoval = false)
-    private List<BOMItemPart> parts = new ArrayList<>();;
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "item", fetch = FetchType.LAZY, orphanRemoval = false)
+    private List<Component> component = new ArrayList<>();
 
     /**
      *
      */
-    public BOMItem() {
+    public Item() {
         this.parentType = BOM.class;
     }
     
@@ -67,7 +67,7 @@ public class BOMItem extends Resource {
     @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
         if (!parentType.isInstance(parent)) {
-            throw new IllegalArgumentException("BOMItem requires a BOM instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
+            throw new IllegalArgumentException("Item requires a BOM instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
         }
      
         setBOM((BOM)parent);
@@ -136,16 +136,16 @@ public class BOMItem extends Resource {
      *
      * @return
      */
-    public List<BOMItemPart> getParts() {
-        return parts;
+    public List<Component> getComponent() {
+        return component;
     }
 
     /**
      *
-     * @param parts
+     * @param component
      */
-    public void setPart(List<BOMItemPart> parts) {
-        this.parts = parts;
+    public void setComponent(List<Component> component) {
+        this.component = component;
     }
 
 }

@@ -1,10 +1,9 @@
-package br.com.altamira.data.model.manufacture.bom;
+package br.com.altamira.data.model.shipping.planning;
 
 import br.com.altamira.data.model.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonView;
  * 
  * @author Alessandro
  */
-@Entity
+@Entity(name = "shipping.planning.BOM")
 @Table(name = "MN_BOM")
 public class BOM extends Resource {
 
@@ -75,7 +74,7 @@ public class BOM extends Resource {
     private Date checked;
 
     @JsonView(JSonViews.EntityView.class)
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "bom", fetch = FetchType.LAZY, orphanRemoval = false)
+    @OneToMany(mappedBy = "bom", fetch = FetchType.EAGER, orphanRemoval = false)
     private List<Item> item;
 
     /**

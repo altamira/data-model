@@ -25,8 +25,8 @@ import javax.validation.constraints.NotNull;
  *
  * @author Alessandro
  */
-@Entity
 @Table(name = "CM_COMPONENT")
+@Entity(name = "common.Component")
 public class Component extends Relation {
 
     /**

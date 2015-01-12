@@ -12,22 +12,30 @@ import javax.validation.constraints.NotNull;
 import br.com.altamira.data.model.common.Color;
 import br.com.altamira.data.model.common.Material;
 import br.com.altamira.data.model.measurement.Measure;
+import br.com.altamira.data.model.serialize.JSonViews;
+import br.com.altamira.data.model.serialize.NullCollectionSerializer;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author alessandro.holanda
  */
-@Entity
-@Table(name = "MN_BOM_ITEM_PART")
-public class BOMItemPart extends Resource {
+@Table(name = "MN_BOM_ITEM_CMP")
+@Entity(name = "manufacture.bom.Component")
+public class Component extends Resource {
 
     /**
      * Serial version ID
@@ -35,9 +43,9 @@ public class BOMItemPart extends Resource {
     private static final long serialVersionUID = -4871377387938455032L;
 
     @JsonIgnore
-    @JoinColumn(name = "BOM_ITEM", referencedColumnName = "ID")
+    @JoinColumn(name = "ITEM", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private BOMItem bomItem;
+    private Item item;
 
     @NotNull
     @JoinColumn(name = "MATERIAL", referencedColumnName = "ID", nullable = false)
@@ -79,11 +87,17 @@ public class BOMItemPart extends Resource {
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
     private Measure weight = new Measure();
 
+    @JsonView(JSonViews.EntityView.class)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = NullCollectionSerializer.class)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "component", fetch = FetchType.LAZY, orphanRemoval = false)
+    private List<Delivery> delivery = new ArrayList<>();
+
     /**
      *
      */
-    public BOMItemPart() {
-        this.parentType = BOMItem.class;
+    public Component() {
+        this.parentType = Item.class;
     }
 
     /**
@@ -93,10 +107,10 @@ public class BOMItemPart extends Resource {
     @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
         if (!parentType.isInstance(parent)) {
-            throw new IllegalArgumentException("BOMItemPart requires a BOMItem instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
+            throw new IllegalArgumentException("Component requires a Item instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
         }
 
-        setBOMItem((BOMItem) parent);
+        setItem((Item) parent);
     }
 
     /**
@@ -105,7 +119,7 @@ public class BOMItemPart extends Resource {
      */
     @Override
     public br.com.altamira.data.model.Entity getParent() {
-        return getBOMItem();
+        return getItem();
     }
 
     /**
@@ -121,7 +135,7 @@ public class BOMItemPart extends Resource {
     public void setMaterial(br.com.altamira.data.model.common.Material material) {
         this.material = material;
     }
-    
+
     /**
      *
      * @return
@@ -143,17 +157,17 @@ public class BOMItemPart extends Resource {
      * @return
      */
     @JsonIgnore
-    public BOMItem getBOMItem() {
-        return getBOMItem();
+    public Item getItem() {
+        return getItem();
     }
 
     /**
      *
-     * @param bomItem
+     * @param item
      */
     @JsonIgnore
-    public void setBOMItem(BOMItem bomItem) {
-        this.bomItem = bomItem;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     /**
@@ -233,4 +247,18 @@ public class BOMItemPart extends Resource {
      public void setProduct(Product product) {
      this.product = product;
      }*/
+
+    /**
+     * @return the delivery
+     */
+    public List<Delivery> getDelivery() {
+        return delivery;
+    }
+
+    /**
+     * @param delivery the delivery to set
+     */
+    public void setDelivery(List<Delivery> delivery) {
+        this.delivery = delivery;
+    }
 }
