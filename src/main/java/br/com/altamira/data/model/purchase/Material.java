@@ -6,6 +6,7 @@
 package br.com.altamira.data.model.purchase;
 
 import br.com.altamira.data.model.measurement.Formula;
+import br.com.altamira.data.model.measurement.Variables;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -39,35 +40,39 @@ public class Material extends br.com.altamira.data.model.common.Material {
     @Basic(optional = false)
     @Column(name = "TREATMENT", columnDefinition = "char(2)")
     private String treatment = "";
-    
+
     @NotNull
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "THICKNESS_VAL")), 
-                        @AttributeOverride(name = "formula", column = @Column(name = "THICKNESS_FORMULA"))})
+    @AttributeOverrides({
+        @AttributeOverride(name = "value", column = @Column(name = "THICKNESS_VAL")),
+        @AttributeOverride(name = "formula", column = @Column(name = "THICKNESS_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "THICKNESS_UNIT"))
     private Formula thickness = new Formula();
-    
+
     @NotNull
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "WIDTH_VAL")), 
-                        @AttributeOverride(name = "formula", column = @Column(name = "WIDTH_FORMULA"))})
+    @AttributeOverrides({
+        @AttributeOverride(name = "value", column = @Column(name = "WIDTH_VAL")),
+        @AttributeOverride(name = "formula", column = @Column(name = "WIDTH_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WIDTH_UNIT"))
     private Formula width = new Formula();
-    
+
     @NotNull
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "LENGTH_VAL")), 
-                        @AttributeOverride(name = "formula", column = @Column(name = "LENGTH_FORMULA"))})
+    @AttributeOverrides({
+        @AttributeOverride(name = "value", column = @Column(name = "LENGTH_VAL")),
+        @AttributeOverride(name = "formula", column = @Column(name = "LENGTH_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "LENGTH_UNIT"))
     private Formula length = new Formula();
-        
+
     @NotNull
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "WEIGHT_VAL")), 
-                        @AttributeOverride(name = "formula", column = @Column(name = "WEIGHT_FORMULA"))})
+    @AttributeOverrides({
+        @AttributeOverride(name = "value", column = @Column(name = "WEIGHT_VAL")),
+        @AttributeOverride(name = "formula", column = @Column(name = "WEIGHT_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
-    private Formula weight = new Formula(); 
-    
+    private Formula weight = new Formula();
+
     /**
      *
      */
@@ -97,8 +102,8 @@ public class Material extends br.com.altamira.data.model.common.Material {
         this.code = code;
         this.description = description;
         this.setType(type);
-    } 
-    
+    }
+
     /**
      *
      * @param lamination
@@ -204,4 +209,14 @@ public class Material extends br.com.altamira.data.model.common.Material {
         this.weight = weight;
     }
 
+    @Override
+    public Variables calcule(Variables variable) {
+
+        variable.replace("width", this.getWidth().getValue(variable));
+        variable.replace("length", this.getLength().getValue(variable));
+        variable.replace("thickness", this.getThickness().getValue(variable));
+        variable.replace("weight", this.getWeight().getValue(variable));
+
+        return variable;
+    }
 }

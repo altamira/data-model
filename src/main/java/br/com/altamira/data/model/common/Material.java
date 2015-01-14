@@ -6,6 +6,7 @@
 package br.com.altamira.data.model.common;
 
 import br.com.altamira.data.model.Resource;
+import br.com.altamira.data.model.measurement.Variables;
 import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullCollectionSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -146,4 +147,7 @@ public class Material extends Resource {
         return super.getType();
     }
 
+    public Variables calcule(Variables variable) {
+        return variable;
+    }
 }

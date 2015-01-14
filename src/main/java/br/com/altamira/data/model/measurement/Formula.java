@@ -5,13 +5,16 @@
  */
 package br.com.altamira.data.model.measurement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -39,13 +42,32 @@ public class Formula implements Serializable {
     @JoinColumn(name = "UNIT", referencedColumnName = "ID", insertable = false, updatable = false/*, nullable = false, unique = false*/)
     private Unit unit = new Unit();
 
+    @Transient
+    private Map<String, BigDecimal> variable = new Variables();
+    
     /**
+     * @param variables
      * @return the value
      */
-    public BigDecimal getValue() {
-        return value;
+    public BigDecimal getValue(Map<String, BigDecimal> variables) {
+        if (this.formula == null && this.formula.isEmpty()) {
+            return value;
+        }
+        
+        setVariable(variables);
+        
+        Expression exp = new Expression(this.formula);
+        exp.setVariables(this.variable);
+        
+        this.value = exp.eval();
+        
+        return this.value;
     }
-
+    
+    public BigDecimal getValue() {
+        return getValue(null);
+    }
+    
     /**
      * @param value the value to set
      */
@@ -80,4 +102,27 @@ public class Formula implements Serializable {
     public void setFormula(String formula) {
         this.formula = formula;
     }
+
+    /**
+     * @return the variable
+     */
+    public Map<String, BigDecimal> getVariable() {
+        return this.variable;
+    }
+
+    /**
+     * @param variables
+     */
+    public void setVariable(Map<String, BigDecimal> variables) {
+                
+        if (variables == null || variables.isEmpty()) {
+            return;
+        }
+
+        variables.forEach((k, v) -> {
+            this.variable.put(k, v);
+        });
+
+    }
+
 }

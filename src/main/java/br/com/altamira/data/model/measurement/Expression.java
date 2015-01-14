@@ -293,6 +293,9 @@ public class Expression {
      */
     public void setExpression(String expression) {
         this.expression = expression;
+        /*Variables.translateTable("pt-BR").forEach((k, w) -> {
+             this.expression = expression.replace(k, w);
+        });*/
     }
 
     /**
@@ -599,7 +602,8 @@ public class Expression {
      * <code>"sin(y)>0 & max(z, 3)>3"</code>
      */
     public Expression(String expression) {
-        this.expression = expression;
+        setExpression(expression);
+                
         addOperator(new Operator("+", 20, true) {
             @Override
             public BigDecimal eval(BigDecimal v1, BigDecimal v2) {
@@ -945,8 +949,8 @@ public class Expression {
             String token = tokenizer.next();
             if (isNumber(token)) {
                 outputQueue.add(token);
-            } else if (getVariables().containsKey(token)) {
-                outputQueue.add(token);
+            } else if (getVariables().containsKey(Variables.translateKey(token))) {
+                outputQueue.add(Variables.translateKey(token));
             } else if (getFunctions().containsKey(token.toUpperCase())) {
                 stack.push(token);
                 lastFunction = token;
@@ -1000,7 +1004,7 @@ public class Expression {
                 throw new RuntimeException("Mismatched parentheses");
             }
             if (!operators.containsKey(element)) {
-                throw new RuntimeException("Unknown operator or function: "
+                throw new RuntimeException("Unknown variable, operator or function: "
                         + element);
             }
             outputQueue.add(element);
@@ -1026,7 +1030,7 @@ public class Expression {
                 stack.push(getVariables().get(token).round(mc));
             } else if (getFunctions().containsKey(token.toUpperCase())) {
                 Function f = getFunctions().get(token.toUpperCase());
-                ArrayList<BigDecimal> p = new ArrayList<BigDecimal>(
+                ArrayList<BigDecimal> p = new ArrayList<>(
                         f.getNumParams());
                 for (int i = 0; i < f.numParams; i++) {
                     p.add(0, stack.pop());
@@ -1039,7 +1043,7 @@ public class Expression {
         }
         return stack.pop().stripTrailingZeros();
     }
-
+    
     /**
      * Sets the precision for expression evaluation.
      *
@@ -1168,6 +1172,28 @@ public class Expression {
         return new Tokenizer(this.getExpression());
     }
 
+    /**
+     * Evaluates the expression.
+     *
+     * @return The result of the expression.
+     */
+    public List<String> getExpressionVariables() {
+
+        List<String> vars = new ArrayList<>();
+
+        getRPN().forEach((token) -> {
+            if (getOperators().containsKey(token)) {
+
+            } else if (getVariables().containsKey(token)) {
+                vars.add(token);
+            } else if (getFunctions().containsKey(token.toUpperCase())) {
+                
+            } else {
+                
+            }
+        });
+        return vars;
+    }
     /**
      * Cached access to the RPN notation of this expression, ensures only one
      * calculation of the RPN per expression instance. If no cached instance

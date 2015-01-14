@@ -1,6 +1,5 @@
 package br.com.altamira.data.model.sales;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -8,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import br.com.altamira.data.model.common.Material;
 import br.com.altamira.data.model.measurement.Formula;
+import br.com.altamira.data.model.measurement.Variables;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -26,47 +26,52 @@ public class Product extends Material {
      *
      */
     private static final long serialVersionUID = -4871377387938455032L;
-    
+
     @NotNull
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "WIDTH_VAL")), 
-                        @AttributeOverride(name = "formula", column = @Column(name = "WIDTH_FORMULA"))})
+    @AttributeOverrides({
+        @AttributeOverride(name = "value", column = @Column(name = "WIDTH_VAL")),
+        @AttributeOverride(name = "formula", column = @Column(name = "WIDTH_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WIDTH_UNIT"))
     private Formula width = new Formula();
-    
+
     @NotNull
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "HEIGHT_VAL")), 
-                        @AttributeOverride(name = "formula", column = @Column(name = "HEIGHT_FORMULA"))})
+    @AttributeOverrides({
+        @AttributeOverride(name = "value", column = @Column(name = "HEIGHT_VAL")),
+        @AttributeOverride(name = "formula", column = @Column(name = "HEIGHT_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "HEIGHT_UNIT"))
     private Formula height = new Formula();
-    
+
     @NotNull
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "LENGTH_VAL")), 
-                        @AttributeOverride(name = "formula", column = @Column(name = "LENGTH_FORMULA"))})
+    @AttributeOverrides({
+        @AttributeOverride(name = "value", column = @Column(name = "LENGTH_VAL")),
+        @AttributeOverride(name = "formula", column = @Column(name = "LENGTH_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "LENGTH_UNIT"))
-    private Formula length = new Formula();    
-    
+    private Formula length = new Formula();
+
     @NotNull
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "WEIGHT_VAL")), 
-                        @AttributeOverride(name = "formula", column = @Column(name = "WEIGHT_FORMULA"))})
+    @AttributeOverrides({
+        @AttributeOverride(name = "value", column = @Column(name = "WEIGHT_VAL")),
+        @AttributeOverride(name = "formula", column = @Column(name = "WEIGHT_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
-    private Formula weight = new Formula(); 
-    
+    private Formula weight = new Formula();
+
     @NotNull
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "DEPTH_VAL")), 
-                        @AttributeOverride(name = "formula", column = @Column(name = "DEPTH_FORMULA"))})
+    @AttributeOverrides({
+        @AttributeOverride(name = "value", column = @Column(name = "DEPTH_VAL")),
+        @AttributeOverride(name = "formula", column = @Column(name = "DEPTH_FORMULA"))})
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "DEPTH_UNIT"))
-    private Formula depth = new Formula(); 
+    private Formula depth = new Formula();
 
     /**
      *
      */
     public Product() {
-        
+
     }
 
     /**
@@ -93,7 +98,7 @@ public class Product extends Material {
         this.code = code;
         this.description = description;
         this.setType(type);
-    }    
+    }
 
     /**
      * @return the width
@@ -164,5 +169,16 @@ public class Product extends Material {
     public void setDepth(Formula depth) {
         this.depth = depth;
     }
-    
+
+    @Override
+    public Variables calcule(Variables variable) {
+        
+        variable.replace("width", this.getWidth().getValue(variable));
+        variable.replace("length", this.getLength().getValue(variable));
+        variable.replace("height", this.getHeight().getValue(variable));
+        variable.replace("depth", this.getDepth().getValue(variable));
+        variable.replace("weight", this.getWeight().getValue(variable));
+        
+        return variable;
+    }
 }
