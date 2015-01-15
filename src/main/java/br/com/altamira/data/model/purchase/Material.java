@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  * @author Alessandro
  */
 @Entity(name = "purchasing.Material")
-@Table(name = "PR_MATERIAL", uniqueConstraints = @UniqueConstraint(columnNames = {"LAMINATION", "TREATMENT", "THICKNESS_VAL", "WIDTH_VAL", "LENGTH_VAL"}))
+@Table(name = "PR_MATERIAL", uniqueConstraints = @UniqueConstraint(columnNames = {"LAMINATION", "TREATMENT", "THICKNESS", "WIDTH", "LENGTH"}))
 public class Material extends br.com.altamira.data.model.common.Material {
 
     /**
@@ -43,33 +43,25 @@ public class Material extends br.com.altamira.data.model.common.Material {
 
     @NotNull
     @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "value", column = @Column(name = "THICKNESS_VAL")),
-        @AttributeOverride(name = "formula", column = @Column(name = "THICKNESS_FORMULA"))})
+    @AttributeOverride(name = "value", column = @Column(name = "THICKNESS"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "THICKNESS_UNIT"))
     private Formula thickness = new Formula();
 
     @NotNull
     @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "value", column = @Column(name = "WIDTH_VAL")),
-        @AttributeOverride(name = "formula", column = @Column(name = "WIDTH_FORMULA"))})
+    @AttributeOverride(name = "value", column = @Column(name = "WIDTH"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WIDTH_UNIT"))
     private Formula width = new Formula();
 
     @NotNull
     @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "value", column = @Column(name = "LENGTH_VAL")),
-        @AttributeOverride(name = "formula", column = @Column(name = "LENGTH_FORMULA"))})
+    @AttributeOverride(name = "value", column = @Column(name = "LENGTH"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "LENGTH_UNIT"))
     private Formula length = new Formula();
 
     @NotNull
     @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "value", column = @Column(name = "WEIGHT_VAL")),
-        @AttributeOverride(name = "formula", column = @Column(name = "WEIGHT_FORMULA"))})
+    @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
     private Formula weight = new Formula();
 

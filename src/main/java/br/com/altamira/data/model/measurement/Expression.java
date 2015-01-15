@@ -338,6 +338,10 @@ public class Expression {
      */
     public void setVariables(Map<String, BigDecimal> variables) {
         this.variables = variables;
+        
+        this.variables.put("PI", PI);
+        this.variables.put("TRUE", BigDecimal.ONE);
+        this.variables.put("FALSE", BigDecimal.ZERO);
     }
 
     /**
@@ -903,6 +907,47 @@ public class Expression {
                 return new BigDecimal(ix, mc.getPrecision());
             }
         });
+        // area calcule for geometric function
+        // parameters: side
+        addFunction(new Function("AREA_SQUARE", 1) {
+            @Override
+            public BigDecimal eval(List<BigDecimal> parameters) {
+                BigDecimal side = parameters.get(0);
+                return side.multiply(new BigDecimal(2));
+            }
+        });
+        // parameters: length, width
+        addFunction(new Function("AREA_RECTANGLE", 2) {
+            @Override
+            public BigDecimal eval(List<BigDecimal> parameters) {
+                BigDecimal length = parameters.get(0);
+                BigDecimal width = parameters.get(1);
+                
+                return length.multiply(width);
+            }
+        });
+        // parameter: radius
+        addFunction(new Function("AREA_CIRCLE", 1) {
+            @Override
+            public BigDecimal eval(List<BigDecimal> parameters) {
+                BigDecimal radius = parameters.get(0);
+                return radius.pow(2).multiply(PI);
+            }
+        });
+        // parameter: internal length, radius
+        addFunction(new Function("AREA_OBLONG", 2) {
+            @Override
+            public BigDecimal eval(List<BigDecimal> parameters) {
+                BigDecimal length = parameters.get(0);
+                BigDecimal radius = parameters.get(1);
+               
+                // calcule circle area
+                BigDecimal circle_area = radius.pow(2).multiply(PI);
+                BigDecimal rectangle_area = length.multiply(radius.multiply(new BigDecimal(2)));
+
+                return rectangle_area.add(circle_area);
+            }
+        });
 
         variables.put("PI", PI);
         variables.put("TRUE", BigDecimal.ONE);
@@ -951,8 +996,8 @@ public class Expression {
                 outputQueue.add(token);
             } else if (getVariables().containsKey(Variables.translateKey(token))) {
                 outputQueue.add(Variables.translateKey(token));
-            } else if (getFunctions().containsKey(token.toUpperCase())) {
-                stack.push(token);
+            } else if (getFunctions().containsKey(Functions.translate(token.toUpperCase()))) {
+                stack.push(Functions.translate(token.toUpperCase()));
                 lastFunction = token;
             } else if (Character.isLetter(token.charAt(0))) {
                 stack.push(token);

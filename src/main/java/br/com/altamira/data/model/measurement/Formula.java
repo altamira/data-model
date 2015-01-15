@@ -5,7 +5,6 @@
  */
 package br.com.altamira.data.model.measurement;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Map;
@@ -30,12 +29,8 @@ public class Formula implements Serializable {
     private static final long serialVersionUID = 3833764960269130334L;
 
     @NotNull
-    @Column(name = "VAL", nullable = false, precision = 19, scale = 10)
-    private BigDecimal value = BigDecimal.valueOf(0);
-    
-    @NotNull
-    @Column(name = "FORMULA", nullable = false, columnDefinition = "nvarchar2(255)")
-    private String formula = "";
+    @Column(name = "VALUE", nullable = false, columnDefinition = "nvarchar2(255)")
+    private String value = "";
     
     //@JsonView(JSonViews.EntityView.class)
     @ManyToOne(/*cascade = CascadeType.ALL,*/optional = false, fetch = FetchType.EAGER)
@@ -50,31 +45,29 @@ public class Formula implements Serializable {
      * @return the value
      */
     public BigDecimal getValue(Map<String, BigDecimal> variables) {
-        if (this.formula == null && this.formula.isEmpty()) {
-            return value;
-        }
-        
         setVariable(variables);
         
-        Expression exp = new Expression(this.formula);
+        Expression exp = new Expression(this.getValue());
         exp.setVariables(this.variable);
-        
-        this.value = exp.eval();
-        
-        return this.value;
+        exp.setPrecision(10);
+
+        return exp.eval();
     }
-    
-    public BigDecimal getValue() {
-        return getValue(null);
+
+    /**
+     * @return the value
+     */
+    public String getValue() {
+        return value;
     }
-    
+
     /**
      * @param value the value to set
      */
-    public void setValue(BigDecimal value) {
+    public void setValue(String value) {
         this.value = value;
     }
-
+    
     /**
      * @return the unit
      */
@@ -87,20 +80,6 @@ public class Formula implements Serializable {
      */
     public void setUnit(Unit unit) {
         this.unit = unit;
-    }
-
-    /**
-     * @return the formula
-     */
-    public String getFormula() {
-        return formula;
-    }
-
-    /**
-     * @param formula the formula to set
-     */
-    public void setFormula(String formula) {
-        this.formula = formula;
     }
 
     /**

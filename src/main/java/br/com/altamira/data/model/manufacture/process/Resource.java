@@ -39,8 +39,7 @@ public abstract class Resource extends br.com.altamira.data.model.Relation {
 
     @NotNull
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "value", column = @Column(name = "QUANTITY_VAL")), 
-                        @AttributeOverride(name = "formula", column = @Column(name = "QUANTITY_FORMULA"))})
+    @AttributeOverride(name = "value", column = @Column(name = "QUANTITY"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Formula quantity = new Formula();
 

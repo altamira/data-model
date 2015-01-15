@@ -29,41 +29,31 @@ public class Product extends Material {
 
     @NotNull
     @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "value", column = @Column(name = "WIDTH_VAL")),
-        @AttributeOverride(name = "formula", column = @Column(name = "WIDTH_FORMULA"))})
+    @AttributeOverride(name = "value", column = @Column(name = "WIDTH"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WIDTH_UNIT"))
     private Formula width = new Formula();
 
     @NotNull
     @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "value", column = @Column(name = "HEIGHT_VAL")),
-        @AttributeOverride(name = "formula", column = @Column(name = "HEIGHT_FORMULA"))})
+    @AttributeOverride(name = "value", column = @Column(name = "HEIGHT"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "HEIGHT_UNIT"))
     private Formula height = new Formula();
 
     @NotNull
     @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "value", column = @Column(name = "LENGTH_VAL")),
-        @AttributeOverride(name = "formula", column = @Column(name = "LENGTH_FORMULA"))})
+    @AttributeOverride(name = "value", column = @Column(name = "LENGTH"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "LENGTH_UNIT"))
     private Formula length = new Formula();
 
     @NotNull
     @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "value", column = @Column(name = "WEIGHT_VAL")),
-        @AttributeOverride(name = "formula", column = @Column(name = "WEIGHT_FORMULA"))})
+    @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
     private Formula weight = new Formula();
 
     @NotNull
     @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "value", column = @Column(name = "DEPTH_VAL")),
-        @AttributeOverride(name = "formula", column = @Column(name = "DEPTH_FORMULA"))})
+    @AttributeOverride(name = "value", column = @Column(name = "DEPTH"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "DEPTH_UNIT"))
     private Formula depth = new Formula();
 
