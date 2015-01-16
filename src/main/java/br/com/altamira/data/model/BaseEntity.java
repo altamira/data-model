@@ -38,7 +38,7 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     private static final long serialVersionUID = -73112170881659955L;
 
     @Id
-    @SequenceGenerator(name = "EntitySequence", sequenceName = "ENTITY_SEQUENCE", initialValue = 30000, allocationSize = 1)
+    @SequenceGenerator(name = "EntitySequence", sequenceName = "ENTITY_SEQUENCE", initialValue = 50000, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EntitySequence")
     @Column(name = "ID")
     protected Long id = 0l;
@@ -55,10 +55,10 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
 
     // TODO: store class name from subclass in an ENTITY table
     @NotNull
-    @JsonIgnore
+    //@JsonIgnore
     @JsonIgnoreProperties(ignoreUnknown = true)
     @Column(name = "ENTITY_CLASS")
-    private String type;
+    protected String type;
 
     /**
      *
@@ -70,7 +70,8 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
      *
      */
     public BaseEntity() {
-        this.type = this.getClass().getName();
+        this.type = this.getClass().getName().substring("br.com.altamira.data.model".length() + 1);
+
     }
 
     /**
@@ -85,7 +86,6 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     @PrePersist
     void updateModificationTimestamp() {
         this.lastModified = System.currentTimeMillis();
-        this.type = this.getClass().getName();
     }
 
     /**
@@ -162,10 +162,9 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     /**
      * @param type
      */
-    public void setType(String type) {
-        this.type = type;
-    }
-
+    /*public void setType(String type) {
+     this.type = type;
+     }*/
     /**
      * @return the id
      */

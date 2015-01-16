@@ -1,6 +1,5 @@
 package br.com.altamira.data.model.shipping.planning;
 
-import br.com.altamira.data.model.manufacture.bom.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

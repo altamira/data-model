@@ -8,7 +8,6 @@ package br.com.altamira.data.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import javax.ejb.Local;
 
 /**
  *

@@ -20,13 +20,13 @@ public class Machine extends br.com.altamira.data.model.common.Material {
      *
      */
     private static final long serialVersionUID = 5462259250446467012L;
-
+ 
     /**
      *
      */
     public Machine() {
         
-    }
+}
     
     /**
      *
@@ -50,6 +50,6 @@ public class Machine extends br.com.altamira.data.model.common.Material {
         this.id = id;
         this.code = code;
         this.description = description;
-        this.setType(type);
+        this.type = type;
     }     
 }

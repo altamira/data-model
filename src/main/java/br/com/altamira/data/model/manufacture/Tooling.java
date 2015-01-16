@@ -51,6 +51,6 @@ public class Tooling extends Material {
         this.id = id;
         this.code = code;
         this.description = description;
-        this.setType(type);
+        this.type = type;
     } 
 }

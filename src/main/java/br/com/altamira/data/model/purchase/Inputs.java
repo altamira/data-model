@@ -20,10 +20,10 @@ public class Inputs extends br.com.altamira.data.model.common.Material {
      *
      */
     private static final long serialVersionUID = 1900892879991346801L;
-
+    
     public Inputs() {
         
-    }
+}
     
     /**
      *
@@ -47,7 +47,7 @@ public class Inputs extends br.com.altamira.data.model.common.Material {
         this.id = id;
         this.code = code;
         this.description = description;
-        this.setType(type);
+        this.type = type;
     } 
 
     

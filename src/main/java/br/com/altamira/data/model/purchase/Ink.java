@@ -50,6 +50,6 @@ public class Ink extends br.com.altamira.data.model.common.Material {
         this.id = id;
         this.code = code;
         this.description = description;
-        this.setType(type);
+        this.type = type;
     }     
 }

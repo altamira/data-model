@@ -52,6 +52,6 @@ public class Component extends Product {
         this.id = id;
         this.code = code;
         this.description = description;
-        this.setType(type);
+        this.type = type;
     }     
 }

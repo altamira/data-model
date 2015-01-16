@@ -9,7 +9,6 @@ import br.com.altamira.data.model.measurement.Formula;
 import br.com.altamira.data.model.measurement.Variables;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -64,13 +63,11 @@ public class Material extends br.com.altamira.data.model.common.Material {
     @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
     private Formula weight = new Formula();
-
-    /**
-     *
-     */
+    
     public Material() {
+        
     }
-
+    
     /**
      *
      * @param id
@@ -93,8 +90,8 @@ public class Material extends br.com.altamira.data.model.common.Material {
         this.id = id;
         this.code = code;
         this.description = description;
-        this.setType(type);
-    }
+        this.type = type;
+    } 
 
     /**
      *

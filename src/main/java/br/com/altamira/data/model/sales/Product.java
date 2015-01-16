@@ -87,7 +87,7 @@ public class Product extends Material {
         this.id = id;
         this.code = code;
         this.description = description;
-        this.setType(type);
+        this.type = type;
     }
 
     /**
