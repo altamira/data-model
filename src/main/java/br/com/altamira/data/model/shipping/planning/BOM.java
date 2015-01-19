@@ -74,7 +74,7 @@ public class BOM extends Resource {
     private Date checked;
 
     @JsonView(JSonViews.EntityView.class)
-    @OneToMany(mappedBy = "bom", fetch = FetchType.EAGER, orphanRemoval = false)
+    @OneToMany(mappedBy = "bom", orphanRemoval = false)
     private List<Item> item;
 
     /**

@@ -49,7 +49,7 @@ public class Item extends Resource {
     private String description = "";
 
     @JsonView(JSonViews.EntityView.class)
-    @OneToMany(mappedBy = "item", fetch = FetchType.EAGER, orphanRemoval = false)
+    @OneToMany(mappedBy = "item", orphanRemoval = false)
     private List<Component> component = new ArrayList<>();
 
     /**
