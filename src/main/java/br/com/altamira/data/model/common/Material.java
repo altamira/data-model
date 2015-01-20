@@ -147,7 +147,8 @@ public class Material extends Resource {
         return super.getType();
     }
 
-    public Variables calcule(Variables variable) {
+    public Variables setVariable(Variables variable) {
+        // do nothing here, see inherited classes from br.com.altamira.data.model.commom.Material
         return variable;
     }
 }

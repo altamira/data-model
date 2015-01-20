@@ -30,6 +30,7 @@ public class Variables extends HashMap<String, BigDecimal> {
                         new SimpleEntry<>("altura", "height"),
                         new SimpleEntry<>("espessura", "thickness"),
                         new SimpleEntry<>("profundidade", "depth"),
+                        new SimpleEntry<>("area", "area"),
                         new SimpleEntry<>("peso", "weight"))
                         .collect(Collectors.toMap((e) -> e.getKey(), (e) -> e.getValue())));
         }
@@ -38,6 +39,7 @@ public class Variables extends HashMap<String, BigDecimal> {
     }
 
     public Variables() {
+        /*
         put("quantity", BigDecimal.ZERO);
         put("width", BigDecimal.ZERO);
         put("length", BigDecimal.ZERO);
@@ -45,6 +47,7 @@ public class Variables extends HashMap<String, BigDecimal> {
         put("weight", BigDecimal.ZERO);
         put("height", BigDecimal.ZERO);
         put("depth", BigDecimal.ZERO);
+        */
     }
 
 

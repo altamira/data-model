@@ -198,8 +198,13 @@ public class Material extends br.com.altamira.data.model.common.Material {
         this.weight = weight;
     }
 
+    /**
+     *
+     * @param variable
+     * @return
+     */
     @Override
-    public Variables calcule(Variables variable) {
+    public Variables setVariable(Variables variable) {
 
         variable.replace("width", this.getWidth().getValue(variable));
         variable.replace("length", this.getLength().getValue(variable));

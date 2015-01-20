@@ -57,6 +57,12 @@ public class Product extends Material {
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "DEPTH_UNIT"))
     private Formula depth = new Formula();
 
+    @NotNull
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "AREA"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "AREA_UNIT"))
+    private Formula area = new Formula();
+    
     /**
      *
      */
@@ -160,8 +166,27 @@ public class Product extends Material {
         this.depth = depth;
     }
 
+    /**
+     * @return the area
+     */
+    public Formula getArea() {
+        return area;
+    }
+
+    /**
+     * @param area the area to set
+     */
+    public void setArea(Formula area) {
+        this.area = area;
+    }
+
+    /**
+     *
+     * @param variable
+     * @return
+     */
     @Override
-    public Variables calcule(Variables variable) {
+    public Variables setVariable(Variables variable) {
         
         variable.replace("width", this.getWidth().getValue(variable));
         variable.replace("length", this.getLength().getValue(variable));
@@ -170,5 +195,5 @@ public class Product extends Material {
         variable.replace("weight", this.getWeight().getValue(variable));
         
         return variable;
-    }
+    }    
 }
