@@ -47,7 +47,7 @@ public class Delivery extends Document {
     
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "QUANTITY_VAL"))
+    @AttributeOverride(name = "value", column = @Column(name = "QUANTITY"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
     /**
@@ -57,6 +57,19 @@ public class Delivery extends Document {
         this.parentType = Component.class;
     }
     
+    /**
+     *
+     * @param component
+     * @param delivery
+     * @param quantity
+     */
+    public Delivery(Component component, Date delivery, Measure quantity) {
+        this.parentType = Component.class;
+        this.component = component;
+        this.delivery = delivery;
+        this.quantity = quantity;
+    }
+        
     /**
      *
      * @param parent
