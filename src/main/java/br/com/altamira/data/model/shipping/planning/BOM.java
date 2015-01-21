@@ -72,7 +72,7 @@ public class BOM extends Resource {
     @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "CHECKED")
     private Date checked;
-
+        
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="BOM", insertable=false, updatable=false)
     private Set<Item> item = new HashSet<>();

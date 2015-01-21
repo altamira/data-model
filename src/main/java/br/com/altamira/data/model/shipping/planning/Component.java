@@ -26,6 +26,8 @@ import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Embedded;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -57,34 +59,40 @@ public class Component extends Resource {
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "QUANTITY_VAL"))
+    @AttributeOverride(name = "value", column = @Column(name = "QUANTITY"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
+    
+    @NotNull
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "DELIVERED"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "DELIVERED_UNIT"))
+    private Measure delivered = new Measure();    
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "WIDTH_VAL"))
+    @AttributeOverride(name = "value", column = @Column(name = "WIDTH"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WIDTH_UNIT"))
     private Measure width = new Measure();
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "HEIGHT_VAL"))
+    @AttributeOverride(name = "value", column = @Column(name = "HEIGHT"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "HEIGHT_UNIT"))
     private Measure height = new Measure();
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "LENGTH_VAL"))
+    @AttributeOverride(name = "value", column = @Column(name = "LENGTH"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "LENGTH_UNIT"))
     private Measure length = new Measure();
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "WEIGHT_VAL"))
+    @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
     private Measure weight = new Measure();
-
+    
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = NullCollectionSerializer.class)
     @OneToMany(fetch = FetchType.EAGER)
