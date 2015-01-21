@@ -1,12 +1,14 @@
 package br.com.altamira.data.model.shipping.planning;
 
 import br.com.altamira.data.model.Resource;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -14,8 +16,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.altamira.data.model.serialize.JSonViews;
-import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  *
@@ -73,15 +73,15 @@ public class BOM extends Resource {
     @Column(name = "CHECKED")
     private Date checked;
 
-    @JsonView(JSonViews.EntityView.class)
-    @OneToMany(mappedBy = "bom", orphanRemoval = false)
-    private List<Item> item;
+    @OneToMany(fetch=FetchType.EAGER)
+    @JoinColumn(name="BOM", insertable=false, updatable=false)
+    private Set<Item> item = new HashSet<>();
 
     /**
      *
      */
     public BOM() {
-        this.item = new ArrayList<>();
+        this.item = new HashSet<>();
     }
     
     /**
@@ -286,7 +286,7 @@ public class BOM extends Resource {
      *
      * @return
      */
-    public List<Item> getItem() {
+    public Set<Item> getItem() {
         return item;
     }
 
@@ -294,8 +294,8 @@ public class BOM extends Resource {
      *
      * @param item
      */
-    public void setItem(List<Item> item) {
-        this.item = (List<Item>) item;
+    public void setItem(Set<Item> item) {
+        this.item = item;
     }
 
     /**

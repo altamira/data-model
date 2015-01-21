@@ -1,7 +1,6 @@
 package br.com.altamira.data.model.shipping.planning;
 
 import br.com.altamira.data.model.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,9 +13,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import br.com.altamira.data.model.serialize.JSonViews;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Lob;
 import javax.persistence.UniqueConstraint;
 
@@ -48,9 +47,9 @@ public class Item extends Resource {
     @Column(name = "DESCRIPTION", length = 100000)
     private String description = "";
 
-    @JsonView(JSonViews.EntityView.class)
-    @OneToMany(mappedBy = "item", orphanRemoval = false)
-    private List<Component> component = new ArrayList<>();
+    @OneToMany(fetch=FetchType.EAGER)
+    @JoinColumn(name="ITEM", insertable=false, updatable=false)
+    private Set<Component> component = new HashSet<>();
 
     /**
      *
@@ -135,7 +134,7 @@ public class Item extends Resource {
      *
      * @return
      */
-    public List<Component> getComponent() {
+    public Set<Component> getComponent() {
         return component;
     }
 
@@ -143,7 +142,7 @@ public class Item extends Resource {
      *
      * @param component
      */
-    public void setComponent(List<Component> component) {
+    public void setComponent(Set<Component> component) {
         this.component = component;
     }
 

@@ -12,16 +12,15 @@ import javax.validation.constraints.NotNull;
 import br.com.altamira.data.model.common.Color;
 import br.com.altamira.data.model.common.Material;
 import br.com.altamira.data.model.measurement.Measure;
-import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullCollectionSerializer;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
@@ -86,11 +85,11 @@ public class Component extends Resource {
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
     private Measure weight = new Measure();
 
-    @JsonView(JSonViews.EntityView.class)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = NullCollectionSerializer.class)
-    @OneToMany(mappedBy = "component", fetch = FetchType.EAGER, orphanRemoval = false)
-    private List<Delivery> delivery = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name="COMPONENT", insertable=false, updatable=false)
+    private Set<Delivery> delivery = new HashSet<>();
 
     /**
      *
@@ -250,14 +249,14 @@ public class Component extends Resource {
     /**
      * @return the delivery
      */
-    public List<Delivery> getDelivery() {
+    public Set<Delivery> getDelivery() {
         return delivery;
     }
 
     /**
      * @param delivery the delivery to set
      */
-    public void setDelivery(List<Delivery> delivery) {
+    public void setDelivery(Set<Delivery> delivery) {
         this.delivery = delivery;
     }
 }
