@@ -19,15 +19,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Embedded;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -62,12 +59,6 @@ public class Component extends Resource {
     @AttributeOverride(name = "value", column = @Column(name = "QUANTITY"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
-    
-    @NotNull
-    @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "DELIVERED"))
-    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "DELIVERED_UNIT"))
-    private Measure delivered = new Measure();    
 
     @NotNull
     @Embedded
@@ -164,12 +155,14 @@ public class Component extends Resource {
      */
     @JsonIgnore
     public Item getItem() {
-        return getItem();
+        return this.item;
     }
 
     /**
      *
      * @param item
+     * 
+     * 
      */
     @JsonIgnore
     public void setItem(Item item) {

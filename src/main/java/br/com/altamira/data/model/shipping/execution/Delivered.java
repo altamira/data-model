@@ -1,4 +1,4 @@
-package br.com.altamira.data.model.shipping.planning;
+package br.com.altamira.data.model.shipping.execution;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +11,8 @@ import javax.validation.constraints.NotNull;
 import br.com.altamira.data.model.common.Document;
 import br.com.altamira.data.model.measurement.Measure;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
+import br.com.altamira.data.model.shipping.planning.Component;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Date;
 import javax.persistence.AssociationOverride;
@@ -20,16 +20,15 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.Embedded;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 /**
  *
  * Represents a sales order item
  */
-@Entity(name = "shipping.planning.Delivery")
-@Table(name = "MN_BOM_ITEM_CMP_SH", uniqueConstraints = @UniqueConstraint(columnNames = {"COMPONENT", "DELIVERY"}))
-public class Delivery extends Document {
+@Entity(name = "shipping.execution.Delivered")
+@Table(name = "SH_DELIVERED", uniqueConstraints = @UniqueConstraint(columnNames = {"COMPONENT", "DELIVERY"}))
+public class Delivered extends Document {
 
     /**
      * Serial version ID
@@ -52,15 +51,10 @@ public class Delivery extends Document {
     @AttributeOverride(name = "value", column = @Column(name = "QUANTITY"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
-    
-    @Transient
-    @JsonInclude
-    private Measure remaining = new Measure();
-    
     /**
      *
      */
-    public Delivery() {
+    public Delivered() {
         this.parentType = Component.class;
     }
     
@@ -70,7 +64,7 @@ public class Delivery extends Document {
      * @param delivery
      * @param quantity
      */
-    public Delivery(Component component, Date delivery, Measure quantity) {
+    public Delivered(Component component, Date delivery, Measure quantity) {
         this.parentType = Component.class;
         this.component = component;
         this.delivery = delivery;
@@ -141,13 +135,6 @@ public class Delivery extends Document {
      */
     public void setQuantity(Measure quantity) {
         this.quantity = quantity;
-    }
-
-    /**
-     * @return the remaining
-     */
-    public Measure getRemaining() {
-        return remaining;
     }
 
 }

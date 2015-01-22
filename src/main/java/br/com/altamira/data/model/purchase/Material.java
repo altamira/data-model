@@ -5,6 +5,7 @@
  */
 package br.com.altamira.data.model.purchase;
 
+import br.com.altamira.data.model.measurement.Expression.UnresolvedTokenException;
 import br.com.altamira.data.model.measurement.Formula;
 import br.com.altamira.data.model.measurement.Variables;
 import javax.persistence.AssociationOverride;
@@ -63,11 +64,11 @@ public class Material extends br.com.altamira.data.model.common.Material {
     @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
     private Formula weight = new Formula();
-    
+
     public Material() {
-        
+
     }
-    
+
     /**
      *
      * @param id
@@ -91,7 +92,7 @@ public class Material extends br.com.altamira.data.model.common.Material {
         this.code = code;
         this.description = description;
         this.type = type;
-    } 
+    }
 
     /**
      *
@@ -206,10 +207,29 @@ public class Material extends br.com.altamira.data.model.common.Material {
     @Override
     public Variables setVariable(Variables variable) {
 
-        variable.replace("width", this.getWidth().getValue(variable));
-        variable.replace("length", this.getLength().getValue(variable));
-        variable.replace("thickness", this.getThickness().getValue(variable));
-        variable.replace("weight", this.getWeight().getValue(variable));
+        try {
+            variable.put("width", this.getWidth().getValue(variable));
+        } catch (UnresolvedTokenException e) {
+
+        }
+
+        try {
+            variable.put("length", this.getLength().getValue(variable));
+        } catch (UnresolvedTokenException e) {
+
+        }
+
+        try {
+            variable.put("thickness", this.getThickness().getValue(variable));
+        } catch (UnresolvedTokenException e) {
+
+        }
+
+        try {
+            variable.put("weight", this.getWeight().getValue(variable));
+        } catch (UnresolvedTokenException e) {
+
+        }
 
         return variable;
     }

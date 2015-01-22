@@ -1,7 +1,6 @@
 package br.com.altamira.data.model.shipping.planning;
 
 import br.com.altamira.data.model.Resource;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

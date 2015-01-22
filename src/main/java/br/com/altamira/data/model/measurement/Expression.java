@@ -385,6 +385,29 @@ public class Expression {
     }
 
     /**
+     * The expression evaluators exception class.
+     */
+    public class UnresolvedTokenException extends RuntimeException {
+
+        private static final long serialVersionUID = 1112142856870779047L;
+
+        private List<String> tokens;
+        
+        public UnresolvedTokenException(List<String> tokens, String message) {
+            super(message);
+            this.tokens = tokens;
+        }
+
+        /**
+         * @return the token
+         */
+        public List<String> getTokens() {
+            return this.tokens;
+        }
+
+    }
+    
+    /**
      * Abstract definition of a supported expression function. A function is
      * defined by a name, the number of parameters and the actual processing
      * implementation.
@@ -985,7 +1008,12 @@ public class Expression {
     private List<String> shuntingYard(String expression) {
         List<String> outputQueue = new ArrayList<String>();
         Stack<String> stack = new Stack<String>();
+        
+        List<String> unresolvedTokens = new ArrayList<String>();
 
+        // Well known variables
+        Variables variables = new Variables();
+        
         Tokenizer tokenizer = new Tokenizer(expression);
 
         String lastFunction = null;
@@ -994,7 +1022,7 @@ public class Expression {
             String token = tokenizer.next();
             if (isNumber(token)) {
                 outputQueue.add(token);
-            } else if (getVariables().containsKey(Variables.translateKey(token))) {
+            } else if (variables.containsKey(Variables.translateKey(token))) {
                 outputQueue.add(Variables.translateKey(token));
             } else if (getFunctions().containsKey(Functions.translate(token.toUpperCase()))) {
                 stack.push(Functions.translate(token.toUpperCase()));
@@ -1049,14 +1077,18 @@ public class Expression {
                 throw new RuntimeException("Mismatched parentheses");
             }
             if (!operators.containsKey(element)) {
-                throw new RuntimeException("Unknown variable, operator or function: "
-                        + element);
+                //throw new UnresolvedTokenException(element, "Unknown variable, operator or function: " + element);
+                unresolvedTokens.add(Variables.translateKey(element));
             }
-            outputQueue.add(element);
+            outputQueue.add(Variables.translateKey(element));
+        }
+        
+        if (!unresolvedTokens.isEmpty()) {
+            throw new UnresolvedTokenException(unresolvedTokens, "Unknown variable, operator or function.");
         }
         return outputQueue;
     }
-
+                        
     /**
      * Evaluates the expression.
      *

@@ -6,11 +6,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import br.com.altamira.data.model.common.Material;
+import br.com.altamira.data.model.measurement.Expression.UnresolvedTokenException;
 import br.com.altamira.data.model.measurement.Formula;
 import br.com.altamira.data.model.measurement.Variables;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Embedded;
 import javax.persistence.JoinColumn;
 
@@ -62,7 +62,7 @@ public class Product extends Material {
     @AttributeOverride(name = "value", column = @Column(name = "AREA"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "AREA_UNIT"))
     private Formula area = new Formula();
-    
+
     /**
      *
      */
@@ -187,13 +187,37 @@ public class Product extends Material {
      */
     @Override
     public Variables setVariable(Variables variable) {
+
+        try {
+            variable.put("width", this.getWidth().getValue(variable));
+        } catch (UnresolvedTokenException e) {
+
+        }
+
+        try {
+            variable.put("length", this.getLength().getValue(variable));
+        } catch (UnresolvedTokenException e) {
+
+        }
+
+        try {
+            variable.put("height", this.getHeight().getValue(variable));
+        } catch (UnresolvedTokenException e) {
+
+        }
+
+        try {
+            variable.put("depth", this.getDepth().getValue(variable));
+        } catch (UnresolvedTokenException e) {
+
+        }
         
-        variable.replace("width", this.getWidth().getValue(variable));
-        variable.replace("length", this.getLength().getValue(variable));
-        variable.replace("height", this.getHeight().getValue(variable));
-        variable.replace("depth", this.getDepth().getValue(variable));
-        variable.replace("weight", this.getWeight().getValue(variable));
+        try {
+            variable.put("weight", this.getWeight().getValue(variable));
+        } catch (UnresolvedTokenException e) {
+
+        }
         
         return variable;
-    }    
+    }
 }
