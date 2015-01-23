@@ -158,7 +158,7 @@ public class Component extends Resource {
      */
     @JsonIgnore
     public Item getItem() {
-        return getItem();
+        return item;
     }
 
     /**
