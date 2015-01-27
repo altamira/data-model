@@ -25,6 +25,7 @@ import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Embedded;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
  *
@@ -90,6 +91,10 @@ public class Component extends Resource {
     @JoinColumn(name="COMPONENT", insertable=false, updatable=false)
     private Set<Delivery> delivery = new HashSet<>();
 
+    @Transient
+    @JsonInclude
+    private Measure remaining = new Measure();
+    
     /**
      *
      */
@@ -259,5 +264,12 @@ public class Component extends Resource {
      */
     public void setDelivery(Set<Delivery> delivery) {
         this.delivery = delivery;
+    }
+    
+    /**
+     * @return the remaining
+     */
+    public Measure getRemaining() {
+        return remaining;
     }
 }
