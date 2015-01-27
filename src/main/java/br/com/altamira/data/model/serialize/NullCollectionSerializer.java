@@ -26,6 +26,7 @@ public class NullCollectionSerializer extends JsonSerializer<Object> {
         ObjectMapper objectMapper = new ObjectMapper();
         Hibernate4Module hibernateModule = new Hibernate4Module();
         hibernateModule.enable(Hibernate4Module.Feature.FORCE_LAZY_LOADING);
+        hibernateModule.disable(Hibernate4Module.Feature.USE_TRANSIENT_ANNOTATION);
         objectMapper.registerModule(hibernateModule);
         objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         objectMapper.getSerializerProvider().setNullValueSerializer(new NullValueSerializer());
