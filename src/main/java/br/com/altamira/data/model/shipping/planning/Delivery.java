@@ -52,6 +52,10 @@ public class Delivery extends Document {
     @AttributeOverride(name = "value", column = @Column(name = "QUANTITY"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
+
+    @Transient
+    @JsonInclude
+    private Measure delivered = new Measure();
     
     @Transient
     @JsonInclude
@@ -142,7 +146,14 @@ public class Delivery extends Document {
     public void setQuantity(Measure quantity) {
         this.quantity = quantity;
     }
-
+    
+    /**
+     * @return the remaining
+     */
+    public Measure getDelivered() {
+        return delivered;
+    }
+    
     /**
      * @return the remaining
      */

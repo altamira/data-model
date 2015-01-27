@@ -93,6 +93,10 @@ public class Component extends Resource {
 
     @Transient
     @JsonInclude
+    private Measure delivered = new Measure();
+    
+    @Transient
+    @JsonInclude
     private Measure remaining = new Measure();
     
     /**
@@ -264,6 +268,13 @@ public class Component extends Resource {
      */
     public void setDelivery(Set<Delivery> delivery) {
         this.delivery = delivery;
+    }
+    
+    /**
+     * @return the remaining
+     */
+    public Measure getDelivered() {
+        return delivered;
     }
     
     /**
