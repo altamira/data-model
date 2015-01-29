@@ -70,7 +70,7 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
      *
      */
     public BaseEntity() {
-        this.type = this.getClass().getName().substring("br.com.altamira.data.model".length() + 1);
+        this.type = this.getClass().getName()/*.substring("br.com.altamira.data.model".length() + 1)*/;
 
     }
 

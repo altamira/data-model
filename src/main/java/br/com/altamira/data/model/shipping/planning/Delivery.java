@@ -14,6 +14,7 @@ import br.com.altamira.data.model.serialize.NullObjectSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
@@ -151,14 +152,24 @@ public class Delivery extends Document {
      * @return the remaining
      */
     public Measure getDelivered() {
-        return delivered;
+        // mock to simulate delivered amount, remove it when this feature is available.
+        Measure d = new Measure();
+        d.setUnit(this.quantity.getUnit());
+        d.setValue(this.quantity.getValue().divideToIntegralValue(new BigDecimal(3)));
+        return d;
+        // return delivered;
     }
     
     /**
      * @return the remaining
      */
     public Measure getRemaining() {
-        return remaining;
+        // mock to simulate remaining amount, remove it when this feature is available.
+        Measure r = new Measure();
+        r.setUnit(this.quantity.getUnit());
+        r.setValue(this.quantity.getValue().subtract(getDelivered().getValue()));
+        return r;
+        // return delivered;
     }
 
 }

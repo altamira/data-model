@@ -29,39 +29,39 @@ public class Product extends Material {
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "WIDTH"))
+    @AttributeOverride(name = "expression", column = @Column(name = "WIDTH"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WIDTH_UNIT"))
     private Formula width = new Formula();
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "HEIGHT"))
-    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "HEIGHT_UNIT"))
-    private Formula height = new Formula();
-
-    @NotNull
-    @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "LENGTH"))
+    @AttributeOverride(name = "expression", column = @Column(name = "LENGTH"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "LENGTH_UNIT"))
     private Formula length = new Formula();
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
-    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
-    private Formula weight = new Formula();
+    @AttributeOverride(name = "expression", column = @Column(name = "HEIGHT"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "HEIGHT_UNIT"))
+    private Formula height = new Formula();
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "DEPTH"))
+    @AttributeOverride(name = "expression", column = @Column(name = "DEPTH"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "DEPTH_UNIT"))
     private Formula depth = new Formula();
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "AREA"))
+    @AttributeOverride(name = "expression", column = @Column(name = "AREA"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "AREA_UNIT"))
     private Formula area = new Formula();
+
+    @NotNull
+    @Embedded
+    @AttributeOverride(name = "expression", column = @Column(name = "WEIGHT"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
+    private Formula weight = new Formula();
 
     /**
      *
@@ -95,7 +95,7 @@ public class Product extends Material {
         this.description = description;
         this.type = type;
     }
-
+    
     /**
      * @return the width
      */
@@ -189,35 +189,47 @@ public class Product extends Material {
     public Variables setVariable(Variables variable) {
 
         try {
-            variable.put("width", this.getWidth().getValue(variable));
+            this.width.setVariable(variable);
+            variable.put("width", this.getWidth().getValue());
         } catch (UnresolvedTokenException e) {
 
         }
 
         try {
-            variable.put("length", this.getLength().getValue(variable));
+            this.length.setVariable(variable);
+            variable.put("length", this.getLength().getValue());
         } catch (UnresolvedTokenException e) {
 
         }
 
         try {
-            variable.put("height", this.getHeight().getValue(variable));
+            this.height.setVariable(variable);
+            variable.put("height", this.getHeight().getValue());
         } catch (UnresolvedTokenException e) {
 
         }
 
         try {
-            variable.put("depth", this.getDepth().getValue(variable));
+            this.depth.setVariable(variable);
+            variable.put("depth", this.getDepth().getValue());
+        } catch (UnresolvedTokenException e) {
+
+        }
+
+        try {
+            this.area.setVariable(variable);
+            variable.put("area", this.getArea().getValue());
         } catch (UnresolvedTokenException e) {
 
         }
         
         try {
-            variable.put("weight", this.getWeight().getValue(variable));
+            this.weight.setVariable(variable);
+            variable.put("weight", this.getWeight().getValue());
         } catch (UnresolvedTokenException e) {
 
         }
-        
+
         return variable;
     }
 }

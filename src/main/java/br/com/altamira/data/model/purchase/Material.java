@@ -43,25 +43,25 @@ public class Material extends br.com.altamira.data.model.common.Material {
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "THICKNESS"))
+    @AttributeOverride(name = "expression", column = @Column(name = "THICKNESS"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "THICKNESS_UNIT"))
     private Formula thickness = new Formula();
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "WIDTH"))
+    @AttributeOverride(name = "expression", column = @Column(name = "WIDTH"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WIDTH_UNIT"))
     private Formula width = new Formula();
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "LENGTH"))
+    @AttributeOverride(name = "expression", column = @Column(name = "LENGTH"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "LENGTH_UNIT"))
     private Formula length = new Formula();
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
+    @AttributeOverride(name = "expression", column = @Column(name = "WEIGHT"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
     private Formula weight = new Formula();
 
@@ -208,29 +208,33 @@ public class Material extends br.com.altamira.data.model.common.Material {
     public Variables setVariable(Variables variable) {
 
         try {
-            variable.put("width", this.getWidth().getValue(variable));
+            this.thickness.setVariable(variable);
+            variable.put("thickness", this.getThickness().getValue());
         } catch (UnresolvedTokenException e) {
 
         }
 
         try {
-            variable.put("length", this.getLength().getValue(variable));
+            this.width.setVariable(variable);
+            variable.put("width", this.getWidth().getValue());
         } catch (UnresolvedTokenException e) {
 
         }
 
         try {
-            variable.put("thickness", this.getThickness().getValue(variable));
+            this.length.setVariable(variable);
+            variable.put("length", this.getLength().getValue());
         } catch (UnresolvedTokenException e) {
 
         }
 
         try {
-            variable.put("weight", this.getWeight().getValue(variable));
+            this.weight.setVariable(variable);
+            variable.put("weight", this.getWeight().getValue());
         } catch (UnresolvedTokenException e) {
 
         }
-
+        
         return variable;
     }
 }

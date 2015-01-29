@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import br.com.altamira.data.model.common.Color;
 import br.com.altamira.data.model.common.Material;
 import br.com.altamira.data.model.measurement.Measure;
+import br.com.altamira.data.model.measurement.Variables;
 import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullCollectionSerializer;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
@@ -86,7 +87,7 @@ public class Component extends Resource {
     @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
     private Measure weight = new Measure();
-    
+
     @JsonView(JSonViews.EntityView.class)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = NullCollectionSerializer.class)
@@ -126,6 +127,33 @@ public class Component extends Resource {
      * @return the material
      */
     public br.com.altamira.data.model.common.Material getMaterial() {
+        Variables variable = new Variables();
+        
+        variable.put("quantity", this.quantity.getValue());
+        variable.put("width", this.width.getValue());
+        variable.put("height", this.height.getValue());
+        variable.put("length", this.length.getValue());
+        variable.put("weight", this.weight.getValue());
+        
+        this.material.setVariable(variable);
+        
+        // TODO check for null instead BigDecimal.ZERO. 
+        //      Null means that the variable was not assigned. 
+        //      Zero means that a number was assigned to this variable and should not calculated.
+        /*if (this.width.getValue() == BigDecimal.ZERO) {
+            this.width.setValue(variable.get("width"));
+        }
+        
+        if (this.height.getValue() == BigDecimal.ZERO) {
+            this.height.setValue(variable.get("height"));
+        }
+        
+        if (this.length.getValue() == BigDecimal.ZERO) {
+            this.length.setValue(variable.get("length"));
+        }*/
+        
+        this.weight.setValue(variable.get("weight"));
+
         return material;
     }
 
@@ -247,7 +275,6 @@ public class Component extends Resource {
      public void setProduct(Product product) {
      this.product = product;
      }*/
-
     /**
      * @return the delivery
      */

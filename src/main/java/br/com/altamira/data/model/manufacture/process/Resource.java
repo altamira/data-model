@@ -9,7 +9,6 @@ import br.com.altamira.data.model.measurement.Formula;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.FetchType;
@@ -39,7 +38,7 @@ public abstract class Resource extends br.com.altamira.data.model.Relation {
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "QUANTITY"))
+    @AttributeOverride(name = "expression", column = @Column(name = "QUANTITY"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Formula quantity = new Formula();
 

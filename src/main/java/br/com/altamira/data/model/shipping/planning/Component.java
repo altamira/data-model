@@ -248,14 +248,6 @@ public class Component extends Resource {
         this.weight = weight;
     }
 
-    /*public Product getProduct() {
-     return product;
-     }
-
-     public void setProduct(Product product) {
-     this.product = product;
-     }*/
-
     /**
      * @return the delivery
      */

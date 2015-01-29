@@ -292,10 +292,13 @@ public class Expression {
      * @param expression the expression to set
      */
     public void setExpression(String expression) {
-        this.expression = expression;
-        /*Variables.translateTable("pt-BR").forEach((k, w) -> {
-             this.expression = expression.replace(k, w);
-        });*/
+        this.expression = expression.toLowerCase();
+        Variables.translateTable("pt-BR").forEach((k, w) -> {
+            this.expression = this.expression.replace(k, w);
+        });
+        Functions.translateTable("pt-BR").forEach((k, w) -> {
+            this.expression = this.expression.replace(k, w);
+        });
     }
 
     /**
@@ -338,10 +341,12 @@ public class Expression {
      */
     public void setVariables(Map<String, BigDecimal> variables) {
         this.variables = variables;
-        
+
+        /*
         this.variables.put("PI", PI);
         this.variables.put("TRUE", BigDecimal.ONE);
         this.variables.put("FALSE", BigDecimal.ZERO);
+        */
     }
 
     /**
@@ -392,7 +397,7 @@ public class Expression {
         private static final long serialVersionUID = 1112142856870779047L;
 
         private List<String> tokens;
-        
+
         public UnresolvedTokenException(List<String> tokens, String message) {
             super(message);
             this.tokens = tokens;
@@ -406,7 +411,7 @@ public class Expression {
         }
 
     }
-    
+
     /**
      * Abstract definition of a supported expression function. A function is
      * defined by a name, the number of parameters and the actual processing
@@ -430,7 +435,7 @@ public class Expression {
          * @param numParams The number of parameters for this function.
          */
         public Function(String name, int numParams) {
-            this.name = name.toUpperCase();
+            this.name = name;
             this.numParams = numParams;
         }
 
@@ -630,7 +635,7 @@ public class Expression {
      */
     public Expression(String expression) {
         setExpression(expression);
-                
+
         addOperator(new Operator("+", 20, true) {
             @Override
             public BigDecimal eval(BigDecimal v1, BigDecimal v2) {
@@ -755,6 +760,13 @@ public class Expression {
             @Override
             public BigDecimal eval(BigDecimal v1, BigDecimal v2) {
                 return getOperators().get("!=").eval(v1, v2);
+            }
+        });
+
+        addFunction(new Function("PI", 0) {
+            @Override
+            public BigDecimal eval(List<BigDecimal> parameters) {
+                return PI;
             }
         });
 
@@ -945,7 +957,7 @@ public class Expression {
             public BigDecimal eval(List<BigDecimal> parameters) {
                 BigDecimal length = parameters.get(0);
                 BigDecimal width = parameters.get(1);
-                
+
                 return length.multiply(width);
             }
         });
@@ -963,7 +975,7 @@ public class Expression {
             public BigDecimal eval(List<BigDecimal> parameters) {
                 BigDecimal length = parameters.get(0);
                 BigDecimal radius = parameters.get(1);
-               
+
                 // calcule circle area
                 BigDecimal circle_area = radius.pow(2).multiply(PI);
                 BigDecimal rectangle_area = length.multiply(radius.multiply(new BigDecimal(2)));
@@ -1008,12 +1020,9 @@ public class Expression {
     private List<String> shuntingYard(String expression) {
         List<String> outputQueue = new ArrayList<String>();
         Stack<String> stack = new Stack<String>();
-        
+
         List<String> unresolvedTokens = new ArrayList<String>();
 
-        // Well known variables
-        Variables variables = new Variables();
-        
         Tokenizer tokenizer = new Tokenizer(expression);
 
         String lastFunction = null;
@@ -1022,10 +1031,10 @@ public class Expression {
             String token = tokenizer.next();
             if (isNumber(token)) {
                 outputQueue.add(token);
-            } else if (variables.containsKey(Variables.translateKey(token))) {
-                outputQueue.add(Variables.translateKey(token));
-            } else if (getFunctions().containsKey(Functions.translate(token.toUpperCase()))) {
-                stack.push(Functions.translate(token.toUpperCase()));
+            } else if (variables.containsKey(token)) {
+                outputQueue.add(token);
+            } else if (getFunctions().containsKey(token)) {
+                stack.push(token);
                 lastFunction = token;
             } else if (Character.isLetter(token.charAt(0))) {
                 stack.push(token);
@@ -1065,7 +1074,7 @@ public class Expression {
                 }
                 stack.pop();
                 if (!stack.isEmpty()
-                        && getFunctions().containsKey(stack.peek().toUpperCase())) {
+                        && getFunctions().containsKey(stack.peek())) {
                     outputQueue.add(stack.pop());
                 }
             }
@@ -1078,17 +1087,17 @@ public class Expression {
             }
             if (!operators.containsKey(element)) {
                 //throw new UnresolvedTokenException(element, "Unknown variable, operator or function: " + element);
-                unresolvedTokens.add(Variables.translateKey(element));
+                unresolvedTokens.add(element);
             }
-            outputQueue.add(Variables.translateKey(element));
+            outputQueue.add(element);
         }
-        
+
         if (!unresolvedTokens.isEmpty()) {
             throw new UnresolvedTokenException(unresolvedTokens, "Unknown variable, operator or function.");
         }
         return outputQueue;
     }
-                        
+
     /**
      * Evaluates the expression.
      *
@@ -1105,8 +1114,8 @@ public class Expression {
                 stack.push(getOperators().get(token).eval(v2, v1));
             } else if (getVariables().containsKey(token)) {
                 stack.push(getVariables().get(token).round(mc));
-            } else if (getFunctions().containsKey(token.toUpperCase())) {
-                Function f = getFunctions().get(token.toUpperCase());
+            } else if (getFunctions().containsKey(token)) {
+                Function f = getFunctions().get(token);
                 ArrayList<BigDecimal> p = new ArrayList<>(
                         f.getNumParams());
                 for (int i = 0; i < f.numParams; i++) {
@@ -1120,7 +1129,7 @@ public class Expression {
         }
         return stack.pop().stripTrailingZeros();
     }
-    
+
     /**
      * Sets the precision for expression evaluation.
      *
@@ -1263,14 +1272,15 @@ public class Expression {
 
             } else if (getVariables().containsKey(token)) {
                 vars.add(token);
-            } else if (getFunctions().containsKey(token.toUpperCase())) {
-                
+            } else if (getFunctions().containsKey(token)) {
+
             } else {
-                
+
             }
         });
         return vars;
     }
+
     /**
      * Cached access to the RPN notation of this expression, ensures only one
      * calculation of the RPN per expression instance. If no cached instance

@@ -28,7 +28,8 @@ public class Functions {
                         new AbstractMap.SimpleEntry<>("redondo", "AREA_CIRCLE"),
                         new AbstractMap.SimpleEntry<>("circulo", "AREA_CIRCLE"),
                         new AbstractMap.SimpleEntry<>("furo", "AREA_CIRCLE"),
-                        new AbstractMap.SimpleEntry<>("oblongo", "AREA_OBLONG"))
+                        new AbstractMap.SimpleEntry<>("oblongo", "AREA_OBLONG"),
+                        new AbstractMap.SimpleEntry<>("pi", "PI"))
                         .collect(Collectors.toMap((e) -> e.getKey(), (e) -> e.getValue())));
         }
 

@@ -30,8 +30,8 @@ public class Formula implements Serializable {
 
     @NotNull
     @Column(name = "VALUE", nullable = false, columnDefinition = "nvarchar2(255)")
-    private String value = "";
-    
+    private String expression = "";
+
     //@JsonView(JSonViews.EntityView.class)
     @ManyToOne(/*cascade = CascadeType.ALL,*/optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "UNIT", referencedColumnName = "ID", insertable = false, updatable = false/*, nullable = false, unique = false*/)
@@ -39,35 +39,40 @@ public class Formula implements Serializable {
 
     @Transient
     private Map<String, BigDecimal> variable = new Variables();
-    
+
     /**
-     * @param variables
      * @return the value
      */
-    public BigDecimal getValue(Map<String, BigDecimal> variables) {
-        setVariable(variables);
-        
-        Expression exp = new Expression(this.getValue());
+    public BigDecimal getValue() {
+        BigDecimal result = new BigDecimal(0);
+
+        Expression exp = new Expression(this.expression);
         exp.setVariables(this.variable);
         exp.setPrecision(10);
 
-        return exp.eval();
-    }
+        try {
+            result = exp.eval();
+        } catch (Exception e) {
+            String message = e.getMessage();
+        }
 
-    /**
-     * @return the value
-     */
-    public String getValue() {
-        return value;
+        return result;
     }
 
     /**
      * @param value the value to set
      */
-    public void setValue(String value) {
-        this.value = value;
+    /*public void setValue(String value) {
+     this.expression = value;
+     }*/
+    public String getExpression() {
+        return this.expression;
     }
-    
+
+    public void setExpression(String expression) {
+        this.expression = expression;
+    }
+
     /**
      * @return the unit
      */
@@ -92,8 +97,8 @@ public class Formula implements Serializable {
     /**
      * @param variables
      */
-    public void setVariable(Map<String, BigDecimal> variables) {
-                
+    public void setVariable(Variables variables) {
+
         if (variables == null || variables.isEmpty()) {
             return;
         }
