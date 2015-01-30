@@ -14,7 +14,6 @@ import br.com.altamira.data.model.serialize.NullObjectSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
@@ -30,7 +29,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity(name = "shipping.planning.Delivery")
 @Table(name = "MN_BOM_ITEM_CMP_SH", uniqueConstraints = @UniqueConstraint(columnNames = {"COMPONENT", "DELIVERY"}))
-public class Delivery extends Document {
+public class Delivery extends Document implements Comparable<Delivery> {
 
     /**
      * Serial version ID
@@ -152,24 +151,33 @@ public class Delivery extends Document {
      * @return the remaining
      */
     public Measure getDelivered() {
-        // mock to simulate delivered amount, remove it when this feature is available.
-        Measure d = new Measure();
-        d.setUnit(this.quantity.getUnit());
-        d.setValue(this.quantity.getValue().divideToIntegralValue(new BigDecimal(3)));
-        return d;
-        // return delivered;
+        return delivered;
     }
     
     /**
      * @return the remaining
      */
     public Measure getRemaining() {
-        // mock to simulate remaining amount, remove it when this feature is available.
-        Measure r = new Measure();
-        r.setUnit(this.quantity.getUnit());
-        r.setValue(this.quantity.getValue().subtract(getDelivered().getValue()));
-        return r;
-        // return delivered;
+        return remaining;
+    }
+    
+    /**
+     * @param remaining the remaining to set
+     */
+    public void setRemaining(Measure remaining) {
+        this.remaining = remaining;
     }
 
+    /**
+     * @param delivered the delivered to set
+     */
+    public void setDelivered(Measure delivered) {
+        this.delivered = delivered;
+    }
+    
+    @Override
+	public int compareTo(Delivery delivery) {
+		// TODO Auto-generated method stub
+		return this.delivery.compareTo(delivery.getDelivery());
+	}
 }

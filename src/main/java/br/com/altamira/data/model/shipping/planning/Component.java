@@ -275,4 +275,18 @@ public class Component extends Resource {
     public Measure getRemaining() {
         return remaining;
     }
+    
+    /**
+     * @param remaining the remaining to set
+     */
+    public void setRemaining(Measure remaining) {
+        this.remaining = remaining;
+    }
+
+    /**
+     * @param delivered the delivered to set
+     */
+    public void setDelivered(Measure delivered) {
+        this.delivered = delivered;
+    }
 }
