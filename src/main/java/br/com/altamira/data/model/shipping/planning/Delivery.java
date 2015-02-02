@@ -158,6 +158,8 @@ public class Delivery extends Document implements Comparable<Delivery> {
      * @return the remaining
      */
     public Measure getRemaining() {
+    	this.remaining.setValue(this.quantity.getValue().subtract(this.delivered.getValue()));
+    	this.remaining.setUnit(this.component.getQuantity().getUnit());
         return remaining;
     }
     
