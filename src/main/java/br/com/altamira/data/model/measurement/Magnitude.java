@@ -26,6 +26,20 @@ public class Magnitude extends br.com.altamira.data.model.Measurement {
     @Column(name = "NAME", unique = true, nullable = false)
     private String name = "";
 
+    public Magnitude() {
+        super();
+    }   
+    
+    public Magnitude(String name) {
+        super();
+        this.name = name;
+    }
+
+    public Magnitude(Magnitude magnitude) {
+        super(magnitude);
+        this.name = magnitude.getName();
+    }
+    
     /**
      * @return the name
      */

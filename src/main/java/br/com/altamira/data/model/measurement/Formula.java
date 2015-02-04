@@ -28,9 +28,9 @@ public class Formula implements Serializable {
      */
     private static final long serialVersionUID = 3833764960269130334L;
 
-    @NotNull
-    @Column(name = "VALUE", nullable = false, columnDefinition = "nvarchar2(255)")
-    private String expression = "";
+    //@NotNull
+    @Column(name = "VALUE", /*nullable = false,*/ columnDefinition = "nvarchar2(255)")
+    private String expression = new String("");
 
     //@JsonView(JSonViews.EntityView.class)
     @ManyToOne(/*cascade = CascadeType.ALL,*/optional = false, fetch = FetchType.EAGER)

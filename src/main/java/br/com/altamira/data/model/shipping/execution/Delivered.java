@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import br.com.altamira.data.model.common.Document;
 import br.com.altamira.data.model.measurement.Measure;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
-import br.com.altamira.data.model.shipping.planning.Component;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Date;

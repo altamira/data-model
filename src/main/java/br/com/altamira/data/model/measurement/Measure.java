@@ -29,11 +29,38 @@ public class Measure implements Serializable {
     @NotNull
     @Column(name = "VAL", nullable = false, precision = 19, scale = 10)
     private BigDecimal value = BigDecimal.valueOf(0);
-    
+
     //@JsonView(JSonViews.EntityView.class)
     @ManyToOne(/*cascade = CascadeType.ALL,*/optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "UNIT", referencedColumnName = "ID", insertable = false, updatable = false/*, nullable = false, unique = false*/)
     private Unit unit = new Unit();
+
+    public Measure() {
+        super();
+    }
+
+    public Measure(Measure measure) {
+        if (measure.getValue() == null) {
+            this.value = BigDecimal.ZERO;
+        } else {
+            this.value = measure.getValue();
+        }
+        this.unit = new Unit(measure.getUnit());
+    }
+
+    public Measure(Unit unit) {
+        this.value = BigDecimal.ZERO;
+        this.unit = new Unit(unit);
+    }
+
+    public Measure(BigDecimal value, Unit unit) {
+        if (value == null) {
+            this.value = BigDecimal.ZERO;
+        } else {
+            this.value = value;
+        }
+        this.unit = new Unit(unit);
+    }
 
     /**
      * @return the value
@@ -46,7 +73,11 @@ public class Measure implements Serializable {
      * @param value the value to set
      */
     public void setValue(BigDecimal value) {
-        this.value = value;
+        if (value == null) {
+            this.value = BigDecimal.ZERO;
+        } else {
+            this.value = value;
+        }
     }
 
     /**
@@ -63,4 +94,21 @@ public class Measure implements Serializable {
         this.unit = unit;
     }
 
+    public Measure add(Measure measure) {
+        Measure m = new Measure(this);
+        m.setValue(m.getValue().add(measure.getValue()));
+        return m;
+    }
+    
+    public Measure subtract(Measure measure) {
+        Measure m = new Measure(this);
+        m.setValue(m.getValue().subtract(measure.getValue()));
+        return m;
+    }    
+    
+    public Measure min(Measure measure) {
+        Measure m = new Measure(this);
+        m.setValue(m.getValue().min(measure.getValue()));
+        return m;
+    }
 }

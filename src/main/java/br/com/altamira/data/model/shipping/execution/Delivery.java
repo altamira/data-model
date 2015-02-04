@@ -1,4 +1,4 @@
-package br.com.altamira.data.model.shipping.planning;
+package br.com.altamira.data.model.shipping.execution;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +25,7 @@ import javax.persistence.UniqueConstraint;
  *
  * Represents a sales order item
  */
-@Entity(name = "shipping.planning.Delivery")
+@Entity(name = "shipping.execution.Delivery")
 @Table(name = "MN_BOM_ITEM_CMP_SH", uniqueConstraints = @UniqueConstraint(columnNames = {"COMPONENT", "DELIVERY"}))
 public class Delivery extends Document implements Comparable<Delivery> {
 

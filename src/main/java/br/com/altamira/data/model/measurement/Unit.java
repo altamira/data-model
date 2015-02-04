@@ -42,6 +42,24 @@ public class Unit extends br.com.altamira.data.model.Measurement {
     //@JoinTable(name="MS_MAGNITUDE", joinColumns={@JoinColumn(name="CUSTOMER_ID", referencedColumnName="id")}, inverseJoinColumns={@JoinColumn(name="DOG_ID", referencedColumnName="id")})
     private Magnitude magnitude = new Magnitude();
 
+    public Unit() {
+        super();
+    }
+    
+    public Unit(String name, String symbol, Magnitude magnitude) {
+        super();
+        this.name = name;
+        this.symbol = symbol;
+        this.magnitude = new Magnitude(magnitude);
+    }
+    
+    public Unit(Unit unit) {
+        super(unit);
+        this.name = unit.getName();
+        this.symbol = unit.getSymbol();
+        this.magnitude = new Magnitude(unit.getMagnitude());
+    }
+    
     /**
      * @return the name
      */

@@ -1,4 +1,4 @@
-package br.com.altamira.data.model.shipping.planning;
+package br.com.altamira.data.model.shipping.execution;
 
 import br.com.altamira.data.model.Resource;
 import javax.persistence.Column;
@@ -25,13 +25,14 @@ import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Embedded;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
  *
  * @author alessandro.holanda
  */
 @Table(name = "MN_BOM_ITEM_CMP")
-@Entity(name = "shipping.planning.Component")
+@Entity(name = "shipping.execution.Component")
 public class Component extends Resource {
 
     /**

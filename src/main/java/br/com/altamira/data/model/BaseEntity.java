@@ -58,7 +58,7 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     //@JsonIgnore
     @JsonIgnoreProperties(ignoreUnknown = true)
     @Column(name = "ENTITY_CLASS")
-    protected String type;
+    protected String type = "";
 
     /**
      *
@@ -71,9 +71,28 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
      */
     public BaseEntity() {
         this.type = this.getClass().getName()/*.substring("br.com.altamira.data.model".length() + 1)*/;
-
     }
 
+    /**
+     *
+     * @param id
+     */
+    protected BaseEntity(Long id) {
+        this.id = id;
+        this.type = this.getClass().getName();
+    }
+
+    /**
+     *
+     * @param entity
+     */
+    protected BaseEntity(BaseEntity entity) {
+        this.id = entity.getId();
+        this.version = entity.getVersion();
+        this.lastModified = entity.getLastModified();
+        this.type = this.getClass().getName();
+    }
+    
     /**
      *
      * @return
