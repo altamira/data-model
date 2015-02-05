@@ -51,6 +51,18 @@ public class Delivery extends Document {
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
     
+    @NotNull
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "DELIVERED"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "DELIVERED_UNIT"))
+    private Measure delivered = new Measure();
+
+    @NotNull
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "REMAINING"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "REMAINING_UNIT"))
+    private Measure remaining = new Measure();
+    
     /**
      *
      */
@@ -135,6 +147,34 @@ public class Delivery extends Document {
      */
     public void setQuantity(Measure quantity) {
         this.quantity = quantity;
+    }
+    
+    /**
+     * @return the remaining
+     */
+    public Measure getDelivered() {
+        return delivered;
+    }
+    
+    /**
+     * @param delivered the delivered to set
+     */
+    public void setDelivered(Measure delivered) {
+        this.delivered = delivered;
+    }
+
+    /**
+     * @return the remaining
+     */
+    public Measure getRemaining() {
+        return remaining;
+    }
+
+    /**
+     * @param remaining the remaining to set
+     */
+    public void setRemaining(Measure remaining) {
+        this.remaining = remaining;
     }
 
 }
