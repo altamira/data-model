@@ -161,7 +161,7 @@ public class Delivery extends Document implements Comparable<Delivery> {
      */
     public Measure getRemaining() {
     	this.remaining.setValue(this.quantity.getValue().subtract(this.delivered.getValue())); 	
-    	this.remaining.setUnit(this.component.getQuantity().getUnit());
+    	this.remaining.setUnit(this.quantity.getUnit());
         return remaining;
     }
 
