@@ -15,8 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -49,13 +47,6 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     private java.sql.Timestamp version = new java.sql.Timestamp(0);
 
     @NotNull
-    @JsonIgnore
-    @Column(name = "LAST_MODIFIED")
-    private Long lastModified = System.currentTimeMillis();
-
-    // TODO: store class name from subclass in an ENTITY table
-    @NotNull
-    //@JsonIgnore
     @JsonIgnoreProperties(ignoreUnknown = true)
     @Column(name = "ENTITY_CLASS")
     protected String type = "";
@@ -89,7 +80,6 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
     protected BaseEntity(BaseEntity entity) {
         this.id = entity.getId();
         this.version = entity.getVersion();
-        this.lastModified = entity.getLastModified();
         this.type = this.getClass().getName();
     }
     
@@ -99,12 +89,6 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
      */
     public static long getSerialVersionUID() {
         return serialVersionUID;
-    }
-
-    @PreUpdate
-    @PrePersist
-    void updateModificationTimestamp() {
-        this.lastModified = System.currentTimeMillis();
     }
 
     /**
@@ -162,13 +146,6 @@ public abstract class BaseEntity implements br.com.altamira.data.model.Entity {
         //throw new UnsupportedOperationException("You are calling br.com.altamira.data.model.Entity.getParent(). You should override this method in child class.");
         //return this.getParent();
         return null;
-    }
-
-    /**
-     * @return the lastModified
-     */
-    public Long getLastModified() {
-        return lastModified;
     }
 
     /**

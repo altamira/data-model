@@ -73,18 +73,6 @@ public class BaseEntityTest {
     }
 
     /**
-     * Test of updateModificationTimestamp method, of class BaseEntity.
-     */
-    @Test
-    public void testUpdateModificationTimestamp() {
-        System.out.println("updateModificationTimestamp");
-        BaseEntity instance = new BaseEntityImpl();
-        instance.updateModificationTimestamp();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getVersion method, of class BaseEntity.
      */
     @Test
@@ -160,20 +148,6 @@ public class BaseEntityTest {
         BaseEntity instance = new BaseEntityImpl();
         Entity expResult = null;
         Entity result = instance.getParent();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getLastModified method, of class BaseEntity.
-     */
-    @Test
-    public void testGetLastModified() {
-        System.out.println("getLastModified");
-        BaseEntity instance = new BaseEntityImpl();
-        Long expResult = null;
-        Long result = instance.getLastModified();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
