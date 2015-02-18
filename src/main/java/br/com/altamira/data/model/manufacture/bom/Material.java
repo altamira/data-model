@@ -3,29 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.altamira.data.model.common;
+package br.com.altamira.data.model.manufacture.bom;
 
-import br.com.altamira.data.model.Resource;
-import br.com.altamira.data.model.measurement.Variables;
 import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullCollectionSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,10 +26,9 @@ import javax.validation.constraints.Size;
  *
  * @author Alessandro
  */
-@Table(name = "CM_MATERIAL")
-@Entity(name = "br.com.altamira.data.model.common.Material")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Material extends Resource {
+// ALTAMIRA-76: revert changes in material
+@Embeddable
+public class Material implements Serializable {
 
     /**
      * Serial version ID
@@ -82,18 +74,32 @@ public class Material extends Resource {
      * @param description
      */
     public Material(long id, String code, String description) {
-        this.id = id;
+        //this.id = id;
         this.code = code;
         this.description = description;
     }
 
     public Material(long id, String code, String description, String type) {
-        this.id = id;
+        //this.id = id;
         this.code = code;
         this.description = description;
-        this.type = type;
+        //this.type = type;
     }
 
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return 0l;
+    }
+
+    /**
+     * @return the id
+     */
+    public void setId(Long id) {
+        
+    }
+    
     /**
      * @return the code
      */
@@ -125,30 +131,26 @@ public class Material extends Resource {
     /**
      * @return the component
      */
-    public List<Component> getComponent() {
+    public List<br.com.altamira.data.model.common.Component> getComponent() {
         return component;
     }
 
     /**
      * @param component the component to set
      */
-    public void setComponent(List<Component> component) {
+    public void setComponent(List<br.com.altamira.data.model.common.Component> component) {
         this.component = component;
     }
-
+    
     /**
      *
      * @return
      */
-    @Override
+    //@Override
     @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonView(JSonViews.ListView.class)
     public String getType() {
-        return super.getType();
+        return this.getType();
     }
 
-    public Variables setVariable(Variables variable) {
-        // do nothing here, see inherited classes from br.com.altamira.data.model.commom.Material
-        return variable;
-    }
 }

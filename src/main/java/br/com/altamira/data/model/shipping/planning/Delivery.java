@@ -41,7 +41,7 @@ public class Delivery extends Document implements Comparable<Delivery> {
     private Component component;
 
     @NotNull
-    @Temporal(value = TemporalType.TIMESTAMP)
+    @Temporal(value = TemporalType.DATE)
     @Column(name = "DELIVERY")
     private Date delivery = new Date();
 

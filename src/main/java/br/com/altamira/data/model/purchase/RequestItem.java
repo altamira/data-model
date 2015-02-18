@@ -62,7 +62,7 @@ public class RequestItem extends Resource {
     //@JsonSerialize(using = NullCollectionSerializer.class)
     @JoinColumn(name = "MATERIAL", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private br.com.altamira.data.model.purchase.Material material;
+    private Material material;
 
     /*@OneToMany(cascade = CascadeType.ALL,mappedBy = "requestItem", fetch = FetchType.LAZY)
      private Set<PurchasePlanningItem> purchasePlanningItem;*/
@@ -150,7 +150,7 @@ public class RequestItem extends Resource {
      *
      * @return
      */
-    public br.com.altamira.data.model.purchase.Material getMaterial() {
+    public Material getMaterial() {
         return material;
     }
 
@@ -158,7 +158,7 @@ public class RequestItem extends Resource {
      *
      * @param material
      */
-    public void setMaterial(br.com.altamira.data.model.purchase.Material material) {
+    public void setMaterial(Material material) {
         this.material = material;
     }
 

@@ -40,7 +40,7 @@ public class Item extends Resource {
     private BOM bom = new BOM();
 
     @NotNull
-    @Min(1)
+    //@Min(1)
     @Column(name = "ITEM")
     private int item = 0;
 

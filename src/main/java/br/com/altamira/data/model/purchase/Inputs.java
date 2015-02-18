@@ -12,19 +12,19 @@ import javax.persistence.Table;
  *
  * @author Alessandro
  */
-@Entity
 @Table(name = "PR_INPUTS")
-public class Inputs extends br.com.altamira.data.model.common.Material {
+@Entity(name = "br.com.altamira.data.model.purchase.Inputs")
+public class Inputs extends Material {
 
     /**
      *
      */
     private static final long serialVersionUID = 1900892879991346801L;
-    
+
     public Inputs() {
-        
-}
-    
+
+    }
+
     /**
      *
      * @param id
@@ -48,7 +48,6 @@ public class Inputs extends br.com.altamira.data.model.common.Material {
         this.code = code;
         this.description = description;
         this.type = type;
-    } 
+    }
 
-    
 }

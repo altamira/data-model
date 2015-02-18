@@ -12,9 +12,9 @@ import javax.persistence.Table;
  *
  * @author Alessandro
  */
-@Entity
 @Table(name = "PR_INK")
-public class Ink extends br.com.altamira.data.model.common.Material {
+@Entity(name = "br.com.altamira.data.model.purchase.Ink")
+public class Ink extends Material {
 
     /**
      *
