@@ -2,6 +2,7 @@ package br.com.altamira.data.model.shipping.execution;
 
 import br.com.altamira.data.model.Resource;
 import br.com.altamira.data.model.serialize.JSonViews;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 import java.util.HashSet;
@@ -75,11 +76,11 @@ public class BOM extends Resource {
     @Column(name = "PROJECT")
     private Long project = 0l;
     
-    @JsonView(JSonViews.EntityView.class)
+    @JsonIgnore
     @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "CHECKED")
     private Date checked;
-        
+    
     @JsonView(JSonViews.EntityView.class)
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="BOM", insertable=false, updatable=false)
@@ -101,31 +102,17 @@ public class BOM extends Resource {
         this.number = number;
         this.customer = customer;
     }
-
-    /**
-     *
-     * @param number
-     * @param customer
-     * @param checked
-     */
-    public BOM(Long number, String customer, Date checked) {
-        this.number = number;
-        this.customer = customer;
-        this.checked = checked;
-    }
     
     /**
      *
      * @param id
      * @param number
      * @param customer
-     * @param checked
      */
-    public BOM(Long id, Long number, String customer, Date checked) {
+    public BOM(Long id, Long number, String customer) {
     	this.id = id;
         this.number = number;
         this.customer = customer;
-        this.checked = checked;
     }
     
     /**
@@ -302,20 +289,6 @@ public class BOM extends Resource {
      */
     public void setItem(Set<Item> item) {
         this.item = item;
-    }
-
-    /**
-     * @return the checked
-     */
-    public Date getChecked() {
-        return checked;
-    }
-
-    /**
-     * @param checked the checked to set
-     */
-    public void setChecked(Date checked) {
-        this.checked = checked;
     }
 
 }

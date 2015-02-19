@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.altamira.data.model.serialize.JSonViews;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
@@ -43,6 +44,7 @@ public class BOM extends Resource {
 
     //@NotNull
     //@Size(min = 5)
+    @JsonView(JSonViews.EntityView.class)
     @Column(name = "REPRESENTATIVE")
     private String representative = "";
 
@@ -58,15 +60,19 @@ public class BOM extends Resource {
 
     //@NotNull
     //@Size(min = 8, max = 8)
+    @JsonView(JSonViews.EntityView.class)
     @Column(name = "QUOTATION", unique = true, nullable = false)
     private String quotation = "";
 
+    @JsonView(JSonViews.EntityView.class)
     @Column(name = "COMMENTS")
     private String comment = "";
 
+    @JsonView(JSonViews.EntityView.class)
     @Column(name = "FINISH")
     private String finish = "";
 
+    @JsonView(JSonViews.EntityView.class)
     @Column(name = "PROJECT")
     private Long project = 0l;
     
@@ -130,13 +136,13 @@ public class BOM extends Resource {
      * @param created
      * @param delivery
      */
-    public BOM(Long id, Long number, String customer, Date checked, Date created, Date delivery) {
+    public BOM(Long id, Long number, String customer, Date created, Date delivery, Date checked) {
     	this.id = id;
         this.number = number;
         this.customer = customer;
-        this.checked = checked;
         this.created = created;
         this.delivery = delivery;
+        this.checked = checked;
     }
     
     /**
@@ -298,18 +304,34 @@ public class BOM extends Resource {
     public void setItem(List<Item> item) {
         this.item = (List<Item>) item;
     }
-
+    
     /**
      * @return the checked
      */
-    public Date getChecked() {
+    public boolean getChecked() {
+        return checked != null;
+    }
+    
+    /**
+     * @param checked
+     */
+    public void setChecked(boolean checked) {
+        this.checked = checked ? new Date() : null;
+    }
+    
+    /**
+     * @return the checked
+     */
+    @JsonIgnore
+    public Date getCheckedDate() {
         return checked;
     }
 
     /**
      * @param checked the checked to set
      */
-    public void setChecked(Date checked) {
+    @JsonIgnore
+    public void setCheckedDate(Date checked) {
         this.checked = checked;
     }
 

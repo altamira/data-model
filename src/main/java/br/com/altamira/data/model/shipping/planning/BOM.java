@@ -2,6 +2,7 @@ package br.com.altamira.data.model.shipping.planning;
 
 import br.com.altamira.data.model.Resource;
 import br.com.altamira.data.model.serialize.JSonViews;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 import java.util.HashSet;
@@ -74,6 +75,11 @@ public class BOM extends Resource {
     @JsonView(JSonViews.EntityView.class)
     @Column(name = "PROJECT")
     private Long project = 0l;
+    
+    @JsonIgnore
+    @Temporal(value = TemporalType.TIMESTAMP)
+    @Column(name = "CHECKED")
+    private Date checked;
         
     @JsonView(JSonViews.EntityView.class)
     @OneToMany(fetch=FetchType.LAZY)
@@ -284,5 +290,5 @@ public class BOM extends Resource {
     public void setItem(Set<Item> item) {
         this.item = item;
     }
-
+    
 }
