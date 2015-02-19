@@ -67,35 +67,35 @@ public class Item extends Resource {
             throw new IllegalArgumentException("Item requires a BOM instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
         }
      
-        setBOM((BOM)parent);
+        //setBOM((BOM)parent);
     }
     
     /**
      *
      * @return
      */
-    @Override
+    /*@Override
     public br.com.altamira.data.model.Entity getParent() {
         return getBOM();
-    }
+    }*/
     
     /**
      *
      * @return
      */
-    @JsonIgnore
+    /*@JsonIgnore
     public BOM getBOM() {
         return bom;
-    }
+    }*/
 
     /**
      *
      * @param bom
      */
-    @JsonIgnore
+    /*@JsonIgnore
     public void setBOM(BOM bom) {
         this.bom = bom;
-    }
+    }*/
 
     /**
      *

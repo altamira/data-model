@@ -56,5 +56,12 @@
     	<name>Altamira Industria Metalurgica Ltda</name>
     	<url>http://www.altamira.com.br</url>
     </organization>
-
+    <dependencies>
+        <dependency>
+            <groupId>br.com.altamira</groupId>
+            <artifactId>data-model</artifactId>
+            <version>0.7.5-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
 </project>

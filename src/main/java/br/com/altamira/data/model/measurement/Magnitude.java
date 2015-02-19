@@ -34,6 +34,12 @@ public class Magnitude extends br.com.altamira.data.model.Measurement {
         super();
         this.name = name;
     }
+    
+    public Magnitude(Long id, String name) {
+        super();
+        this.id = id;
+        this.name = name;
+    }
 
     public Magnitude(Magnitude magnitude) {
         super(magnitude);

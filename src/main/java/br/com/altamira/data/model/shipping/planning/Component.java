@@ -119,17 +119,17 @@ public class Component extends Resource {
             throw new IllegalArgumentException("Component requires a Item instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
         }
 
-        setItem((Item) parent);
+        //setItem((Item) parent);
     }
 
     /**
      *
      * @return
      */
-    @Override
+    /*@Override
     public br.com.altamira.data.model.Entity getParent() {
         return getItem();
-    }
+    }*/
 
     /**
      * @return the material
@@ -165,10 +165,10 @@ public class Component extends Resource {
      *
      * @return
      */
-    @JsonIgnore
+    /*@JsonIgnore
     public Item getItem() {
         return this.item;
-    }
+    }*/
 
     /**
      *
@@ -176,10 +176,10 @@ public class Component extends Resource {
      * 
      * 
      */
-    @JsonIgnore
+    /*@JsonIgnore
     public void setItem(Item item) {
         this.item = item;
-    }
+    }*/
 
     /**
      * @return the quantity

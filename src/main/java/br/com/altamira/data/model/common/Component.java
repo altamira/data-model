@@ -7,6 +7,7 @@ package br.com.altamira.data.model.common;
 
 import br.com.altamira.data.model.Relation;
 import br.com.altamira.data.model.measurement.Measure;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
@@ -36,6 +37,7 @@ public class Component extends Relation {
 
     @NotNull
     @JsonIgnore
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "PARENT", referencedColumnName = "ID", nullable = false)
     private Material parent;

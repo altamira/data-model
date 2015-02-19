@@ -5,6 +5,7 @@
  */
 package br.com.altamira.data.model.measurement;
 
+import static br.com.altamira.data.model.measurement.UnitFactory.UnitFactory;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -53,6 +54,11 @@ public class Measure implements Serializable {
         this.unit = new Unit(unit);
     }
 
+    public Measure(String symbol) {
+        this.value = BigDecimal.ZERO;
+        this.unit = UnitFactory(symbol);
+    }
+    
     public Measure(BigDecimal value, Unit unit) {
         if (value == null) {
             this.value = BigDecimal.ZERO;

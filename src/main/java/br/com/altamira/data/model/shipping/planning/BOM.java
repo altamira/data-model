@@ -1,6 +1,8 @@
 package br.com.altamira.data.model.shipping.planning;
 
 import br.com.altamira.data.model.Resource;
+import br.com.altamira.data.model.serialize.JSonViews;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,8 +23,8 @@ import javax.validation.constraints.Size;
  * 
  * @author Alessandro
  */
-@Entity(name = "shipping.planning.BOM")
 @Table(name = "MN_BOM")
+@Entity(name = "br.com.altamira.data.model.shipping.planning.BOM")
 public class BOM extends Resource {
 
     /**
@@ -41,6 +43,7 @@ public class BOM extends Resource {
 
     //@NotNull
     //@Size(min = 5)
+    @JsonView(JSonViews.EntityView.class)
     @Column(name = "REPRESENTATIVE")
     private String representative = "";
 
@@ -56,26 +59,27 @@ public class BOM extends Resource {
 
     //@NotNull
     //@Size(min = 8, max = 8)
+    @JsonView(JSonViews.EntityView.class)
     @Column(name = "QUOTATION", unique = true, nullable = false)
     private String quotation = "";
 
+    @JsonView(JSonViews.EntityView.class)
     @Column(name = "COMMENTS")
     private String comment = "";
 
+    @JsonView(JSonViews.EntityView.class)
     @Column(name = "FINISH")
     private String finish = "";
 
+    @JsonView(JSonViews.EntityView.class)
     @Column(name = "PROJECT")
     private Long project = 0l;
-    
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(name = "CHECKED")
-    private Date checked;
         
-    @OneToMany(fetch=FetchType.EAGER)
+    @JsonView(JSonViews.EntityView.class)
+    @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="BOM", insertable=false, updatable=false)
     private Set<Item> item = new HashSet<>();
-
+    
     /**
      *
      */
@@ -92,31 +96,17 @@ public class BOM extends Resource {
         this.number = number;
         this.customer = customer;
     }
-
-    /**
-     *
-     * @param number
-     * @param customer
-     * @param checked
-     */
-    public BOM(Long number, String customer, Date checked) {
-        this.number = number;
-        this.customer = customer;
-        this.checked = checked;
-    }
     
     /**
      *
      * @param id
      * @param number
      * @param customer
-     * @param checked
      */
-    public BOM(Long id, Long number, String customer, Date checked) {
+    public BOM(Long id, Long number, String customer) {
     	this.id = id;
         this.number = number;
         this.customer = customer;
-        this.checked = checked;
     }
     
     /**
@@ -124,15 +114,13 @@ public class BOM extends Resource {
      * @param id
      * @param number
      * @param customer
-     * @param checked
      * @param created
      * @param delivery
      */
-    public BOM(Long id, Long number, String customer, Date checked, Date created, Date delivery) {
+    public BOM(Long id, Long number, String customer, Date created, Date delivery) {
     	this.id = id;
         this.number = number;
         this.customer = customer;
-        this.checked = checked;
         this.created = created;
         this.delivery = delivery;
     }
@@ -295,20 +283,6 @@ public class BOM extends Resource {
      */
     public void setItem(Set<Item> item) {
         this.item = item;
-    }
-
-    /**
-     * @return the checked
-     */
-    public Date getChecked() {
-        return checked;
-    }
-
-    /**
-     * @param checked the checked to set
-     */
-    public void setChecked(Date checked) {
-        this.checked = checked;
     }
 
 }

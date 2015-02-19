@@ -46,6 +46,18 @@ public class Unit extends br.com.altamira.data.model.Measurement {
         super();
     }
     
+    public Unit(String symbol) {
+        super();
+    }
+    
+    public Unit(Long id, String name, String symbol, Magnitude magnitude) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.symbol = symbol;
+        this.magnitude = new Magnitude(magnitude);
+    }
+    
     public Unit(String name, String symbol, Magnitude magnitude) {
         super();
         this.name = name;
