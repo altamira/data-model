@@ -63,7 +63,6 @@ public class Material extends Resource {
     /**
      *
      */
-    @JsonManagedReference
     @JsonView(JSonViews.EntityView.class)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = NullCollectionSerializer.class)

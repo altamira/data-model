@@ -37,7 +37,6 @@ public class Component extends Relation {
 
     @NotNull
     @JsonIgnore
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "PARENT", referencedColumnName = "ID", nullable = false)
     private Material parent;
