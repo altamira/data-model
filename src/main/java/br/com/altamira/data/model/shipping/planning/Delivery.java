@@ -93,33 +93,33 @@ public class Delivery extends Document implements Comparable<Delivery> {
             throw new IllegalArgumentException("Shipping requires a Component instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
         }
 
-        //setComponent((Component) parent);
+        setComponent((Component) parent);
     }
 
     /**
      *
      * @return
      */
-    /*@Override
+    @Override
     public br.com.altamira.data.model.Entity getParent() {
         return getComponent();
-    }*/
+    }
 
     /**
      * @return the component
      */
-    /*@JsonIgnore
+    @JsonIgnore
     public Component getComponent() {
         return component;
-    }*/
+    }
 
     /**
      * @param component the component to set
      */
-    /*@JsonIgnore
+    @JsonIgnore
     public void setComponent(Component component) {
         this.component = component;
-    }*/
+    }
 
     /**
      * @return the delivery
