@@ -25,6 +25,7 @@ import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Embedded;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -49,7 +50,17 @@ public class Component extends Resource {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
     private Material material;
+    
+    @NotNull
+    @Size(min = 3)
+    @Column(name = "CODE", unique = true, nullable = false)
+    private String code = "";
 
+    @NotNull
+    @Size(min = 5)
+    @Column(name = "DESCRIPTION", unique = true, nullable = false)
+    private String description = "";
+    
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "COLOR", referencedColumnName = "ID", nullable = false /*, insertable = false, updatable = false, unique = false*/)
     private Color color = new Color();
@@ -293,5 +304,33 @@ public class Component extends Resource {
      */
     public void setDelivered(Measure delivered) {
         this.delivered = delivered;
+    }
+
+    /**
+     * @return the code
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * @param code the code to set
+     */
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

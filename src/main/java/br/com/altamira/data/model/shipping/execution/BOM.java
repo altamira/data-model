@@ -85,6 +85,10 @@ public class BOM extends Resource {
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="BOM", insertable=false, updatable=false)
     private Set<Item> item = new HashSet<>();
+    
+    @OneToMany(fetch=FetchType.EAGER)
+    @JoinColumn(name="BOM", insertable=false, updatable=false)
+    private Set<PackingList> packingList = new HashSet<>();
 
     /**
      *
@@ -129,6 +133,24 @@ public class BOM extends Resource {
         this.customer = customer;
         this.created = created;
         this.delivery = delivery;
+    }
+    
+    /**
+     *
+     * @param id
+     * @param number
+     * @param customer
+     * @param created
+     * @param delivery
+     * @param packingList
+     */
+    public BOM(Long id, Long number, String customer, Date created, Date delivery, Set<PackingList> packingList) {
+    	this.id = id;
+        this.number = number;
+        this.customer = customer;
+        this.created = created;
+        this.delivery = delivery;
+        this.packingList = packingList;
     }
     
     /**
@@ -289,6 +311,20 @@ public class BOM extends Resource {
      */
     public void setItem(Set<Item> item) {
         this.item = item;
+    }
+
+    /**
+     * @return the packingList
+     */
+    public Set<PackingList> getPackingList() {
+        return packingList;
+    }
+
+    /**
+     * @param packingList the packingList to set
+     */
+    public void setPackingList(Set<PackingList> packingList) {
+        this.packingList = packingList;
     }
 
 }

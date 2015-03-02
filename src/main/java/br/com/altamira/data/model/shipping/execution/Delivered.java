@@ -26,7 +26,7 @@ import javax.persistence.UniqueConstraint;
  * Represents a sales order item
  */
 @Entity(name = "shipping.execution.Delivered")
-@Table(name = "SH_DELIVERED", uniqueConstraints = @UniqueConstraint(columnNames = {"COMPONENT", "DELIVERY"}))
+@Table(name = "SH_DELIVERED", uniqueConstraints = @UniqueConstraint(columnNames = {"PACKINGLIST", "COMPONENT", "DELIVERED"}))
 public class Delivered extends Document {
 
     /**
@@ -35,6 +35,11 @@ public class Delivered extends Document {
     private static final long serialVersionUID = 7448803904699786256L;
 
     @JsonIgnore
+    @JoinColumn(name = "PACKINGLIST", referencedColumnName = "ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private PackingList packingList;
+        
+    @NotNull
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
     @JoinColumn(name = "COMPONENT", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -42,8 +47,8 @@ public class Delivered extends Document {
     
     @NotNull
     @Temporal(value = TemporalType.DATE)
-    @Column(name = "DELIVERY")
-    private Date delivery = new Date();
+    @Column(name = "DELIVERED")
+    private Date delivered = new Date();
     
     @NotNull
     @Embedded
@@ -54,19 +59,21 @@ public class Delivered extends Document {
      *
      */
     public Delivered() {
-        this.parentType = Component.class;
+        this.parentType = PackingList.class;
     }
     
     /**
      *
+     * @param packingList
      * @param component
-     * @param delivery
+     * @param delivered
      * @param quantity
      */
-    public Delivered(Component component, Date delivery, Measure quantity) {
-        this.parentType = Component.class;
+    public Delivered(PackingList packingList, Component component, Date delivered, Measure quantity) {
+        this.parentType = PackingList.class;
+        this.packingList = packingList;
         this.component = component;
-        this.delivery = delivery;
+        this.delivered = delivered;
         this.quantity = quantity;
     }
         
@@ -80,7 +87,7 @@ public class Delivered extends Document {
             throw new IllegalArgumentException("Shipping requires a Component instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
         }
      
-        setComponent((Component)parent);
+        setPackingList((PackingList)parent);
     }
     
     /**
@@ -89,13 +96,12 @@ public class Delivered extends Document {
      */
     @Override
     public br.com.altamira.data.model.Entity getParent() {
-        return getComponent();
+        return getPackingList();
     }
 
     /**
      * @return the component
      */
-    @JsonIgnore
     public Component getComponent() {
         return component;
     }
@@ -103,7 +109,6 @@ public class Delivered extends Document {
     /**
      * @param component the component to set
      */
-    @JsonIgnore
     public void setComponent(Component component) {
         this.component = component;
     }
@@ -112,14 +117,14 @@ public class Delivered extends Document {
      * @return the delivery
      */
     public Date getDelivery() {
-        return delivery;
+        return delivered;
     }
 
     /**
-     * @param delivery the delivery to set
+     * @param delivered the delivery to set
      */
-    public void setDelivery(Date delivery) {
-        this.delivery = delivery;
+    public void setDelivery(Date delivered) {
+        this.delivered = delivered;
     }
     
     /**
@@ -134,6 +139,22 @@ public class Delivered extends Document {
      */
     public void setQuantity(Measure quantity) {
         this.quantity = quantity;
+    }
+
+    /**
+     * @return the packingList
+     */
+    @JsonIgnore
+    public PackingList getPackingList() {
+        return packingList;
+    }
+
+    /**
+     * @param packingList the packingList to set
+     */
+    @JsonIgnore
+    public void setPackingList(PackingList packingList) {
+        this.packingList = packingList;
     }
 
 }

@@ -55,17 +55,11 @@ public class Component extends Resource {
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
     private Material material;
 
-    /**
-     *
-     */
     @NotNull
     @Size(min = 3)
     @Column(name = "CODE", unique = true, nullable = false)
     private String code = "";
 
-    /**
-     *
-     */
     @NotNull
     @Size(min = 5)
     @Column(name = "DESCRIPTION", unique = true, nullable = false)
