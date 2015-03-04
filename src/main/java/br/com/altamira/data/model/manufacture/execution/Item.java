@@ -1,5 +1,6 @@
-package br.com.altamira.data.model.shipping.execution;
+package br.com.altamira.data.model.manufacture.execution;
 
+import br.com.altamira.data.model.shipping.execution.*;
 import br.com.altamira.data.model.Resource;
 
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ import javax.persistence.UniqueConstraint;
  *
  * Represents a sales bom item
  */
-@Entity(name = "br.com.altamira.data.model.shipping.execution.Item")
+@Entity(name = "br.com.altamira.data.model.manufacture.execution.Item")
 @Table(name = "MN_BOM_ITEM", uniqueConstraints = @UniqueConstraint(columnNames = {"BOM", "ITEM"}))
 public class Item extends Resource {
 

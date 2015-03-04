@@ -21,7 +21,7 @@ import javax.persistence.Table;
  * @author Alessandro
  */
 @Entity
-@Table(name = "MN_OPERATION_SKETCH")
+@Table(name = "MN_PROCESS_SKETCH")
 public class Sketch extends br.com.altamira.data.model.Resource {
 
     /**

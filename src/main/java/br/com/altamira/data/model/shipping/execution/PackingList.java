@@ -9,9 +9,7 @@ import br.com.altamira.data.model.Resource;
 import br.com.altamira.data.model.measurement.Measure;
 import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullCollectionSerializer;
-import br.com.altamira.data.model.serialize.NullObjectSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Date;
@@ -35,7 +33,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author Alessandro
  */
-@Entity(name = "shipping.execution.PackingList")
+@Entity(name = "br.com.altamira.data.model.shipping.execution.PackingList")
 @Table(name = "SH_PACKINGLIST")
 public class PackingList extends Resource {
 
@@ -54,12 +52,18 @@ public class PackingList extends Resource {
     @Column(name = "DELIVERY")
     private Date delivery = new Date();    
 
+    @NotNull
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
+    private Measure weight = new Measure();
+    
     @JsonView(JSonViews.EntityView.class)
     @JsonSerialize(using = NullCollectionSerializer.class)
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name="PACKINGLIST", insertable=false, updatable=false)
     private Set<Delivered> delivered = new HashSet<>();
-    
+
     public PackingList() {
         this.parentType = BOM.class;
     }
@@ -130,5 +134,19 @@ public class PackingList extends Resource {
      */
     public void setDelivered(Set<Delivered> delivered) {
         this.delivered = delivered;
+    }
+
+    /**
+     * @return the weight
+     */
+    public Measure getWeight() {
+        return weight;
+    }
+
+    /**
+     * @param weight the weight to set
+     */
+    public void setWeight(Measure weight) {
+        this.weight = weight;
     }
 }

@@ -1,5 +1,6 @@
-package br.com.altamira.data.model.shipping.execution;
+package br.com.altamira.data.model.manufacture.execution;
 
+import br.com.altamira.data.model.manufacture.Operation;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,8 +26,8 @@ import javax.persistence.UniqueConstraint;
  *
  * Represents a sales order item
  */
-@Entity(name = "br.com.altamira.data.model.shipping.execution.Delivered")
-@Table(name = "SH_DELIVERED", uniqueConstraints = @UniqueConstraint(columnNames = {"PACKINGLIST", "COMPONENT", "DELIVERED"}))
+@Entity(name = "br.com.altamira.data.model.manufacture.execution.Delivered")
+@Table(name = "MN_EXECUTION", uniqueConstraints = @UniqueConstraint(columnNames = {"OPERATION", "COMPONENT", "DELIVERED"}))
 public class Delivered extends Document {
 
     /**
@@ -34,11 +35,12 @@ public class Delivered extends Document {
      */
     private static final long serialVersionUID = 7448803904699786256L;
 
-    @JsonIgnore
-    @JoinColumn(name = "PACKINGLIST", referencedColumnName = "ID")
+    @NotNull
+    @JsonSerialize(nullsUsing = NullObjectSerializer.class)
+    @JoinColumn(name = "OPERATION", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private PackingList packingList;
-        
+    private Operation operation;
+    
     @NotNull
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
     @JoinColumn(name = "COMPONENT", referencedColumnName = "ID")
@@ -55,30 +57,21 @@ public class Delivered extends Document {
     @AttributeOverride(name = "value", column = @Column(name = "QUANTITY"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
-    
-    @NotNull
-    @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
-    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
-    private Measure weight = new Measure();
-    
     /**
      *
      */
     public Delivered() {
-        this.parentType = PackingList.class;
+        this.parentType = Component.class;
     }
     
     /**
      *
-     * @param packingList
      * @param component
      * @param delivered
      * @param quantity
      */
-    public Delivered(PackingList packingList, Component component, Date delivered, Measure quantity) {
-        this.parentType = PackingList.class;
-        this.packingList = packingList;
+    public Delivered(Component component, Date delivered, Measure quantity) {
+        this.parentType = Component.class;
         this.component = component;
         this.delivered = delivered;
         this.quantity = quantity;
@@ -91,10 +84,10 @@ public class Delivered extends Document {
     @Override
     public void setParent(br.com.altamira.data.model.Entity parent) {
         if (!parentType.isInstance(parent)) {
-            throw new IllegalArgumentException("Shipping requires a Component instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
+            throw new IllegalArgumentException("Execution requires a Component instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
         }
      
-        setPackingList((PackingList)parent);
+        setComponent((Component)parent);
     }
     
     /**
@@ -103,7 +96,7 @@ public class Delivered extends Document {
      */
     @Override
     public br.com.altamira.data.model.Entity getParent() {
-        return getPackingList();
+        return getComponent();
     }
 
     /**
@@ -149,33 +142,17 @@ public class Delivered extends Document {
     }
 
     /**
-     * @return the packingList
+     * @return the operation
      */
-    @JsonIgnore
-    public PackingList getPackingList() {
-        return packingList;
+    public Operation getOperation() {
+        return operation;
     }
 
     /**
-     * @param packingList the packingList to set
+     * @param operation the operation to set
      */
-    @JsonIgnore
-    public void setPackingList(PackingList packingList) {
-        this.packingList = packingList;
-    }
-
-    /**
-     * @return the weight
-     */
-    public Measure getWeight() {
-        return weight;
-    }
-
-    /**
-     * @param weight the weight to set
-     */
-    public void setWeight(Measure weight) {
-        this.weight = weight;
+    public void setOperation(Operation operation) {
+        this.operation = operation;
     }
 
 }

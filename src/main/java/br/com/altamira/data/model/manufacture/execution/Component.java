@@ -1,4 +1,4 @@
-package br.com.altamira.data.model.shipping.execution;
+package br.com.altamira.data.model.manufacture.execution;
 
 import br.com.altamira.data.model.Resource;
 import javax.persistence.Column;
@@ -32,7 +32,7 @@ import javax.validation.constraints.Size;
  * @author alessandro.holanda
  */
 @Table(name = "MN_BOM_ITEM_CMP")
-@Entity(name = "br.com.altamira.data.model.shipping.execution.Component")
+@Entity(name = "br.com.altamira.data.model.manufacture.execution.Component")
 public class Component extends Resource {
 
     /**

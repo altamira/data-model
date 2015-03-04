@@ -1,4 +1,4 @@
-package br.com.altamira.data.model.shipping.execution;
+package br.com.altamira.data.model.manufacture.execution;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,9 +25,9 @@ import javax.persistence.UniqueConstraint;
  *
  * Represents a sales order item
  */
-@Entity(name = "br.com.altamira.data.model.shipping.execution.Delivered")
-@Table(name = "SH_DELIVERED", uniqueConstraints = @UniqueConstraint(columnNames = {"PACKINGLIST", "COMPONENT", "DELIVERED"}))
-public class Delivered extends Document {
+@Entity(name = "br.com.altamira.data.model.manufacture.execution.Delivery")
+@Table(name = "MN_BOM_ITEM_CMP_SH", uniqueConstraints = @UniqueConstraint(columnNames = {"COMPONENT", "DELIVERY"}))
+public class Delivery extends Document implements Comparable<Delivery> {
 
     /**
      * Serial version ID
@@ -35,55 +35,54 @@ public class Delivered extends Document {
     private static final long serialVersionUID = 7448803904699786256L;
 
     @JsonIgnore
-    @JoinColumn(name = "PACKINGLIST", referencedColumnName = "ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private PackingList packingList;
-        
-    @NotNull
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
     @JoinColumn(name = "COMPONENT", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Component component;
-    
+
     @NotNull
     @Temporal(value = TemporalType.DATE)
-    @Column(name = "DELIVERED")
-    private Date delivered = new Date();
-    
+    @Column(name = "DELIVERY")
+    private Date delivery = new Date();
+
     @NotNull
     @Embedded
     @AttributeOverride(name = "value", column = @Column(name = "QUANTITY"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
-    
+
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
-    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
-    private Measure weight = new Measure();
-    
+    @AttributeOverride(name = "value", column = @Column(name = "DELIVERED"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "DELIVERED_UNIT"))
+    private Measure delivered = new Measure();
+
+    @NotNull
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "REMAINING"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "REMAINING_UNIT"))
+    private Measure remaining = new Measure();
+
     /**
      *
      */
-    public Delivered() {
-        this.parentType = PackingList.class;
+    public Delivery() {
+        this.parentType = Component.class;
     }
-    
+
     /**
      *
-     * @param packingList
      * @param component
-     * @param delivered
+     * @param delivery
      * @param quantity
      */
-    public Delivered(PackingList packingList, Component component, Date delivered, Measure quantity) {
-        this.parentType = PackingList.class;
-        this.packingList = packingList;
+    public Delivery(Component component, Date delivery, Measure quantity) {
+        this.parentType = Component.class;
         this.component = component;
-        this.delivered = delivered;
+        this.delivery = delivery;
         this.quantity = quantity;
     }
-        
+
     /**
      *
      * @param parent
@@ -93,22 +92,23 @@ public class Delivered extends Document {
         if (!parentType.isInstance(parent)) {
             throw new IllegalArgumentException("Shipping requires a Component instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
         }
-     
-        setPackingList((PackingList)parent);
+
+        setComponent((Component) parent);
     }
-    
+
     /**
      *
      * @return
      */
     @Override
     public br.com.altamira.data.model.Entity getParent() {
-        return getPackingList();
+        return getComponent();
     }
 
     /**
      * @return the component
      */
+    @JsonIgnore
     public Component getComponent() {
         return component;
     }
@@ -116,6 +116,7 @@ public class Delivered extends Document {
     /**
      * @param component the component to set
      */
+    @JsonIgnore
     public void setComponent(Component component) {
         this.component = component;
     }
@@ -124,16 +125,16 @@ public class Delivered extends Document {
      * @return the delivery
      */
     public Date getDelivery() {
-        return delivered;
+        return delivery;
     }
 
     /**
-     * @param delivered the delivery to set
+     * @param delivery the delivery to set
      */
-    public void setDelivery(Date delivered) {
-        this.delivered = delivered;
+    public void setDelivery(Date delivery) {
+        this.delivery = delivery;
     }
-    
+
     /**
      * @return the quantity
      */
@@ -149,33 +150,35 @@ public class Delivered extends Document {
     }
 
     /**
-     * @return the packingList
+     * @return the remaining
      */
-    @JsonIgnore
-    public PackingList getPackingList() {
-        return packingList;
+    public Measure getDelivered() {
+        return delivered;
     }
 
     /**
-     * @param packingList the packingList to set
+     * @return the remaining
      */
-    @JsonIgnore
-    public void setPackingList(PackingList packingList) {
-        this.packingList = packingList;
+    public Measure getRemaining() {
+        return remaining;
     }
 
     /**
-     * @return the weight
+     * @param remaining the remaining to set
      */
-    public Measure getWeight() {
-        return weight;
+    public void setRemaining(Measure remaining) {
+        this.remaining = remaining;
     }
 
     /**
-     * @param weight the weight to set
+     * @param delivered the delivered to set
      */
-    public void setWeight(Measure weight) {
-        this.weight = weight;
+    public void setDelivered(Measure delivered) {
+        this.delivered = delivered;
     }
 
+    @Override
+    public int compareTo(Delivery delivery) {
+        return this.delivery.compareTo(delivery.getDelivery());
+    }
 }
