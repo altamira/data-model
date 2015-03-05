@@ -56,7 +56,7 @@ public class PackingList extends Resource {
     @Embedded
     @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
-    private Measure weight = new Measure();
+    private Measure weight = new Measure("kg");
     
     @JsonView(JSonViews.EntityView.class)
     @JsonSerialize(using = NullCollectionSerializer.class)

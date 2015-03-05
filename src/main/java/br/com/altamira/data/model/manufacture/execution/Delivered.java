@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 import br.com.altamira.data.model.common.Document;
 import br.com.altamira.data.model.measurement.Measure;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Date;
 import javax.persistence.AssociationOverride;
@@ -20,14 +19,13 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.Embedded;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 
 /**
  *
  * Represents a sales order item
  */
 @Entity(name = "br.com.altamira.data.model.manufacture.execution.Delivered")
-@Table(name = "MN_EXECUTION", uniqueConstraints = @UniqueConstraint(columnNames = {"OPERATION", "COMPONENT", "DELIVERED"}))
+@Table(name = "MN_EXECUTION")
 public class Delivered extends Document {
 
     /**
@@ -57,6 +55,13 @@ public class Delivered extends Document {
     @AttributeOverride(name = "value", column = @Column(name = "QUANTITY"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
+    
+    @NotNull
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
+    private Measure weight = new Measure("kg");
+    
     /**
      *
      */
@@ -153,6 +158,20 @@ public class Delivered extends Document {
      */
     public void setOperation(Operation operation) {
         this.operation = operation;
+    }
+
+    /**
+     * @return the weight
+     */
+    public Measure getWeight() {
+        return weight;
+    }
+
+    /**
+     * @param weight the weight to set
+     */
+    public void setWeight(Measure weight) {
+        this.weight = weight;
     }
 
 }

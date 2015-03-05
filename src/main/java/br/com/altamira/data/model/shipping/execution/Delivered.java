@@ -60,7 +60,7 @@ public class Delivered extends Document {
     @Embedded
     @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
-    private Measure weight = new Measure();
+    private Measure weight = new Measure("kg");
     
     /**
      *
