@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 import br.com.altamira.data.model.serialize.JSonViews;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import javax.persistence.Lob;
 
 /**
  *
@@ -64,8 +65,9 @@ public class BOM extends Resource {
     @Column(name = "QUOTATION", unique = true, nullable = false)
     private String quotation = "";
 
+    @Lob
     @JsonView(JSonViews.EntityView.class)
-    @Column(name = "COMMENTS")
+    @Column(name = "COMMENTS", columnDefinition="CLOB NULL")
     private String comment = "";
 
     @JsonView(JSonViews.EntityView.class)

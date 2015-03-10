@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -64,8 +65,9 @@ public class BOM extends Resource {
     @Column(name = "QUOTATION", unique = true, nullable = false)
     private String quotation = "";
 
+    @Lob
     @JsonView(JSonViews.EntityView.class)
-    @Column(name = "COMMENTS")
+    @Column(name = "COMMENTS", columnDefinition="CLOB NULL")
     private String comment = "";
 
     @JsonView(JSonViews.EntityView.class)

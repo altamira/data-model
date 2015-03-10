@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,10 +19,9 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 /**
  *
- * 
+ *
  * @author Alessandro
  */
 @Entity(name = "br.com.altamira.data.model.shipping.execution.BOM")
@@ -32,7 +32,7 @@ public class BOM extends Resource {
      * Serial number ID
      */
     private static final long serialVersionUID = -3725014293364656727L;
-    
+
     @NotNull
     @Column(name = "BOM_NUMBER", unique = true, nullable = false)
     private Long number = 0l;
@@ -64,8 +64,9 @@ public class BOM extends Resource {
     @Column(name = "QUOTATION", unique = true, nullable = false)
     private String quotation = "";
 
+    @Lob
     @JsonView(JSonViews.EntityView.class)
-    @Column(name = "COMMENTS")
+    @Column(name = "COMMENTS", columnDefinition="CLOB NULL")
     private String comment = "";
 
     @JsonView(JSonViews.EntityView.class)
@@ -75,19 +76,19 @@ public class BOM extends Resource {
     @JsonView(JSonViews.EntityView.class)
     @Column(name = "PROJECT")
     private Long project = 0l;
-    
+
     @JsonIgnore
     @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "CHECKED")
     private Date checked;
-    
+
     @JsonView(JSonViews.EntityView.class)
-    @OneToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name="BOM", insertable=false, updatable=false)
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BOM", insertable = false, updatable = false)
     private Set<Item> item = new HashSet<>();
-    
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="BOM", insertable=false, updatable=false)
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "BOM", insertable = false, updatable = false)
     private Set<PackingList> packingList = new HashSet<>();
 
     /**
@@ -96,7 +97,7 @@ public class BOM extends Resource {
     public BOM() {
         this.item = new HashSet<>();
     }
-    
+
     /**
      *
      * @param number
@@ -106,7 +107,7 @@ public class BOM extends Resource {
         this.number = number;
         this.customer = customer;
     }
-    
+
     /**
      *
      * @param id
@@ -114,11 +115,11 @@ public class BOM extends Resource {
      * @param customer
      */
     public BOM(Long id, Long number, String customer) {
-    	this.id = id;
+        this.id = id;
         this.number = number;
         this.customer = customer;
     }
-    
+
     /**
      *
      * @param id
@@ -128,13 +129,13 @@ public class BOM extends Resource {
      * @param delivery
      */
     public BOM(Long id, Long number, String customer, Date created, Date delivery) {
-    	this.id = id;
+        this.id = id;
         this.number = number;
         this.customer = customer;
         this.created = created;
         this.delivery = delivery;
     }
-    
+
     /**
      *
      * @param id
@@ -145,14 +146,14 @@ public class BOM extends Resource {
      * @param packingList
      */
     public BOM(Long id, Long number, String customer, Date created, Date delivery, Set<PackingList> packingList) {
-    	this.id = id;
+        this.id = id;
         this.number = number;
         this.customer = customer;
         this.created = created;
         this.delivery = delivery;
         this.packingList = packingList;
     }
-    
+
     /**
      *
      * @return
