@@ -1,0 +1,67 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.com.altamira.data.model.shipping.planning;
+
+import br.com.altamira.data.model.Resource;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+/**
+ *
+ * @author Alessandro
+ */
+@Entity(name = "br.com.altamira.data.model.shipping.Status")
+@Table(name = "SH_BOM_STATUS")
+public class Status extends Resource {
+
+    /**
+     *
+     */
+    @NotNull
+    @Size(min = 5)
+    @Column(name = "DESCRIPTION", unique = true, nullable = false)
+    private String description = "";
+
+    /**
+     *
+     */
+    @Min(1)
+    @Column(name = "CODE")
+    private int code;
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * @return the status
+     */
+    public int getCode() {
+        return code;
+    }
+
+    /**
+     * @param code the status to set
+     */
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+}
