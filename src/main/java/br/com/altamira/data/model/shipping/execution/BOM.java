@@ -87,7 +87,7 @@ public class BOM extends Resource {
     @JoinColumn(name = "BOM", insertable = false, updatable = false)
     private Set<Item> item = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "BOM", insertable = false, updatable = false)
     private Set<PackingList> packingList = new HashSet<>();
 
