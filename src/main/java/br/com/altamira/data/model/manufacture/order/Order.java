@@ -11,8 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import br.com.altamira.data.model.common.Document;
 
@@ -34,67 +32,23 @@ public class Order extends Document {
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OrderSequence")
 //    @Column(name = "ID")
 //    private Long id;
-
-    @NotNull
-    @Column(name = "ORDER_NUMBER", unique = true, nullable = false)
-    private Long number = 0l;
-
-    @NotNull
-    @Size(min = 3)
-    @Column(name = "CUSTOMER")
-    private String customer = "";
-
-    @NotNull
-    @Size(min = 5)
-    @Column(name = "REPRESENTATIVE")
-    private String representative = "";
-
-    @NotNull
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(name = "CREATED")
-    private Date created = new Date();
-
-    @NotNull
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(name = "DELIVERY")
-    private Date delivery = new Date();
-
-    @NotNull
-    @Size(min = 8, max = 8)
-    @Column(name = "QUOTATION")
-    private String quotation = "";
-
-    @Column(name = "COMMENTS")
-    private String comment = "";
-
-    @Column(name = "FINISH")
-    private String finish = "";
-
-    @Column(name = "PROJECT")
-    private Long project = 0l;
-
+    
     @Temporal(value = TemporalType.DATE)
-    @Column(name = "CHECKLIST")
-    private Date checked;
+    @Column(name = "START_DATE")
+    private Date startDate;
+    
+    @Temporal(value = TemporalType.DATE)
+    @Column(name = "END_DATE")
+    private Date endDate;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "order", fetch = FetchType.LAZY, orphanRemoval = false)
-    private List<OrderItem> items;
+    private List<OrderItemComponent> itemComponents;
 
     /**
      *
      */
     public Order() {
-        this.items = new ArrayList<>();
-    }
-
-    /**
-     *
-     * @param number
-     * @param customer
-     */
-    public Order(Long number, String customer) {
-        this.number = number;
-        this.customer = customer;
+        this.itemComponents = new ArrayList<>();
     }
 
     /**
@@ -111,178 +65,53 @@ public class Order extends Document {
 //        this.id = id;
 //    }
 
+
     /**
-     *
+     * 
      * @return
      */
-    public Long getNumber() {
-        return number;
-    }
+    public Date getStartDate() {
+		return startDate;
+	}
 
     /**
-     *
-     * @param number
+     * 
+     * @param startDate
      */
-    public void setNumber(Long number) {
-        this.number = number;
-    }
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
 
-    /**
-     *
-     * @return
-     */
-    public String getCustomer() {
-        return customer;
-    }
+	/**
+	 * 
+	 * @return
+	 */
+	public Date getEndDate() {
+		return endDate;
+	}
 
-    /**
-     *
-     * @param customer
-     */
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
+	/**
+	 * 
+	 * @param endDate
+	 */
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 
-    /**
-     *
-     * @return
-     */
-    public String getRepresentative() {
-        return representative;
-    }
+	/**
+	 * 
+	 * @return
+	 */
+	public List<OrderItemComponent> getItemComponents() {
+		return itemComponents;
+	}
 
-    /**
-     *
-     * @param representative
-     */
-    public void setRepresentative(String representative) {
-        this.representative = representative;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Date getCreated() {
-        return created;
-    }
-
-    /**
-     *
-     * @param created
-     */
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Date getDelivery() {
-        return delivery;
-    }
-
-    /**
-     *
-     * @param delivery
-     */
-    public void setDelivery(Date delivery) {
-        this.delivery = delivery;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getQuotation() {
-        return quotation;
-    }
-
-    /**
-     *
-     * @param quotation
-     */
-    public void setQuotation(String quotation) {
-        this.quotation = quotation;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getComment() {
-        return comment;
-    }
-
-    /**
-     *
-     * @param comment
-     */
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getFinish() {
-        return finish;
-    }
-
-    /**
-     *
-     * @param finish
-     */
-    public void setFinish(String finish) {
-        this.finish = finish;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Long getProject() {
-        return project;
-    }
-
-    /**
-     *
-     * @param project
-     */
-    public void setProject(Long project) {
-        this.project = project;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public List<OrderItem> getItems() {
-        return items;
-    }
-
-    /**
-     *
-     * @param items
-     */
-    public void setItems(List<OrderItem> items) {
-        this.items = (List<OrderItem>) items;
-    }
-
-    /**
-     * @return the checked
-     */
-    public Date getChecked() {
-        return checked;
-    }
-
-    /**
-     * @param checked the checked to set
-     */
-    public void setChecked(Date checked) {
-        this.checked = checked;
-    }
+	/**
+	 * 
+	 * @param itemComponents
+	 */
+	public void setItemComponents(List<OrderItemComponent> itemComponents) {
+		this.itemComponents = itemComponents;
+	}
 
 }

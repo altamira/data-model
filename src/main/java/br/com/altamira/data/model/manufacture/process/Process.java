@@ -12,6 +12,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import br.com.altamira.data.model.sales.Component;
 import br.com.altamira.data.model.serialize.JSonViews;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -42,6 +43,10 @@ public class Process extends br.com.altamira.data.model.Process {
     @Column(name = "COLOR", columnDefinition = "nvarchar2(255)")
     @JsonView(JSonViews.EntityView.class)
     private String color = "";
+    
+    @NotNull
+    @Column(name = "NAME", nullable = false)
+    private String name = "";
 
     @Min(0)
     @Column(name = "WEIGHT")
@@ -71,6 +76,11 @@ public class Process extends br.com.altamira.data.model.Process {
     //@JsonSerialize(using = NullCollectionSerializer.class)
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "process", fetch = FetchType.LAZY, orphanRemoval = false)
     private List<Operation> operation = new ArrayList<>();
+    
+    @JsonView(JSonViews.EntityView.class)
+    //@JsonSerialize(using = NullCollectionSerializer.class)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "process", fetch = FetchType.LAZY, orphanRemoval = false)
+    private List<Component> component = new ArrayList<>();
     
     /**
      *
@@ -140,6 +150,22 @@ public class Process extends br.com.altamira.data.model.Process {
     }
 
     /**
+     * 
+     * @return
+     */
+    public String getName() {
+		return name;
+	}
+
+    /**
+     * 
+     * @param name
+     */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
      *
      * @return
      */
@@ -234,5 +260,21 @@ public class Process extends br.com.altamira.data.model.Process {
     public void setOperation(List<Operation> operation) {
         this.operation = operation;
     }
+
+    /**
+     * 
+     * @return
+     */
+	public List<Component> getComponent() {
+		return component;
+	}
+
+	/**
+	 * 
+	 * @param component
+	 */
+	public void setComponent(List<Component> component) {
+		this.component = component;
+	}
 
 }

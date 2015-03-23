@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,6 +22,7 @@ import br.com.altamira.data.model.serialize.NullObjectSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import javax.persistence.OneToOne;
 import javax.persistence.UniqueConstraint;
 
@@ -37,25 +39,29 @@ public class Operation extends br.com.altamira.data.model.Process {
      */
     private static final long serialVersionUID = 4778350055794788171L;
 
-    @JsonIgnore
-    @JoinColumn(name = "PROCESS", referencedColumnName = "ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Process process;
-
+    @NotNull
+    @Size(min = 3)
+    @Column(name = "NAME", columnDefinition = "nvarchar2(255)", unique = true, nullable = false)
+    private String name = "";
+    
     @NotNull
     @Min(1)
     @Column(name = "SEQ")
     private int sequence = 1;
+    
+    @JsonIgnore
+    @JoinColumn(name = "PROCESS", referencedColumnName = "ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Process process;
+    
+    @JsonIgnore
+    @JoinColumn(name = "OPERATION", referencedColumnName = "ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private br.com.altamira.data.model.manufacture.Operation operation;
 
-    @NotNull
-    @Size(min = 3)
-    @Column(name = "NAME", columnDefinition = "nvarchar2(255)")
-    private String name = "";
-
-    @NotNull
-    @Size(min = 1)
+    @Lob
     @JsonView(JSonViews.EntityView.class)
-    @Column(name = "DESCRIPTION", columnDefinition = "nvarchar2(700)")
+    @Column(name = "DESCRIPTION", columnDefinition = "CLOB NULL")
     private String description = "";
 
     @JsonView(JSonViews.EntityView.class)
@@ -120,19 +126,19 @@ public class Operation extends br.com.altamira.data.model.Process {
     }
 
     /**
-     * @return the process
+     * @return the name
      */
-    public Process getProcess() {
-        return process;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param process the process to set
+     * @param name the name to set
      */
-    public void setProcess(Process process) {
-        this.process = process;
+    public void setName(String name) {
+        this.name = name;
     }
-
+    
     /**
      * @return the sequence
      */
@@ -148,18 +154,34 @@ public class Operation extends br.com.altamira.data.model.Process {
     }
 
     /**
-     * @return the name
+     * @return the process
      */
-    public String getName() {
-        return name;
+    public Process getProcess() {
+        return process;
     }
 
     /**
-     * @param name the name to set
+     * @param process the process to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setProcess(Process process) {
+        this.process = process;
     }
+
+    /**
+     * 
+     * @return
+     */
+    public br.com.altamira.data.model.manufacture.Operation getOperation() {
+		return operation;
+	}
+
+    /**
+     * 
+     * @param operation
+     */
+	public void setOperation(br.com.altamira.data.model.manufacture.Operation operation) {
+		this.operation = operation;
+	}
 
     /**
      * @return the description
