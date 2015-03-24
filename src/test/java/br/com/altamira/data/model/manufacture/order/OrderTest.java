@@ -5,6 +5,7 @@
  */
 package br.com.altamira.data.model.manufacture.order;
 
+import br.com.altamira.data.model.manufacture.planning.Order;
 import br.com.altamira.data.model.common.Material;
 import java.util.Date;
 import java.util.List;

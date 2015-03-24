@@ -1,4 +1,4 @@
-package br.com.altamira.data.model.manufacture.order;
+package br.com.altamira.data.model.manufacture.planning;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +18,7 @@ import br.com.altamira.data.model.common.Document;
  *
  * @author alessandro.holanda
  */
-@Entity(name = "br.com.altamira.data.model.manufacturing.order.Order")
+@Entity(name = "br.com.altamira.data.model.manufacture.planning.Order")
 @Table(name = "MN_ORDER")
 public class Order extends Document {
 
@@ -32,23 +32,22 @@ public class Order extends Document {
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OrderSequence")
 //    @Column(name = "ID")
 //    private Long id;
-    
     @Temporal(value = TemporalType.DATE)
     @Column(name = "START_DATE")
     private Date startDate;
-    
+
     @Temporal(value = TemporalType.DATE)
     @Column(name = "END_DATE")
     private Date endDate;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "order", fetch = FetchType.LAZY, orphanRemoval = false)
-    private List<OrderItemComponent> itemComponents;
+    private List<Produce> produce;
 
     /**
      *
      */
     public Order() {
-        this.itemComponents = new ArrayList<>();
+        this.produce = new ArrayList<>();
     }
 
     /**
@@ -57,61 +56,58 @@ public class Order extends Document {
 //    public Long getId() {
 //        return id;
 //    }
-
     /**
      * @param id the id to set
      */
 //    public void setId(Long id) {
 //        this.id = id;
 //    }
-
-
     /**
-     * 
+     *
      * @return
      */
     public Date getStartDate() {
-		return startDate;
-	}
+        return startDate;
+    }
 
     /**
-     * 
+     *
      * @param startDate
      */
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
 
-	/**
-	 * 
-	 * @return
-	 */
-	public Date getEndDate() {
-		return endDate;
-	}
+    /**
+     *
+     * @return
+     */
+    public Date getEndDate() {
+        return endDate;
+    }
 
-	/**
-	 * 
-	 * @param endDate
-	 */
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
+    /**
+     *
+     * @param endDate
+     */
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
-	/**
-	 * 
-	 * @return
-	 */
-	public List<OrderItemComponent> getItemComponents() {
-		return itemComponents;
-	}
+    /**
+     *
+     * @return
+     */
+    public List<Produce> getProduce() {
+        return produce;
+    }
 
-	/**
-	 * 
-	 * @param itemComponents
-	 */
-	public void setItemComponents(List<OrderItemComponent> itemComponents) {
-		this.itemComponents = itemComponents;
-	}
+    /**
+     *
+     * @param produce
+     */
+    public void setProduce(List<Produce> produce) {
+        this.produce = produce;
+    }
 
 }

@@ -5,6 +5,8 @@
  */
 package br.com.altamira.data.model.manufacture.order;
 
+import br.com.altamira.data.model.manufacture.planning.Produce;
+import br.com.altamira.data.model.manufacture.planning.Order;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -29,7 +31,7 @@ import org.junit.runner.RunWith;
 import br.com.altamira.data.model.manufacture.bom.Component;
 
 @RunWith(Arquillian.class)
-public class OrderItemComponentTest {
+public class ProduceTest {
 
 	@Deployment
     public static Archive<?> createTestArchive() {
@@ -61,12 +63,12 @@ public class OrderItemComponentTest {
     }
     
     /**
-     * Test of getOrder method, of class OrderItemComponent.
+     * Test of getOrder method, of class Produce.
      */
     @Test
     public void testGetOrder() {
     	System.out.println("getOrder");
-    	OrderItemComponent instance = new OrderItemComponent();
+    	Produce instance = new Produce();
     	Order expResult = null;
     	Order result = instance.getOrder();
     	assertEquals(expResult, result);
@@ -75,25 +77,25 @@ public class OrderItemComponentTest {
     }
     
     /**
-     * Test of setOrder method, of class OrderItemComponent.
+     * Test of setOrder method, of class Produce.
      */
     @Test
     public void testSetOrder() {
     	System.out.println("setOrder");
     	Order order = null;
-    	OrderItemComponent instance = new OrderItemComponent();
+    	Produce instance = new Produce();
     	instance.setOrder(order);
     	// TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
     
     /**
-     * Test of getComponent method, of class OrderItemComponent.
+     * Test of getComponent method, of class Produce.
      */
     @Test
     public void testGetComponent() {
     	System.out.println("getComponent");
-    	OrderItemComponent instance = new OrderItemComponent();
+    	Produce instance = new Produce();
     	Component expResult = null;
     	Component result = instance.getComponent();
     	assertEquals(expResult, result);
@@ -102,25 +104,25 @@ public class OrderItemComponentTest {
     }
     
     /**
-     * Test of setComponent method, of class OrderItemComponent.
+     * Test of setComponent method, of class Produce.
      */
     @Test
     public void testSetComponent() {
     	System.out.println("setComponent");
     	Component component = null;
-    	OrderItemComponent instance = new OrderItemComponent();
+    	Produce instance = new Produce();
     	instance.setComponent(component);
     	// TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
     
     /**
-     * Test of getStartDate method, of class OrderItemComponent.
+     * Test of getStartDate method, of class Produce.
      */
     @Test
     public void testGetStartDate() {
         System.out.println("getStartDate");
-        OrderItemComponent instance = new OrderItemComponent();
+        Produce instance = new Produce();
         Date expResult = null;
         Date result = instance.getStartDate();
         assertEquals(expResult, result);
@@ -129,13 +131,13 @@ public class OrderItemComponentTest {
     }
     
     /**
-     * Test of setStartDate method, of class OrderItemComponent.
+     * Test of setStartDate method, of class Produce.
      */
     @Test
     public void testSetStartDate() {
     	System.out.println("setStartDate");
         Date startDate = null;
-        OrderItemComponent instance = new OrderItemComponent();
+        Produce instance = new Produce();
         instance.setStartDate(startDate);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
