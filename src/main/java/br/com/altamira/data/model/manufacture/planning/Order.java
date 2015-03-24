@@ -13,6 +13,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import br.com.altamira.data.model.common.Document;
+import br.com.altamira.data.model.serialize.JSonViews;
+import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  *
@@ -27,11 +29,10 @@ public class Order extends Document {
      */
     private static final long serialVersionUID = -3725014293364656727L;
 
-//    @Id
-//    @SequenceGenerator(name = "OrderSequence", sequenceName = "SL_ORDER_SEQ", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OrderSequence")
-//    @Column(name = "ID")
-//    private Long id;
+    @Temporal(value = TemporalType.DATE)
+    @Column(name = "CREATED_DATE")
+    private Date createdDate = new Date();
+    
     @Temporal(value = TemporalType.DATE)
     @Column(name = "START_DATE")
     private Date startDate;
@@ -39,7 +40,8 @@ public class Order extends Document {
     @Temporal(value = TemporalType.DATE)
     @Column(name = "END_DATE")
     private Date endDate;
-
+        
+    @JsonView(JSonViews.EntityView.class)
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "order", fetch = FetchType.LAZY, orphanRemoval = false)
     private List<Produce> produce;
 
@@ -50,18 +52,6 @@ public class Order extends Document {
         this.produce = new ArrayList<>();
     }
 
-    /**
-     * @return the id
-     */
-//    public Long getId() {
-//        return id;
-//    }
-    /**
-     * @param id the id to set
-     */
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
     /**
      *
      * @return
@@ -108,6 +98,20 @@ public class Order extends Document {
      */
     public void setProduce(List<Produce> produce) {
         this.produce = produce;
+    }
+
+    /**
+     * @return the createdDate
+     */
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    /**
+     * @param createdDate the createdDate to set
+     */
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
 }

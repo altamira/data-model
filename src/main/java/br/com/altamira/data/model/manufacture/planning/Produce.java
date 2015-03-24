@@ -18,6 +18,8 @@ import javax.validation.constraints.NotNull;
 import br.com.altamira.data.model.Resource;
 import br.com.altamira.data.model.manufacture.bom.Component;
 import br.com.altamira.data.model.measurement.Measure;
+import br.com.altamira.data.model.serialize.NullObjectSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity(name = "br.com.altamira.data.model.manufacture.planning.Produce")
 @Table(name = "MN_ORDER_ITEM_CMP")
@@ -28,10 +30,12 @@ public class Produce extends Resource {
      */
     private static final long serialVersionUID = -96266958106783345L;
 
+    @JsonSerialize(nullsUsing = NullObjectSerializer.class)
     @JoinColumn(name = "MN_ORDER", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Order order;
 
+    @JsonSerialize(nullsUsing = NullObjectSerializer.class)
     @JoinColumn(name = "COMPONENT", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Component component;
@@ -57,7 +61,36 @@ public class Produce extends Resource {
     @AttributeOverride(name = "value", column = @Column(name = "QUANTITY"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
+    
+    /**
+     *
+     */
+    public Produce() {
+        this.parentType = Order.class;
+    }
 
+    /**
+     *
+     * @param parent
+     */
+    @Override
+    public void setParent(br.com.altamira.data.model.Entity parent) {
+        if (!parentType.isInstance(parent)) {
+            throw new IllegalArgumentException("Produce requires a Item instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
+        }
+
+        setOrder((Order) parent);
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public br.com.altamira.data.model.Entity getParent() {
+        return getOrder();
+    }
+    
     /**
      *
      * @return
