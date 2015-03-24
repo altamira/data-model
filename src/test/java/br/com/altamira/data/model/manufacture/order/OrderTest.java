@@ -6,11 +6,15 @@
 package br.com.altamira.data.model.manufacture.order;
 
 import br.com.altamira.data.model.manufacture.planning.Order;
+import br.com.altamira.data.model.manufacture.planning.Produce;
 import br.com.altamira.data.model.common.Material;
+
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
+
 import javax.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -22,7 +26,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import org.junit.runner.RunWith;
 
 /**
@@ -138,6 +144,33 @@ public class OrderTest {
         Date checked = null;
         Order instance = new Order();
         instance.setEndDate(checked);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of getProduce method, of class Order.
+     */
+    @Test
+    public void testGetProduce() {
+    	System.out.println("getProduce");
+        Order instance = new Order();
+        List<Produce> expResult = null;
+        List<Produce> result = instance.getProduce();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of setProduce method, of class Order.
+     */
+    @Test
+    public void testSetProduce() {
+    	System.out.println("setProduce");
+        List<Produce> produce = null;
+        Order instance = new Order();
+        instance.setProduce(produce);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

@@ -6,9 +6,13 @@
 package br.com.altamira.data.model.manufacture.process;
 
 import br.com.altamira.data.model.common.Material;
+import br.com.altamira.data.model.sales.Component;
+
 import java.util.List;
 import java.util.logging.Logger;
+
 import javax.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -20,7 +24,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import org.junit.runner.RunWith;
 
 /**
@@ -298,6 +304,60 @@ public class ProcessTest {
         List<Operation> operation = null;
         Process instance = new Process();
         instance.setOperation(operation);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of getComponent method, of class Process.
+     */
+    @Test
+    public void testGetComponent() {
+    	System.out.println("getComponent");
+        Process instance = new Process();
+        List<Component> expResult = null;
+        List<Component> result = instance.getComponent();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of setComponent method, of class Process.
+     */
+    @Test
+    public void testSetComponent() {
+    	System.out.println("setComponent");
+        List<Component> component = null;
+        Process instance = new Process();
+        instance.setComponent(component);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of getName method, of class Process.
+     */
+    @Test
+    public void testGetName() {
+        System.out.println("getName");
+        Process instance = new Process();
+        String expResult = "";
+        String result = instance.getName();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setName method, of class Process.
+     */
+    @Test
+    public void testSetName() {
+        System.out.println("setName");
+        String name = "";
+        Process instance = new Process();
+        instance.setName(name);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

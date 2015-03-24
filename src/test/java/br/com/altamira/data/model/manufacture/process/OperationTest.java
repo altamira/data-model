@@ -303,4 +303,31 @@ public class OperationTest {
         fail("The test case is a prototype.");
     }
     
+    /**
+     * Test of getOperation method, of class Operation.
+     */
+    @Test
+    public void testGetOperation() {
+    	System.out.println("getOperation");
+    	Operation instance = new Operation();
+    	br.com.altamira.data.model.manufacture.Operation expResult = null;
+    	br.com.altamira.data.model.manufacture.Operation result = instance.getOperation();
+    	assertEquals(expResult, result);
+    	// TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of setOperation method, of class Operation.
+     */
+    @Test
+    public void testSetOperation() {
+    	System.out.println("setOperation");
+        br.com.altamira.data.model.manufacture.Operation operation = null;
+        Operation instance = new Operation();
+        instance.setOperation(operation);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    
 }
