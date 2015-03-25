@@ -131,6 +131,24 @@ public class BOM extends Resource {
         this.created = created;
         this.delivery = delivery;
     }
+    
+   /**
+    * 
+    * @param id
+    * @param type
+    * @param number
+    * @param customer
+    * @param created
+    * @param delivery
+    */
+   public BOM(Long id, String type, Long number, String customer, Date created, Date delivery) {
+       this.id = id;
+       this.type = type;
+       this.number = number;
+       this.customer = customer;
+       this.created = created;
+       this.delivery = delivery;
+   }
 
     /**
      *
