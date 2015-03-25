@@ -28,7 +28,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import br.com.altamira.data.model.manufacture.bom.Component;
+import br.com.altamira.data.model.manufacture.planning.Component;
 
 @RunWith(Arquillian.class)
 public class ProduceTest {

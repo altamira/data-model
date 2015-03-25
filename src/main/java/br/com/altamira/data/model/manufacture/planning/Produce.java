@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import br.com.altamira.data.model.Resource;
-import br.com.altamira.data.model.manufacture.bom.Component;
+import br.com.altamira.data.model.manufacture.planning.Component;
 import br.com.altamira.data.model.measurement.Measure;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
