@@ -1,6 +1,7 @@
 package br.com.altamira.data.model.manufacture.planning;
 
 import br.com.altamira.data.model.Resource;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,12 +13,15 @@ import javax.validation.constraints.NotNull;
 import br.com.altamira.data.model.common.Color;
 import br.com.altamira.data.model.common.Material;
 import br.com.altamira.data.model.measurement.Measure;
+import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullCollectionSerializer;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +99,7 @@ public class Component extends Resource {
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
     private Measure weight = new Measure();
     
+    @JsonView(JSonViews.EntityView.class)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = NullCollectionSerializer.class)
     @OneToMany(fetch = FetchType.EAGER)
