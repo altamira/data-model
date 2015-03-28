@@ -1,6 +1,7 @@
 package br.com.altamira.data.model.manufacture.planning;
 
 import br.com.altamira.data.model.Resource;
+import br.com.altamira.data.model.serialize.JSonViews;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +14,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Lob;
 import javax.persistence.UniqueConstraint;
 
@@ -46,6 +50,7 @@ public class Item extends Resource {
     @Column(name = "DESCRIPTION", length = 100000)
     private String description = "";
 
+    @JsonView(JSonViews.EntityView.class)
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="ITEM", insertable=false, updatable=false)
     private Set<Component> component = new HashSet<>();
@@ -55,6 +60,18 @@ public class Item extends Resource {
      */
     public Item() {
         this.parentType = BOM.class;
+    }
+    
+    /**
+     * 
+     * @param id
+     * @param item
+     * @param description
+     */
+    public Item(Long id, int item, String description) {
+        this.id = id;
+        this.item = item;
+        this.description = description;
     }
     
     /**
