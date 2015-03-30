@@ -42,6 +42,10 @@ public class Operation extends Resource {
     @JsonView(JSonViews.ListView.class)
     private Produce produce;
     
+    public Operation() {
+        
+    }
+    
     /**
      * 
      * @param id
