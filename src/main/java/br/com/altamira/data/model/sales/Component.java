@@ -6,15 +6,7 @@
 package br.com.altamira.data.model.sales;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import br.com.altamira.data.model.manufacture.process.Process;
 
 /**
  *
@@ -28,12 +20,6 @@ public class Component extends Product {
      *
      */
     private static final long serialVersionUID = -4811377387938455032L;    
-    
-    @NotNull
-    @JsonIgnore
-    @JoinColumn(name = "PROCESS", referencedColumnName = "ID", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Process process;
 
     /**
      *
@@ -68,19 +54,4 @@ public class Component extends Product {
         this.type = type;
     }
 
-    /**
-     * 
-     * @return
-     */
-	public Process getProcess() {
-		return process;
-	}
-
-	/**
-	 * 
-	 * @param process
-	 */
-	public void setProcess(Process process) {
-		this.process = process;
-	}     
 }

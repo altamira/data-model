@@ -9,10 +9,10 @@ import br.com.altamira.data.model.Resource;
 import br.com.altamira.data.model.measurement.Variables;
 import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullCollectionSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -25,6 +25,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -59,7 +61,14 @@ public class Material extends Resource {
     @Size(min = 5)
     @Column(name = "DESCRIPTION", unique = true, nullable = false)
     protected String description = "";
-
+    
+    @NotNull
+    @JsonIgnore
+    @JoinColumn(name = "PROCESS", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private br.com.altamira.data.model.manufacture.process.Process process = 
+            new br.com.altamira.data.model.manufacture.process.Process(10000l, "MNP", "MATERIAL NAO PRODUTIVO");
+    
     /**
      *
      */
@@ -151,5 +160,19 @@ public class Material extends Resource {
     public Variables setVariable(Variables variable) {
         // do nothing here, see inherited classes from br.com.altamira.data.model.commom.Material
         return variable;
+    }
+
+    /**
+     * @return the process
+     */
+    public br.com.altamira.data.model.manufacture.process.Process getProcess() {
+        return process;
+    }
+
+    /**
+     * @param process the process to set
+     */
+    public void setProcess(br.com.altamira.data.model.manufacture.process.Process process) {
+        this.process = process;
     }
 }

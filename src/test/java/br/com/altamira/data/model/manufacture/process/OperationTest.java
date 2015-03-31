@@ -142,33 +142,6 @@ public class OperationTest {
     }
 
     /**
-     * Test of getName method, of class Operation.
-     */
-    @Test
-    public void testGetName() {
-        System.out.println("getName");
-        Operation instance = new Operation();
-        String expResult = "";
-        String result = instance.getName();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setName method, of class Operation.
-     */
-    @Test
-    public void testSetName() {
-        System.out.println("setName");
-        String name = "";
-        Operation instance = new Operation();
-        instance.setName(name);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getDescription method, of class Operation.
      */
     @Test

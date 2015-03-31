@@ -120,141 +120,6 @@ public class ProcessTest {
     }
 
     /**
-     * Test of getColor method, of class Process.
-     */
-    @Test
-    public void testGetColor() {
-        System.out.println("getColor");
-        Process instance = new Process();
-        String expResult = "";
-        String result = instance.getColor();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setColor method, of class Process.
-     */
-    @Test
-    public void testSetColor() {
-        System.out.println("setColor");
-        String color = "";
-        Process instance = new Process();
-        instance.setColor(color);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getWeight method, of class Process.
-     */
-    @Test
-    public void testGetWeight() {
-        System.out.println("getWeight");
-        Process instance = new Process();
-        float expResult = 0.0F;
-        float result = instance.getWeight();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setWeight method, of class Process.
-     */
-    @Test
-    public void testSetWeight() {
-        System.out.println("setWeight");
-        float weight = 0.0F;
-        Process instance = new Process();
-        instance.setWeight(weight);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getLength method, of class Process.
-     */
-    @Test
-    public void testGetLength() {
-        System.out.println("getLength");
-        Process instance = new Process();
-        float expResult = 0.0F;
-        float result = instance.getLength();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setLength method, of class Process.
-     */
-    @Test
-    public void testSetLength() {
-        System.out.println("setLength");
-        float length = 0.0F;
-        Process instance = new Process();
-        instance.setLength(length);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getWidth method, of class Process.
-     */
-    @Test
-    public void testGetWidth() {
-        System.out.println("getWidth");
-        Process instance = new Process();
-        float expResult = 0.0F;
-        float result = instance.getWidth();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setWidth method, of class Process.
-     */
-    @Test
-    public void testSetWidth() {
-        System.out.println("setWidth");
-        float width = 0.0F;
-        Process instance = new Process();
-        instance.setWidth(width);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getFinish method, of class Process.
-     */
-    @Test
-    public void testGetFinish() {
-        System.out.println("getFinish");
-        Process instance = new Process();
-        String expResult = "";
-        String result = instance.getFinish();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setFinish method, of class Process.
-     */
-    @Test
-    public void testSetFinish() {
-        System.out.println("setFinish");
-        String finish = "";
-        Process instance = new Process();
-        instance.setFinish(finish);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getRevision method, of class Process.
      */
     @Test
@@ -315,8 +180,8 @@ public class ProcessTest {
     public void testGetComponent() {
     	System.out.println("getComponent");
         Process instance = new Process();
-        List<Component> expResult = null;
-        List<Component> result = instance.getComponent();
+        List<Material> expResult = null;
+        List<Material> result = instance.getMaterial();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -328,9 +193,9 @@ public class ProcessTest {
     @Test
     public void testSetComponent() {
     	System.out.println("setComponent");
-        List<Component> component = null;
+        List<Material> material = null;
         Process instance = new Process();
-        instance.setComponent(component);
+        instance.setMaterial(material);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

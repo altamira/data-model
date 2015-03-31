@@ -33,6 +33,17 @@ public class Operation extends Resource {
     /*@JsonView(JSonViews.EntityView.class)
      @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "operation", fetch = FetchType.LAZY, orphanRemoval = false)
      private List<br.com.altamira.data.model.manufacture.process.Operation> operation = new ArrayList<>();*/
+    
+    public Operation() {
+        
+    }
+    
+    public Operation(Long id, String description) {
+        super();
+        this.id = id;
+        this.description = description;
+    }
+    
     /**
      * @return the description
      */

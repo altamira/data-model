@@ -24,18 +24,28 @@ public class Status extends Resource {
     /**
      *
      */
+    @Min(1)
+    @Column(name = "CODE")
+    private int code;
+
+    /**
+     *
+     */
     @NotNull
     @Size(min = 5)
     @Column(name = "DESCRIPTION", unique = true, nullable = false)
     private String description = "";
 
-    /**
-     *
-     */
-    @Min(1)
-    @Column(name = "CODE")
-    private int code;
-
+    public Status() {
+        
+    }
+    
+    public Status(Long id, int code, String description) {
+        super();
+        this.id = id;
+        this.code = code;
+        this.description = description;
+    }
     /**
      * @return the description
      */

@@ -1,4 +1,4 @@
-package br.com.altamira.data.model.manufacture.process;
+package br.com.altamira.data.model.manufacture.planning;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import javax.persistence.Entity;
  * @author alessandro.holanda
  */
 @Table(name = "MN_PROCESS")
-@Entity(name = "br.com.altamira.data.model.manufacture.process.Process")
+@Entity(name = "br.com.altamira.data.model.manufacture.planning.Process")
 public class Process extends br.com.altamira.data.model.Process {
 
     /**
@@ -46,17 +46,7 @@ public class Process extends br.com.altamira.data.model.Process {
     @JsonView(JSonViews.EntityView.class)
     //@JsonSerialize(using = NullCollectionSerializer.class)
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "process", fetch = FetchType.LAZY, orphanRemoval = false)
-    private List<Revision> revision = new ArrayList<>();
-
-    @JsonView(JSonViews.EntityView.class)
-    //@JsonSerialize(using = NullCollectionSerializer.class)
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "process", fetch = FetchType.LAZY, orphanRemoval = false)
-    private List<Operation> operation = new ArrayList<>();
-
-    @JsonView(JSonViews.EntityView.class)
-    //@JsonSerialize(using = NullCollectionSerializer.class)
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "process", fetch = FetchType.LAZY, orphanRemoval = false)
-    private List<br.com.altamira.data.model.common.Material> material = new ArrayList<>();
+    private List<br.com.altamira.data.model.manufacture.process.Operation> operation = new ArrayList<>();
 
     /**
      *
@@ -129,23 +119,7 @@ public class Process extends br.com.altamira.data.model.Process {
      *
      * @return
      */
-    public List<Revision> getRevision() {
-        return revision;
-    }
-
-    /**
-     *
-     * @param revision
-     */
-    public void setRevision(List<Revision> revision) {
-        this.revision = revision;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public List<Operation> getOperation() {
+    public List<br.com.altamira.data.model.manufacture.process.Operation> getOperation() {
         return operation;
     }
 
@@ -153,24 +127,8 @@ public class Process extends br.com.altamira.data.model.Process {
      *
      * @param operation
      */
-    public void setOperation(List<Operation> operation) {
+    public void setOperation(List<br.com.altamira.data.model.manufacture.process.Operation> operation) {
         this.operation = operation;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public List<br.com.altamira.data.model.common.Material> getMaterial() {
-        return material;
-    }
-
-    /**
-     *
-     * @param material
-     */
-    public void setMaterial(List<br.com.altamira.data.model.common.Material> material) {
-        this.material = material;
     }
 
 }

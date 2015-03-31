@@ -46,7 +46,7 @@ public class BOM extends Resource {
     @JoinColumn(name = "STATUS", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
-    private Status status;
+    private Status status = new Status(2200l, 1, "Pedido Liberado");
 
     @NotNull
     @Size(min = 3)

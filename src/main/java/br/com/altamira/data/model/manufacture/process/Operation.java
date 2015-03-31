@@ -14,7 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
@@ -30,7 +29,7 @@ import javax.persistence.UniqueConstraint;
  *
  * @author alessandro.holanda
  */
-@Entity
+@Entity(name = "br.com.altamira.data.model.manufacture.process.Operation")
 @Table(name = "MN_PROCESS_OPERATION", uniqueConstraints={@UniqueConstraint(columnNames={"PROCESS", "SEQ"})})
 public class Operation extends br.com.altamira.data.model.Process {
 
@@ -38,11 +37,6 @@ public class Operation extends br.com.altamira.data.model.Process {
      *
      */
     private static final long serialVersionUID = 4778350055794788171L;
-
-    @NotNull
-    @Size(min = 3)
-    @Column(name = "NAME", columnDefinition = "nvarchar2(255)", unique = true, nullable = false)
-    private String name = "";
     
     @NotNull
     @Min(1)
@@ -57,7 +51,7 @@ public class Operation extends br.com.altamira.data.model.Process {
     @JsonIgnore
     @JoinColumn(name = "OPERATION", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private br.com.altamira.data.model.manufacture.Operation operation;
+    private br.com.altamira.data.model.manufacture.Operation operation = new br.com.altamira.data.model.manufacture.Operation(10600l, "MATERIAL NAO PRODUTIVO");
 
     @Lob
     @JsonView(JSonViews.EntityView.class)
@@ -117,26 +111,22 @@ public class Operation extends br.com.altamira.data.model.Process {
      *
      * @param id
      * @param sequence
-     * @param name
      */
-    public Operation(long id, int sequence, String name) {
+    public Operation(long id, int sequence) {
         this.id = id;
         this.sequence = sequence;
-        this.name = name;
     }
 
     /**
-     * @return the name
+     *
+     * @param id
+     * @param sequence
+     * @param operation
      */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
+    public Operation(long id, int sequence, br.com.altamira.data.model.manufacture.Operation operation) {
+        this.id = id;
+        this.sequence = sequence;
+        this.operation = operation;
     }
     
     /**

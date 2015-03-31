@@ -51,13 +51,13 @@ public class Operation extends Resource {
      * @param id
      * @param description
      * @param startDate
-     * @param quantityValue
-     * @param quantityUnit
+     * @param quantity
+     * @param unit
      */
-    public Operation(Long id,String description,Date startDate, BigDecimal quantityValue, Unit quantityUnit){
+    public Operation(Long id,String description,Date startDate, BigDecimal quantity, Unit unit){
     	this.id = id;
     	this.description = description;
-    	this.produce = new Produce(startDate, new Measure(quantityValue,quantityUnit));
+    	this.produce = new Produce(startDate, new Measure(quantity, unit));
     }
 
     /**
