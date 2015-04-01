@@ -37,27 +37,27 @@ public class Operation extends Resource {
     @Size(min = 5)
     @Column(name = "DESCRIPTION", unique = true, nullable = false)
     private String description = "";
-    
+
     @Transient
     @JsonView(JSonViews.ListView.class)
     private Produce produce;
-    
+
     public Operation() {
-        
+
     }
-    
+
     /**
-     * 
+     *
      * @param id
      * @param description
      * @param startDate
      * @param quantity
      * @param unit
      */
-    public Operation(Long id,String description,Date startDate, BigDecimal quantity, Unit unit){
-    	this.id = id;
-    	this.description = description;
-    	this.produce = new Produce(startDate, new Measure(quantity, unit));
+    public Operation(Long id, String description, Date startDate, BigDecimal quantity, Unit unit) {
+        this.id = id;
+        this.description = description;
+        this.produce = new Produce(startDate, new Measure(quantity, unit));
     }
 
     /**
@@ -73,41 +73,41 @@ public class Operation extends Resource {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     public Produce getProduce() {
-		return produce;
-	}
+        return produce;
+    }
 
-	public void setProduce(Produce produce) {
-		this.produce = produce;
-	}
+    public void setProduce(Produce produce) {
+        this.produce = produce;
+    }
 
-	// ALTAMIRA-161 : Manufacture Planning - Operation summary
-	class Produce {
+    // ALTAMIRA-161 : Manufacture Planning - Operation summary
+    class Produce {
 
-		private Date startDate;
-		private Measure quantity;
+        private Date startDate;
+        private Measure quantity;
 
-		public Produce(Date startDate, Measure quantity) {
-			this.startDate = startDate;
-			this.quantity = quantity;
-		}
+        public Produce(Date startDate, Measure quantity) {
+            this.startDate = startDate;
+            this.quantity = quantity;
+        }
 
-		public Date getStartDate() {
-			return startDate;
-		}
+        public Date getStartDate() {
+            return startDate;
+        }
 
-		public void setStartDate(Date startDate) {
-			this.startDate = startDate;
-		}
+        public void setStartDate(Date startDate) {
+            this.startDate = startDate;
+        }
 
-		public Measure getQuantity() {
-			return quantity;
-		}
+        public Measure getQuantity() {
+            return quantity;
+        }
 
-		public void setQuantity(Measure quantity) {
-			this.quantity = quantity;
-		}
+        public void setQuantity(Measure quantity) {
+            this.quantity = quantity;
+        }
 
-	}
+    }
 }
