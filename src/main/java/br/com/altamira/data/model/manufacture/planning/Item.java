@@ -14,8 +14,8 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import javax.persistence.Basic;
 
 import javax.persistence.Lob;
 import javax.persistence.UniqueConstraint;
@@ -43,9 +43,9 @@ public class Item extends Resource {
     @Column(name = "ITEM")
     private int item = 0;
 
-    @NotNull
     @Lob
-    @Column(name = "DESCRIPTION", length = 100000)
+    @Basic(fetch=FetchType.LAZY)
+    @Column(name = "DESCRIPTION", columnDefinition = "CLOB NULL")
     private String description = "";
 
     @OneToMany(fetch=FetchType.LAZY)

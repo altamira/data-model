@@ -7,8 +7,11 @@ package br.com.altamira.data.model.manufacture;
 
 
 import br.com.altamira.data.model.Resource;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,20 +30,31 @@ public class Operation extends Resource {
      */
     @NotNull
     @Size(min = 5)
-    @Column(name = "DESCRIPTION", unique = true, nullable = false)
+    @Column(name = "NAME", unique = true, nullable = false, columnDefinition = "nvarchar2(50)")
+    private String name = "";
+    
+    /**
+     *
+     */
+    @Lob
+    @Basic(fetch=FetchType.LAZY)
+    @Column(name = "DESCRIPTION", columnDefinition = "CLOB NULL")
     private String description = "";
-
-    /*@JsonView(JSonViews.EntityView.class)
-     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "operation", fetch = FetchType.LAZY, orphanRemoval = false)
-     private List<br.com.altamira.data.model.manufacture.process.Operation> operation = new ArrayList<>();*/
     
     public Operation() {
         
     }
     
-    public Operation(Long id, String description) {
+    public Operation(Long id, String name) {
         super();
         this.id = id;
+        this.name = name;
+    }
+    
+    public Operation(Long id, String name, String description) {
+        super();
+        this.id = id;
+        this.name = name;
         this.description = description;
     }
     
@@ -59,18 +73,17 @@ public class Operation extends Resource {
     }
 
     /**
-     *
-     * @return
+     * @return the name
      */
-    /*public List<br.com.altamira.data.model.manufacture.process.Operation> getOperation() {
-     return operation;
-     }*/
+    public String getName() {
+        return name;
+    }
+
     /**
-     *
-     * @param operation
+     * @param name the name to set
      */
-    /*public void setOperation(
-     List<br.com.altamira.data.model.manufacture.process.Operation> operation) {
-     this.operation = operation;
-     }*/
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

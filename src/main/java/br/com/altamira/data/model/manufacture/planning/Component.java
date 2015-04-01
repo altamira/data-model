@@ -11,7 +11,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import br.com.altamira.data.model.common.Color;
-import br.com.altamira.data.model.common.Material;
 import br.com.altamira.data.model.measurement.Measure;
 import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullCollectionSerializer;
@@ -49,9 +48,9 @@ public class Component extends Resource {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Item item;
 
-    @NotNull
+    @JsonIgnore
     @JoinColumn(name = "MATERIAL", referencedColumnName = "ID", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
     private Material material;
     
@@ -77,32 +76,15 @@ public class Component extends Resource {
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "WIDTH"))
-    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WIDTH_UNIT"))
-    private Measure width = new Measure();
-
-    @NotNull
-    @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "HEIGHT"))
-    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "HEIGHT_UNIT"))
-    private Measure height = new Measure();
-
-    @NotNull
-    @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "LENGTH"))
-    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "LENGTH_UNIT"))
-    private Measure length = new Measure();
-
-    @NotNull
-    @Embedded
     @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
     private Measure weight = new Measure();
     
+    @JsonIgnore
     @JsonView(JSonViews.EntityView.class)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = NullCollectionSerializer.class)
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name="COMPONENT", insertable=false, updatable=false)
     private List<Produce> produce = new ArrayList<>();
 
@@ -150,14 +132,16 @@ public class Component extends Resource {
     /**
      * @return the material
      */
-    public br.com.altamira.data.model.common.Material getMaterial() {
+    @JsonIgnore
+    public Material getMaterial() {
         return material;
     }
 
     /**
      * @param material the material to set
      */
-    public void setMaterial(br.com.altamira.data.model.common.Material material) {
+    @JsonIgnore
+    public void setMaterial(Material material) {
         this.material = material;
     }
 
@@ -212,48 +196,6 @@ public class Component extends Resource {
     }
 
     /**
-     * @return the width
-     */
-    public Measure getWidth() {
-        return width;
-    }
-
-    /**
-     * @param width the width to set
-     */
-    public void setWidth(Measure width) {
-        this.width = width;
-    }
-
-    /**
-     * @return the height
-     */
-    public Measure getHeight() {
-        return height;
-    }
-
-    /**
-     * @param height the height to set
-     */
-    public void setHeight(Measure height) {
-        this.height = height;
-    }
-
-    /**
-     * @return the length
-     */
-    public Measure getLength() {
-        return length;
-    }
-
-    /**
-     * @param length the length to set
-     */
-    public void setLength(Measure length) {
-        this.length = length;
-    }
-
-    /**
      * @return the weight
      */
     public Measure getWeight() {
@@ -270,6 +212,7 @@ public class Component extends Resource {
     /**
      * @return the delivery
      */
+    @JsonIgnore
     public List<Produce> getProduce() {
         return produce;
     }
@@ -277,6 +220,7 @@ public class Component extends Resource {
     /**
      * @param produce
      */
+    @JsonIgnore
     public void setProduce(List<Produce> produce) {
         this.produce = produce;
     }
@@ -284,6 +228,7 @@ public class Component extends Resource {
     /**
      * @return the remaining
      */
+    
     public Measure getDelivered() {
         return delivered;
     }

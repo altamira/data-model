@@ -30,13 +30,14 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Table(name = "MN_OPERATION")
 public class Operation extends Resource {
 
+
     /**
      *
      */
     @NotNull
     @Size(min = 5)
-    @Column(name = "DESCRIPTION", unique = true, nullable = false)
-    private String description = "";
+    @Column(name = "NAME", unique = true, nullable = false, columnDefinition = "nvarchar2(50)")
+    private String name = "";
 
     @Transient
     @JsonView(JSonViews.ListView.class)
@@ -49,29 +50,29 @@ public class Operation extends Resource {
     /**
      *
      * @param id
-     * @param description
+     * @param name
      * @param startDate
      * @param quantity
      * @param unit
      */
-    public Operation(Long id, String description, Date startDate, BigDecimal quantity, Unit unit) {
+    public Operation(Long id, String name, Date startDate, BigDecimal quantity, Unit unit) {
         this.id = id;
-        this.description = description;
+        this.name = name;
         this.produce = new Produce(startDate, new Measure(quantity, unit));
     }
 
     /**
-     * @return the description
+     * @return the name
      */
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param description the description to set
+     * @param name the name to set
      */
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Produce getProduce() {

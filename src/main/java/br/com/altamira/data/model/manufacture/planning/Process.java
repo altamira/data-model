@@ -12,8 +12,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.altamira.data.model.serialize.JSonViews;
+import br.com.altamira.data.model.serialize.NullCollectionSerializer;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import javax.persistence.Entity;
 
 /**
@@ -38,33 +40,27 @@ public class Process extends br.com.altamira.data.model.Process {
     @Column(name = "NAME", nullable = false)
     private String name = "";
 
-    @NotNull
-    @Size(min = 5)
-    @Column(name = "DESCRIPTION", columnDefinition = "nvarchar2(255)")
-    private String description = "";
-
     @JsonView(JSonViews.EntityView.class)
-    //@JsonSerialize(using = NullCollectionSerializer.class)
+    @JsonSerialize(using = NullCollectionSerializer.class)
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "process", fetch = FetchType.LAZY, orphanRemoval = false)
     private List<br.com.altamira.data.model.manufacture.process.Operation> operation = new ArrayList<>();
-
+    
     /**
      *
      */
     public Process() {
-        this.operation = new ArrayList<>();
     }
 
     /**
      *
      * @param id
      * @param code
-     * @param description
+     * @param name
      */
-    public Process(long id, String code, String description) {
+    public Process(long id, String code, String name) {
         this.id = id;
         this.code = code;
-        this.description = description;
+        this.name = name;
     }
 
     /**
@@ -87,17 +83,17 @@ public class Process extends br.com.altamira.data.model.Process {
      *
      * @return
      */
-    public String getDescription() {
+    /*public String getDescription() {
         return description;
-    }
+    }*/
 
     /**
      *
      * @param description
      */
-    public void setDescription(String description) {
+    /*public void setDescription(String description) {
         this.description = description;
-    }
+    }*/
 
     /**
      *
@@ -130,5 +126,4 @@ public class Process extends br.com.altamira.data.model.Process {
     public void setOperation(List<br.com.altamira.data.model.manufacture.process.Operation> operation) {
         this.operation = operation;
     }
-
 }

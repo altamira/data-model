@@ -2,8 +2,10 @@ package br.com.altamira.data.model.manufacture.planning;
 
 import br.com.altamira.data.model.Resource;
 import br.com.altamira.data.model.serialize.JSonViews;
+import br.com.altamira.data.model.serialize.NullCollectionSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -42,12 +44,6 @@ public class BOM extends Resource {
     @Column(name = "CUSTOMER")
     private String customer = "";
 
-    //@NotNull
-    //@Size(min = 5)
-    @JsonView(JSonViews.EntityView.class)
-    @Column(name = "REPRESENTATIVE")
-    private String representative = "";
-
     @NotNull
     @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "CREATED")
@@ -58,32 +54,8 @@ public class BOM extends Resource {
     @Column(name = "DELIVERY")
     private Date delivery = new Date();
 
-    //@NotNull
-    //@Size(min = 8, max = 8)
-    @JsonView(JSonViews.EntityView.class)
-    @Column(name = "QUOTATION", unique = true, nullable = false)
-    private String quotation = "";
-
-    @Lob
-    @JsonView(JSonViews.EntityView.class)
-    @Column(name = "COMMENTS", columnDefinition="CLOB NULL")
-    private String comment = "";
-
-    @JsonView(JSonViews.EntityView.class)
-    @Column(name = "FINISH")
-    private String finish = "";
-
-    @JsonView(JSonViews.EntityView.class)
-    @Column(name = "PROJECT")
-    private Long project = 0l;
-
-    @JsonIgnore
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(name = "CHECKED")
-    private Date checked;
-
-    @JsonView(JSonViews.EntityView.class)
     @OneToMany(fetch = FetchType.LAZY)
+    @JsonSerialize(using = NullCollectionSerializer.class)
     @JoinColumn(name = "BOM", insertable = false, updatable = false)
     private Set<Item> item = new HashSet<>();
 
@@ -186,22 +158,6 @@ public class BOM extends Resource {
      *
      * @return
      */
-    public String getRepresentative() {
-        return representative;
-    }
-
-    /**
-     *
-     * @param representative
-     */
-    public void setRepresentative(String representative) {
-        this.representative = representative;
-    }
-
-    /**
-     *
-     * @return
-     */
     public Date getCreated() {
         return created;
     }
@@ -228,70 +184,6 @@ public class BOM extends Resource {
      */
     public void setDelivery(Date delivery) {
         this.delivery = delivery;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getQuotation() {
-        return quotation;
-    }
-
-    /**
-     *
-     * @param quotation
-     */
-    public void setQuotation(String quotation) {
-        this.quotation = quotation;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getComment() {
-        return comment;
-    }
-
-    /**
-     *
-     * @param comment
-     */
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getFinish() {
-        return finish;
-    }
-
-    /**
-     *
-     * @param finish
-     */
-    public void setFinish(String finish) {
-        this.finish = finish;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Long getProject() {
-        return project;
-    }
-
-    /**
-     *
-     * @param project
-     */
-    public void setProject(Long project) {
-        this.project = project;
     }
 
     /**

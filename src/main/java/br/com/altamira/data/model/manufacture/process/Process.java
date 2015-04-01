@@ -14,7 +14,9 @@ import javax.validation.constraints.Size;
 import br.com.altamira.data.model.serialize.JSonViews;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 
 /**
  *
@@ -35,12 +37,12 @@ public class Process extends br.com.altamira.data.model.Process {
     private String code = "";
 
     @NotNull
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", unique = true, nullable = false, columnDefinition = "nvarchar2(255)")
     private String name = "";
 
-    @NotNull
-    @Size(min = 5)
-    @Column(name = "DESCRIPTION", columnDefinition = "nvarchar2(255)")
+    @Lob
+    @Basic(fetch=FetchType.LAZY)
+    @Column(name = "DESCRIPTION", columnDefinition = "CLOB NULL")
     private String description = "";
 
     @JsonView(JSonViews.EntityView.class)
