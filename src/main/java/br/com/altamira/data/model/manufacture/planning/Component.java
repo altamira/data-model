@@ -90,14 +90,14 @@ public class Component extends Resource {
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "DELIVERED"))
-    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "DELIVERED_UNIT"))
-    private Measure delivered = new Measure();
+    @AttributeOverride(name = "value", column = @Column(name = "PRODUCE"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "PRODUCE_UNIT"))
+    private Measure produced = new Measure();
 
     @NotNull
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "REMAINING"))
-    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "REMAINING_UNIT"))
+    @AttributeOverride(name = "value", column = @Column(name = "PRODUCE_REMAINING"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "PRODUCE_REMAINING_UNIT"))
     private Measure remaining = new Measure();
     
     /**
@@ -229,15 +229,15 @@ public class Component extends Resource {
      * @return the remaining
      */
     
-    public Measure getDelivered() {
-        return delivered;
+    public Measure getProduced() {
+        return produced;
     }
     
     /**
      * @return the remaining
      */
     public Measure getRemaining() {
-    	this.remaining.setValue(this.quantity.getValue().subtract(this.delivered.getValue()));
+    	this.remaining.setValue(this.quantity.getValue().subtract(this.produced.getValue()));
     	this.remaining.setUnit(this.quantity.getUnit());
         return remaining;
     }
@@ -252,8 +252,8 @@ public class Component extends Resource {
     /**
      * @param delivered the delivered to set
      */
-    public void setDelivered(Measure delivered) {
-        this.delivered = delivered;
+    public void setProduced(Measure produced) {
+        this.produced = produced;
     }
 
     /**
