@@ -17,8 +17,11 @@ import javax.validation.constraints.NotNull;
 
 import br.com.altamira.data.model.Resource;
 import br.com.altamira.data.model.measurement.Measure;
+import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity(name = "br.com.altamira.data.model.manufacture.planning.Produce")
@@ -30,7 +33,7 @@ public class Produce extends Resource {
      */
     private static final long serialVersionUID = -96266958106783345L;
 
-    @JsonIgnore
+    @JsonView(JSonViews.EntityView.class)
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
     @JoinColumn(name = "MN_ORDER", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -96,7 +99,6 @@ public class Produce extends Resource {
      *
      * @return
      */
-    @JsonIgnore
     public Order getOrder() {
         return order;
     }
@@ -105,7 +107,6 @@ public class Produce extends Resource {
      *
      * @param order
      */
-    @JsonIgnore
     public void setOrder(Order order) {
         this.order = order;
     }
