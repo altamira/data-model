@@ -17,11 +17,9 @@ import javax.validation.constraints.NotNull;
 
 import br.com.altamira.data.model.Resource;
 import br.com.altamira.data.model.measurement.Measure;
-import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity(name = "br.com.altamira.data.model.manufacture.planning.Produce")
@@ -33,15 +31,14 @@ public class Produce extends Resource {
      */
     private static final long serialVersionUID = -96266958106783345L;
 
-    @JsonView(JSonViews.EntityView.class)
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
     @JoinColumn(name = "MN_ORDER", referencedColumnName = "ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Order order;
 
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
     @JoinColumn(name = "COMPONENT", referencedColumnName = "ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Component component;
 
     @Temporal(value = TemporalType.DATE)
