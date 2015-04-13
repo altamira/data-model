@@ -1,6 +1,6 @@
 package br.com.altamira.data.model.security;
 
-import br.com.altamira.data.model.serialize.JSonViews;
+import br.com.altamira.data.model.serialize.NullCollectionSerializer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,17 +8,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-//import br.com.altamira.security.oauth2.serialize.NullCollectionSerializer;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -38,15 +35,15 @@ public class Profile extends br.com.altamira.data.model.Resource {
     @Column(name = "NAME")
     private String name = "";
 
-    @JsonView(JSonViews.EntityView.class)
-    @JoinColumn(name = "PERMISSION_ID", referencedColumnName = "ID")
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    private Permission permission;
-
     @JsonIgnore
-//    @JsonSerialize(using = NullCollectionSerializer.class)
+    @JsonSerialize(using = NullCollectionSerializer.class)
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "profiles")
     private List<User> users = new ArrayList<>();
+
+    @JsonIgnore
+    @JsonSerialize(using = NullCollectionSerializer.class)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "profile", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Permission> permission = new ArrayList<>();
 
     /**
      *
@@ -98,18 +95,16 @@ public class Profile extends br.com.altamira.data.model.Resource {
     }
 
     /**
-     *
-     * @return
+     * @return the permission
      */
-    public Permission getPermission() {
+    public List<Permission> getPermission() {
         return permission;
     }
 
     /**
-     *
-     * @param permission
+     * @param permission the permission to set
      */
-    public void setPermission(Permission permission) {
+    public void setPermission(List<Permission> permission) {
         this.permission = permission;
     }
 

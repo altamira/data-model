@@ -30,11 +30,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Member implements Serializable {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1301217020260029952L;
+     *
+     */
+    private static final long serialVersionUID = 1301217020260029952L;
 
-	@Id
+    @Id
     @GeneratedValue
     private Long id;
 
