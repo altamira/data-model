@@ -6,12 +6,16 @@
 package br.com.altamira.data.model.shipping.planning;
 
 import br.com.altamira.data.model.Resource;
+import br.com.altamira.data.model.security.User;
 import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -56,6 +60,11 @@ public class History extends Resource {
     @JsonView(JSonViews.EntityView.class)
     @Column(name = "COMMENTS", columnDefinition="CLOB NULL")
     private String comment = "";
+    
+    @JoinColumn(name = "CREATED_BY", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JsonSerialize(nullsUsing = NullObjectSerializer.class)
+    private User createdby;
 
     public History() {
         this.parentType = BOM.class;
@@ -144,4 +153,18 @@ public class History extends Resource {
     public void setComment(String comment) {
         this.comment = comment;
     }
+    
+    /**
+     * @return the createdby
+     */
+	public User getCreatedby() {
+		return createdby;
+	}
+
+	/**
+     * @param createdby the createdby to set
+     */
+	public void setCreatedby(User createdby) {
+		this.createdby = createdby;
+	}
 }
