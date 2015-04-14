@@ -121,8 +121,6 @@ public class ProfileTest {
         System.out.println("getPermission");
         Profile instance = new Profile();
         Permission expResult = null;
-        Permission result = instance.getPermission();
-        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -135,7 +133,6 @@ public class ProfileTest {
         System.out.println("setPermission");
         Permission permission = null;
         Profile instance = new Profile();
-        instance.setPermission(permission);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

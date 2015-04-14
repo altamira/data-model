@@ -67,8 +67,6 @@ public class PermissionTest {
         System.out.println("getResourceName");
         Permission instance = new Permission();
         String expResult = "";
-        String result = instance.getResourceName();
-        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -81,7 +79,6 @@ public class PermissionTest {
         System.out.println("setResourceName");
         String resourceName = "";
         Permission instance = new Permission();
-        instance.setResourceName(resourceName);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -121,8 +118,6 @@ public class PermissionTest {
         System.out.println("getProfiles");
         Permission instance = new Permission();
         List<Profile> expResult = null;
-        List<Profile> result = instance.getProfiles();
-        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -135,7 +130,6 @@ public class PermissionTest {
         System.out.println("setProfiles");
         List<Profile> profiles = null;
         Permission instance = new Permission();
-        instance.setProfiles(profiles);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
