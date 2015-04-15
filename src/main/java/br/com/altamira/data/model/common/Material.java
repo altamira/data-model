@@ -9,8 +9,6 @@ import br.com.altamira.data.model.Resource;
 import br.com.altamira.data.model.measurement.Variables;
 import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullCollectionSerializer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -61,14 +59,15 @@ public class Material extends Resource {
     @Size(min = 5)
     @Column(name = "DESCRIPTION", unique = true, nullable = false)
     protected String description = "";
-    
+
+    /**
+     *
+     */
     @NotNull
-    @JsonIgnore
     @JoinColumn(name = "PROCESS", referencedColumnName = "ID", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private br.com.altamira.data.model.manufacture.process.Process process = 
-            new br.com.altamira.data.model.manufacture.process.Process(10000l, "MNP", "MATERIAL NAO PRODUTIVO");
-    
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    protected br.com.altamira.data.model.manufacture.process.Process process;
+
     /**
      *
      */
@@ -97,12 +96,19 @@ public class Material extends Resource {
         this.description = description;
     }
 
-    public Material(long id, String code, String description, String type) {
+    /**
+     *
+     * @param id
+     * @param code
+     * @param description
+     * @param type
+     */
+    /*public Material(long id, String code, String description, String type) {
         this.id = id;
         this.code = code;
         this.description = description;
         this.type = type;
-    }
+    }*/
 
     /**
      * @return the code
@@ -150,13 +156,18 @@ public class Material extends Resource {
      *
      * @return
      */
-    @Override
+    /*@Override
     @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonView(JSonViews.ListView.class)
     public String getType() {
         return super.getType();
-    }
+    }*/
 
+    /**
+     *
+     * @param variable
+     * @return 
+     */    
     public Variables setVariable(Variables variable) {
         // do nothing here, see inherited classes from br.com.altamira.data.model.commom.Material
         return variable;

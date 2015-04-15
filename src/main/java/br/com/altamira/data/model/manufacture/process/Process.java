@@ -71,14 +71,28 @@ public class Process extends br.com.altamira.data.model.Process {
      *
      * @param id
      * @param code
-     * @param description
+     * @param name
      */
-    public Process(long id, String code, String description) {
+    public Process(long id, String code, String name) {
         this.id = id;
         this.code = code;
-        this.description = description;
+        this.name = name;
     }
 
+    /**
+     *
+     * @param id
+     * @param code
+     * @param name
+     * @param description
+     */
+    public Process(long id, String code, String name, String description) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.description = description;
+    }
+    
     /**
      *
      * @return

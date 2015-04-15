@@ -62,6 +62,12 @@ public class Produce extends Resource {
     @AttributeOverride(name = "value", column = @Column(name = "QUANTITY"))
     @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "QUANTITY_UNIT"))
     private Measure quantity = new Measure();
+
+    @NotNull
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "WEIGHT"))
+    @AssociationOverride(name = "unit", joinColumns = @JoinColumn(name = "WEIGHT_UNIT"))
+    private Measure weight = new Measure();
     
     /**
      *
@@ -187,6 +193,20 @@ public class Produce extends Resource {
      */
     public void setQuantity(Measure quantity) {
         this.quantity = quantity;
+    }
+
+    /**
+     * @return the weight
+     */
+    public Measure getWeight() {
+        return weight;
+    }
+
+    /**
+     * @param weight the weight to set
+     */
+    public void setWeight(Measure weight) {
+        this.weight = weight;
     }
 
 }
