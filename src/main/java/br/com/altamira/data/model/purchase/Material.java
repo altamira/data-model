@@ -42,10 +42,11 @@ public class Material extends br.com.altamira.data.model.common.Material {
      * @param id
      * @param code
      * @param description
+     * @param type
      */
-    public Material(long id, String code, String description, String type) {
+    /*public Material(long id, String code, String description, String type) {
         this.id = id;
         this.code = code;
-    }
+    }*/
 
 }

@@ -1,6 +1,8 @@
 package br.com.altamira.data.model.security;
 
 import br.com.altamira.data.model.serialize.JSonViews;
+import br.com.altamira.data.model.serialize.NullCollectionSerializer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,11 @@ import javax.validation.constraints.Size;
 
 //import br.com.altamira.security.oauth2.serialize.NullCollectionSerializer;
 
+
+
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  *
@@ -57,13 +63,18 @@ public class User extends br.com.altamira.data.model.Resource {
     @Size(min = 5)
     @Column(name = "EMAIL")
     private String email = "";
+    
+    @Column(name = "THEME")
+    private String theme = "dark";
 
-    @JsonView(JSonViews.EntityView.class)
+    @JsonIgnore
+//    @JsonView(JSonViews.EntityView.class)
 //    @JsonSerialize(using = NullCollectionSerializer.class)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<AccessToken> accessTokens = new ArrayList<>();
 
-    @JsonView(JSonViews.EntityView.class)
+    @JsonIgnore
+//    @JsonView(JSonViews.EntityView.class)
 //    @JsonSerialize(using = NullCollectionSerializer.class)
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "ss_user_profile", joinColumns = {
@@ -90,7 +101,7 @@ public class User extends br.com.altamira.data.model.Resource {
         this.user = user;
     }
 
-    /**
+	/**
      *
      * @return
      */
@@ -200,6 +211,20 @@ public class User extends br.com.altamira.data.model.Resource {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    /**
+     * @return the theme
+     */
+    public String getTheme() {
+        return theme;
+    }
+
+    /**
+     * @param theme the theme to set
+     */
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 
 }

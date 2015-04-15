@@ -48,7 +48,7 @@ public class Component extends Resource {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Item item;
 
-    //@JsonIgnore
+    @JsonIgnore
     @JoinColumn(name = "MATERIAL", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
@@ -132,7 +132,7 @@ public class Component extends Resource {
     /**
      * @return the material
      */
-    //@JsonIgnore
+    @JsonIgnore
     public Material getMaterial() {
         return material;
     }
@@ -140,7 +140,7 @@ public class Component extends Resource {
     /**
      * @param material the material to set
      */
-    //@JsonIgnore
+    @JsonIgnore
     public void setMaterial(Material material) {
         this.material = material;
     }
