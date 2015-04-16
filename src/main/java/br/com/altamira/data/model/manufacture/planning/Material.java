@@ -43,6 +43,7 @@ public class Material extends Resource {
     @NotNull
     @Size(min = 3)
     @Column(name = "CODE", unique = true, nullable = false)
+    @JsonView(JSonViews.EntityView.class)
     protected String code = "";
 
     /**
@@ -51,6 +52,7 @@ public class Material extends Resource {
     @NotNull
     @Size(min = 5)
     @Column(name = "DESCRIPTION", unique = true, nullable = false)
+    @JsonView(JSonViews.EntityView.class)
     protected String description = "";
     
     @NotNull
