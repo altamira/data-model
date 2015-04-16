@@ -55,10 +55,10 @@ public class Operation extends Resource {
      * @param quantity
      * @param unit
      */
-    public Operation(Long id, String name, Date startDate, BigDecimal quantity, Unit unit) {
+    public Operation(Long id, String name, Date startDate, BigDecimal quantity, Unit quantityUnit,BigDecimal weight, Unit weightUnit) {
         this.id = id;
         this.name = name;
-        this.produce = new Produce(startDate, new Measure(quantity, unit));
+        this.produce = new Produce(startDate, new Measure(quantity, quantityUnit),new Measure(weight, weightUnit));
     }
 
     /**
@@ -88,10 +88,12 @@ public class Operation extends Resource {
 
         private Date startDate;
         private Measure quantity;
+        private Measure weight;
 
-        public Produce(Date startDate, Measure quantity) {
+        public Produce(Date startDate, Measure quantity,Measure weight) {
             this.startDate = startDate;
             this.quantity = quantity;
+            this.weight = weight;
         }
 
         public Date getStartDate() {
@@ -109,6 +111,14 @@ public class Operation extends Resource {
         public void setQuantity(Measure quantity) {
             this.quantity = quantity;
         }
+        
+        public Measure getWeight() {
+			return weight;
+		}
+
+		public void setWeight(Measure weight) {
+			this.weight = weight;
+		}
 
     }
 }
