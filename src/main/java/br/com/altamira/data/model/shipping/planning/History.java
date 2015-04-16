@@ -6,7 +6,6 @@
 package br.com.altamira.data.model.shipping.planning;
 
 import br.com.altamira.data.model.Resource;
-import br.com.altamira.data.model.security.User;
 import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullObjectSerializer;
 
@@ -39,18 +38,18 @@ public class History extends Resource {
      * Serial version ID
      */
     private static final long serialVersionUID = 7448803906699786256L;
-    
+
     @JsonIgnore
     @JoinColumn(name = "BOM", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private BOM bom = new BOM();
-    
+
     @NotNull
     @JoinColumn(name = "STATUS", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
-    private Status status; 
-    
+    private Status status;
+
     @NotNull
     @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "HISTORY_DATE")
@@ -58,22 +57,22 @@ public class History extends Resource {
 
     @Lob
     @JsonView(JSonViews.EntityView.class)
-    @Column(name = "COMMENTS", columnDefinition="CLOB NULL")
+    @Column(name = "COMMENTS", columnDefinition = "CLOB NULL")
     private String comment = "";
-    
+
     @JoinColumn(name = "CREATED_BY", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JsonSerialize(nullsUsing = NullObjectSerializer.class)
-    private User createdby;
+    private User createdBy;
 
     public History() {
         this.parentType = BOM.class;
     }
-    
+
     /**
      *
-     * 
-     * 
+     *
+     *
      * @param parent
      */
     @Override
@@ -81,10 +80,10 @@ public class History extends Resource {
         if (!parentType.isInstance(parent)) {
             throw new IllegalArgumentException("History requires a BOM instance object as a parent. You try to assign " + parent.getClass() + " as a parent.");
         }
-     
-        setBOM((BOM)parent);
+
+        setBOM((BOM) parent);
     }
-    
+
     /**
      *
      * @return
@@ -93,7 +92,7 @@ public class History extends Resource {
     public br.com.altamira.data.model.Entity getParent() {
         return getBOM();
     }
-    
+
     /**
      *
      * @return
@@ -153,18 +152,19 @@ public class History extends Resource {
     public void setComment(String comment) {
         this.comment = comment;
     }
-    
-    /**
-     * @return the createdby
-     */
-	public User getCreatedby() {
-		return createdby;
-	}
 
-	/**
-     * @param createdby the createdby to set
+    /**
+     * @return the createdBy
      */
-	public void setCreatedby(User createdby) {
-		this.createdby = createdby;
-	}
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    /**
+     * @param createdBy
+     */
+    @JsonIgnore
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
 }

@@ -119,7 +119,7 @@ public class BOM extends Resource {
     private Set<Item> item = new HashSet<>();
 
     @JsonView(JSonViews.EntityView.class)
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "BOM", insertable = false, updatable = false)
     private List<History> history = new ArrayList<>();
 

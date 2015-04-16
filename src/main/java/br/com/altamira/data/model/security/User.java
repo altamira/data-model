@@ -1,7 +1,5 @@
 package br.com.altamira.data.model.security;
 
-import br.com.altamira.data.model.serialize.JSonViews;
-import br.com.altamira.data.model.serialize.NullCollectionSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +20,13 @@ import javax.validation.constraints.Size;
 
 
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  *
  * @author
  */
-@Entity
+@Entity(name = "br.com.altamira.data.model.security.User")
 @Table(name = "SS_USER")
 public class User extends br.com.altamira.data.model.Resource {
 
