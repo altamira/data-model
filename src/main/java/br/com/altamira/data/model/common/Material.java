@@ -103,12 +103,12 @@ public class Material extends Resource {
      * @param description
      * @param type
      */
-    /*public Material(long id, String code, String description, String type) {
+    public Material(long id, String code, String description, String type) {
         this.id = id;
         this.code = code;
         this.description = description;
         this.type = type;
-    }*/
+    }
 
     /**
      * @return the code
