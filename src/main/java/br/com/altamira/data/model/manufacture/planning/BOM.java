@@ -55,7 +55,7 @@ public class BOM extends Resource {
     private Date delivery = new Date();
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JsonSerialize(using = NullCollectionSerializer.class)
+    //@JsonSerialize(using = NullCollectionSerializer.class)
     @JoinColumn(name = "BOM", insertable = false, updatable = false)
     private Set<Item> item = new HashSet<>();
 
