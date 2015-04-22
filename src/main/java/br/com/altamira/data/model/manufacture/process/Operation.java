@@ -30,28 +30,28 @@ import javax.persistence.UniqueConstraint;
  * @author alessandro.holanda
  */
 @Entity(name = "br.com.altamira.data.model.manufacture.process.Operation")
-@Table(name = "MN_PROCESS_OPERATION", uniqueConstraints={@UniqueConstraint(columnNames={"PROCESS", "SEQ"})})
+@Table(name = "MN_PROCESS_OPERATION", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"PROCESS", "SEQ"})})
 public class Operation extends br.com.altamira.data.model.Process {
 
     /**
      *
      */
     private static final long serialVersionUID = 4778350055794788171L;
-    
+
     @NotNull
     @Min(1)
     @Column(name = "SEQ")
     private int sequence = 1;
-    
+
     @JsonIgnore
     @JoinColumn(name = "PROCESS", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Process process;
-    
-    @JsonIgnore
+
     @JoinColumn(name = "OPERATION", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private br.com.altamira.data.model.manufacture.Operation operation = new br.com.altamira.data.model.manufacture.Operation(10600l, "MATERIAL NAO PRODUTIVO");
+    private br.com.altamira.data.model.manufacture.Operation operation;
 
     @Lob
     @JsonView(JSonViews.EntityView.class)
@@ -128,7 +128,7 @@ public class Operation extends br.com.altamira.data.model.Process {
         this.sequence = sequence;
         this.operation = operation;
     }
-    
+
     /**
      * @return the sequence
      */
@@ -158,20 +158,20 @@ public class Operation extends br.com.altamira.data.model.Process {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public br.com.altamira.data.model.manufacture.Operation getOperation() {
-		return operation;
-	}
+        return operation;
+    }
 
     /**
-     * 
+     *
      * @param operation
      */
-	public void setOperation(br.com.altamira.data.model.manufacture.Operation operation) {
-		this.operation = operation;
-	}
+    public void setOperation(br.com.altamira.data.model.manufacture.Operation operation) {
+        this.operation = operation;
+    }
 
     /**
      * @return the description

@@ -5,6 +5,7 @@
  */
 package br.com.altamira.data.model.measurement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Map;
@@ -14,7 +15,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -38,6 +38,7 @@ public class Formula implements Serializable {
     private Unit unit = new Unit();
 
     @Transient
+    @JsonIgnore
     private Map<String, BigDecimal> variable = new Variables();
 
     /**
@@ -90,6 +91,7 @@ public class Formula implements Serializable {
     /**
      * @return the variable
      */
+    @JsonIgnore
     public Map<String, BigDecimal> getVariable() {
         return this.variable;
     }
@@ -97,6 +99,7 @@ public class Formula implements Serializable {
     /**
      * @param variables
      */
+    @JsonIgnore
     public void setVariable(Variables variables) {
 
         if (variables == null || variables.isEmpty()) {

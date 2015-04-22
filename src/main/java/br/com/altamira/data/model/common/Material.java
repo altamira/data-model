@@ -9,6 +9,7 @@ import br.com.altamira.data.model.Resource;
 import br.com.altamira.data.model.measurement.Variables;
 import br.com.altamira.data.model.serialize.JSonViews;
 import br.com.altamira.data.model.serialize.NullCollectionSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -168,6 +169,7 @@ public class Material extends Resource {
      * @param variable
      * @return 
      */    
+    @JsonIgnore
     public Variables setVariable(Variables variable) {
         // do nothing here, see inherited classes from br.com.altamira.data.model.commom.Material
         return variable;

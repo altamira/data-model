@@ -9,6 +9,7 @@ import br.com.altamira.data.model.common.Material;
 import br.com.altamira.data.model.measurement.Expression.UnresolvedTokenException;
 import br.com.altamira.data.model.measurement.Formula;
 import br.com.altamira.data.model.measurement.Variables;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Embedded;
@@ -185,6 +186,7 @@ public class Product extends Material {
      * @param variable
      * @return
      */
+    @JsonIgnore
     @Override
     public Variables setVariable(Variables variable) {
 
