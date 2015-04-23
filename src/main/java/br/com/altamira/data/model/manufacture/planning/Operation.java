@@ -20,7 +20,9 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  *
@@ -45,6 +47,20 @@ public class Operation extends Resource {
 
     public Operation() {
 
+    }
+    
+    /**
+     * 
+     * @param id
+     * @param name
+     * @param startDate
+     * @param quantity
+     * @param quantityUnit
+     */
+    public Operation(Long id, String name, Date startDate, BigDecimal quantity, Unit quantityUnit) {
+        this.id = id;
+        this.name = name;
+        this.produce = new Produce(startDate, new Measure(quantity, quantityUnit));
     }
 
     /**
@@ -87,9 +103,17 @@ public class Operation extends Resource {
     class Produce {
 
         private Date startDate;
+        
         private Measure quantity;
+        
+        @JsonInclude(Include.NON_NULL)
         private Measure weight;
 
+        public Produce(Date startDate, Measure quantity) {
+            this.startDate = startDate;
+            this.quantity = quantity;
+        }
+        
         public Produce(Date startDate, Measure quantity,Measure weight) {
             this.startDate = startDate;
             this.quantity = quantity;
