@@ -59,7 +59,7 @@ public class PackingList extends Resource {
     private Measure weight = new Measure("kg");
     
     @JsonView(JSonViews.EntityView.class)
-    @JsonSerialize(using = NullCollectionSerializer.class)
+    //@JsonSerialize(using = NullCollectionSerializer.class)
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name="PACKINGLIST", insertable=false, updatable=false)
     private Set<Delivered> delivered = new HashSet<>();
