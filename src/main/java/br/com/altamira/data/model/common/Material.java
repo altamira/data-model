@@ -74,7 +74,7 @@ public class Material extends Resource {
      */
     @JsonView(JSonViews.EntityView.class)
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = NullCollectionSerializer.class)
+    //@JsonSerialize(using = NullCollectionSerializer.class)
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "parent", fetch = FetchType.LAZY)
     protected List<br.com.altamira.data.model.common.Component> component = new ArrayList<>();
 
